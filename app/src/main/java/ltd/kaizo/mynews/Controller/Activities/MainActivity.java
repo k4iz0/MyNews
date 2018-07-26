@@ -1,5 +1,6 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import ltd.kaizo.mynews.R;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main_viewpager)
     ViewPager viewPager;
+    @BindView(R.id.activity_main_tabs)
+    TabLayout tabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureViewPager() {
     viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+    tabs.setupWithViewPager(viewPager);
+    tabs.setTabMode(TabLayout.MODE_FIXED);
     }
 }
