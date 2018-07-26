@@ -9,8 +9,8 @@ import icepick.State;
 import ltd.kaizo.mynews.Controller.Fragments.FirstFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
+
     private static int NUM_ITEMS = 3;
-    @State
     int position;
 
     public PageAdapter(FragmentManager mgr) {
@@ -30,8 +30,8 @@ public class PageAdapter extends FragmentPagerAdapter {
     @Override
 
     public Fragment getItem(int position) {
-    this.position = position;
-        return FirstFragment.newInstance();
+
+        return FirstFragment.newInstance(position);
 
     }
 

@@ -2,35 +2,37 @@ package ltd.kaizo.mynews.Controller.Fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import icepick.State;
 import ltd.kaizo.mynews.R;
-
+//TODO changer nom fragment
 public class FirstFragment extends BaseFragment {
-
-    private static final String KEY_POSITION="position";
     @BindView(R.id.fragment_first_title)
     TextView title;
     @BindView(R.id.fragment_page_rootview)
     LinearLayout fragmentFirstLayout;
-
     public FirstFragment() {
 
     }
 
 
+    public static BaseFragment newInstance(int position) {
+        FirstFragment frag = new FirstFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_POSITION, position);
+        frag.setArguments(bundle);
+        return frag;
 
-    public static BaseFragment newInstance() {
+    }
 
-       return  new FirstFragment();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
 
     }
 
@@ -46,10 +48,8 @@ public class FirstFragment extends BaseFragment {
 
     @Override
     protected void updateDesign() {
-        title.setText("page ");
+        title.setText("page "+position);
     }
-
-
 
 
 }
