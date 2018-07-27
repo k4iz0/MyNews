@@ -1,0 +1,140 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_search_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/fragment_search_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/search_query_term"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_search_textview_begindate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Begin Date"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Entrepreneurs"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_search_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox2" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Business"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox3"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox1" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Arts"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox2"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_textview_begindate"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/fragment_search_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/search"
+        android:textColor="@color/white"
+        android:background="@color/bluePrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox6"
+        app:layout_constraintVertical_bias="0.795" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left"
+        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox2,fragment_search_checkbox3,fragment_search_checkbox1,fragment_search_textview_begindate,fragment_search_edittext" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Politics"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Sports"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/fragment_search_textview_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_textview_begindate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        tools:text="End Date" />
+
+    <CheckBox
+        android:id="@+id/fragment_search_checkbox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Travel"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+</android.support.constraint.ConstraintLayout>

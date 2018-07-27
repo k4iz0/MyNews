@@ -5,8 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import icepick.State;
-import ltd.kaizo.mynews.Controller.Fragments.FirstFragment;
+import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
 
@@ -31,7 +30,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     public Fragment getItem(int position) {
 
-        return FirstFragment.newInstance(position);
+        return NewsFragment.newInstance(position);
 
     }
 

@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Controller.Activities.SearchActivity"
+            android:label="Search"
+            android:parentActivityName=".Controller.Activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controller.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

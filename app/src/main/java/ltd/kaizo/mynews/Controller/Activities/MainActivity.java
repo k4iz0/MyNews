@@ -1,5 +1,6 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_activity_main_search:
-                Toast.makeText(this, "search en cours d'implémentation", Toast.LENGTH_SHORT).show();
+                Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(searchActivity);
                 return true;
             case R.id.menu_activity_main_params:
                 Toast.makeText(this, "paramètre en cours d'implémentation", Toast.LENGTH_SHORT).show();

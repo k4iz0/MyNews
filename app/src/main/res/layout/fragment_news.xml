@@ -17,7 +17,7 @@
 
     <TextView
 
-        android:id="@+id/fragment_first_title"
+        android:id="@+id/fragment_news_title"
 
         android:layout_width="wrap_content"
 

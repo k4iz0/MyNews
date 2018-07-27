@@ -8,19 +8,18 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import ltd.kaizo.mynews.R;
-//TODO changer nom fragment
-public class FirstFragment extends BaseFragment {
-    @BindView(R.id.fragment_first_title)
+public class NewsFragment extends BaseFragment {
+    @BindView(R.id.fragment_news_title)
     TextView title;
     @BindView(R.id.fragment_page_rootview)
-    LinearLayout fragmentFirstLayout;
-    public FirstFragment() {
+    LinearLayout fragmentNewsLayout;
+    public NewsFragment() {
 
     }
 
 
     public static BaseFragment newInstance(int position) {
-        FirstFragment frag = new FirstFragment();
+        NewsFragment frag = new NewsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_POSITION, position);
         frag.setArguments(bundle);
@@ -38,7 +37,7 @@ public class FirstFragment extends BaseFragment {
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.fragment_first;
+        return R.layout.fragment_news;
     }
 
     @Override
