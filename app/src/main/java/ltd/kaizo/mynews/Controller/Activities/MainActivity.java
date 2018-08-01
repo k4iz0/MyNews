@@ -1,5 +1,6 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,8 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,21 +42,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         this.configureViewPagerWithTabs();
         this.configureToolbar();
         this.configureDrawerLayout();
         this.configureNavigationView();
+
     }
+
 
     // *******************************
 
     //         CONFIGURATION
 
     // *******************************
-
 
     private void configureNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
@@ -73,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

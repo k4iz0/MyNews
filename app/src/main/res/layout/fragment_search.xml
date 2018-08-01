@@ -51,11 +51,11 @@
         android:id="@+id/fragment_search_checkbox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Arts"
         app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox2"
         app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_textview_begindate"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_begin_date"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -80,7 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left"
-        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox2,fragment_search_checkbox3,fragment_search_checkbox1,fragment_search_textview_begindate,fragment_search_edittext" />
+        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox2,fragment_search_checkbox3,fragment_search_checkbox1,fragment_search_textview_begindate,fragment_search_edittext"
+        tools:layout_editor_absoluteX="16dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -119,12 +120,11 @@
         android:layout_marginEnd="8dp"
 
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="End Date"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_textview_begindate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        tools:text="End Date" />
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <CheckBox
         android:id="@+id/fragment_search_checkbox6"
@@ -136,5 +136,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/fragment_search_begin_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_end_date"
+        app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+    <TextView
+        android:id="@+id/fragment_search_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_textview_end_date" />
 
 </android.support.constraint.ConstraintLayout>
