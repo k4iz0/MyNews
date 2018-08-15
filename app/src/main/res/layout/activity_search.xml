@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         app:title="Search Articles"
         app:titleTextColor="@color/white"
-        android:background="@color/bluePrimary">
+        android:background="@color/bluePrimary"
+        app:theme="@style/ToolBarStyle"
+        >
 
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

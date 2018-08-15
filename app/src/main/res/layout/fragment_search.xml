@@ -81,7 +81,8 @@
         android:layout_height="wrap_content"
         app:barrierDirection="left"
         app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox2,fragment_search_checkbox3,fragment_search_checkbox1,fragment_search_textview_begindate,fragment_search_edittext"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
