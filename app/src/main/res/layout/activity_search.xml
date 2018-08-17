@@ -12,7 +12,7 @@
         app:title="Search Articles"
         app:titleTextColor="@color/white"
         android:background="@color/bluePrimary"
-        app:theme="@style/ToolBarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
     </android.support.v7.widget.Toolbar>

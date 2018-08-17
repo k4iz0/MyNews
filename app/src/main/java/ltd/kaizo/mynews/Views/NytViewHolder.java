@@ -12,8 +12,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesResult;
 import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.Utils.ArticleFormatter;
 
 
 public class NytViewHolder extends RecyclerView.ViewHolder {
@@ -31,11 +31,16 @@ public class NytViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithNytTopStories(List<NytTopStoriesResult> nytTopStoriesAPIData, int position, RequestManager glide) {
-        this.itemContent.setText(nytTopStoriesAPIData.get(position).getTitle());
-        this.itemDate.setText(nytTopStoriesAPIData.get(position).getPublished_date());
-        this.itemLocation.setText(nytTopStoriesAPIData.get(position).getSection());
-        glide.load(nytTopStoriesAPIData.get(position).getUrl()).apply(RequestOptions.noAnimation()).into(itemImageview);
+    public void updateWithNytTopStories(List<ArticleFormatter> articleFormatterList, int position, RequestManager glide) {
+
+        this.itemContent.setText(articleFormatterList.get(position).getArticleTitle());
+        this.itemDate.setText(articleFormatterList.get(position).getArticlePublishingDate());
+        if (articleFormatterList.get(position).getArticleSubSection().equals("")) {
+            this.itemLocation.setText(articleFormatterList.get(position).getArticleSection());
+        } else {
+            this.itemLocation.setText(String.format("%s > %s", articleFormatterList.get(position).getArticleSection(), articleFormatterList.get(position).getArticleSubSection()));
+        }
+        glide.load(articleFormatterList.get(position).getArticlePictureUrl()).apply(RequestOptions.noAnimation()).into(itemImageview);
 
     }
 }

@@ -12,4 +12,5 @@
     <string name="notifications">Notifications</string>
     <string name="about">About</string>
     <string name="help">Help</string>
+    <string name="thumbnail">thumbnail</string>
 </resources>

@@ -15,13 +15,15 @@ import java.util.List;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesResult;
 import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.Utils.ArticleFormatter;
+import ltd.kaizo.mynews.Utils.NytArticleConverter;
 
 public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
     private  RequestManager glide;
-    private List<NytTopStoriesResult> result;
+    private List<ArticleFormatter> articleFormatterList;
 
-    public NytAdapter(List<NytTopStoriesResult> nytTopStoriesAPIDataList, RequestManager glide) {
-        this.result = nytTopStoriesAPIDataList;
+    public NytAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide) {
+        this.articleFormatterList = articleFormatterList;
         this.glide = glide;
     }
 
@@ -36,11 +38,17 @@ public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NytViewHolder holder, int position) {
-        holder.updateWithNytTopStories(this.result,position, this.glide);
+        holder.updateWithNytTopStories(this.articleFormatterList,position, this.glide);
     }
 
     @Override
     public int getItemCount() {
-        return this.result.size();
+        if (this.articleFormatterList != null) {
+            return this.articleFormatterList.size();
+
+        } else {
+        return 0;
+
+        }
     }
 }
