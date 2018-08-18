@@ -11,13 +11,15 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface NytService {
+    String apiKey = "b35b8674678d4c8b87d09a7605d00a0f";
+    String url = "http://api.nytimes.com/";
 
-    @GET("svc/topstories/v2/home.json?api-key=b35b8674678d4c8b87d09a7605d00a0f")
-    Observable<NytTopStoriesAPIData> getTopStories();
+    @GET("svc/topstories/v2/{section}.json?api-key="+apiKey)
+    Observable<NytTopStoriesAPIData> getTopStories(@Path("section") String section);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
 
-            .baseUrl("http://api.nytimes.com/")
+            .baseUrl(url)
 
             .addConverterFactory(GsonConverterFactory.create())
 

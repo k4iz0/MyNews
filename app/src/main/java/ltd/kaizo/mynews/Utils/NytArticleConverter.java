@@ -12,6 +12,7 @@ public class NytArticleConverter {
     private List<NytTopStoriesResult> nytMultimediaList;
     private List<ArticleFormatter> articleFormatterList;
 
+
     public NytArticleConverter(NytTopStoriesAPIData nytTopStoriesAPIData) {
         this.setNytArticleList(nytTopStoriesAPIData);
         this.setNytMultimediaList(nytTopStoriesAPIData.getResults());
@@ -39,13 +40,21 @@ public class NytArticleConverter {
     public List<ArticleFormatter> configureArticleListForAdapter() {
         this.articleFormatterList = new ArrayList<>();
         for (NytTopStoriesResult article : this.nytArticleList) {
+            String imageUrl;
+            if (article.getMultimedia().length > 0) {
+                imageUrl = article.getMultimedia()[0].getUrl();
+            } else {
+            imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
+
+            }
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getTitle(),
-                    "https://static01.nyt.com/images/2018/08/16/nyregion/16nytoday/16nytoday-thumbStandard.jpg",
+                    imageUrl,
                     article.getSection(),
                     article.getSubsection(),
                     article.getPublished_date());
             this.articleFormatterList.add(articleFormatter);
         }
+
         return this.articleFormatterList;
     }
 

@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import icepick.Icepick;
+import icepick.State;
 
 public abstract class BaseFragment extends Fragment {
 
 
-    public static final String KEY_POSITION = "position";
-    protected int position;
+
+
+
 
     protected abstract int getFragmentLayout();
 
@@ -25,7 +27,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getFragmentLayout(), container, false);
         ButterKnife.bind(this, view);
-        if (getArguments() != null) this.position = getArguments().getInt(KEY_POSITION);
+
         this.configureDesign();
         return view;
     }

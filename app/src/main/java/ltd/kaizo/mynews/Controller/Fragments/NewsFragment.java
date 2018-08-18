@@ -31,17 +31,18 @@ public class NewsFragment extends BaseFragment {
     private NytArticleConverter nytArticleConverter;
     private Disposable disposable;
     private List<ArticleFormatter> articleFormatterList;
-
+    private String section;
+    public static final String KEY_SECTION = "home";
 
     public NewsFragment() {
 
     }
 
 
-    public static BaseFragment newInstance(int position) {
+    public static BaseFragment newInstance(String section) {
         NewsFragment frag = new NewsFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_POSITION, position);
+        bundle.putString(KEY_SECTION, section);
         frag.setArguments(bundle);
         return frag;
 
@@ -50,8 +51,9 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        if (getArguments() != null) {
+            this.section = getArguments().getString(KEY_SECTION);
+        }
     }
 
     @Override
@@ -72,7 +74,8 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void executeRetrofitHttpRequest() {
-        this.disposable = NytStream.streamFetchTopStories().subscribeWith(new DisposableObserver<NytTopStoriesAPIData>() {
+
+        this.disposable = NytStream.streamFetchTopStories(section).subscribeWith(new DisposableObserver<NytTopStoriesAPIData>() {
             @Override
             public void onNext(NytTopStoriesAPIData nytTopStoriesAPIData) {
                 nytArticleConverter = new NytArticleConverter(nytTopStoriesAPIData);

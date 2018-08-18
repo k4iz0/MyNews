@@ -29,14 +29,34 @@ public class PageAdapter extends FragmentPagerAdapter {
     @Override
 
     public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return NewsFragment.newInstance("home");
+            case 1:
+                return NewsFragment.newInstance("business");
+            case 2:
+                return NewsFragment.newInstance("world");
+            default:
+                return NewsFragment.newInstance("home");
 
-        return NewsFragment.newInstance(position);
+        }
+
 
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Page "+position;
+        switch (position) {
+            case 0:
+                return "TOP STORIES";
+            case 1:
+                return "MOST POPULAR";
+            case 2:
+                return "BUSINESS";
+            default:
+                return null;
+
+        }
     }
 }
