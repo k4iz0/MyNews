@@ -9,14 +9,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesResult;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
-import ltd.kaizo.mynews.Utils.NytArticleConverter;
 
 public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
     private  RequestManager glide;

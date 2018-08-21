@@ -81,7 +81,7 @@ public class SearchFragment extends BaseFragment {
                 dialog.show();
             }
         });
-       endDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        endDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
@@ -93,9 +93,9 @@ public class SearchFragment extends BaseFragment {
 
     private void configureCalendar() {
         Calendar cal = Calendar.getInstance();
-         this.year = cal.get(Calendar.YEAR);
-         this.month = cal.get(Calendar.MONTH);
-         this.day = cal.get(Calendar.DAY_OF_MONTH);
+        this.year = cal.get(Calendar.YEAR);
+        this.month = cal.get(Calendar.MONTH);
+        this.day = cal.get(Calendar.DAY_OF_MONTH);
         if (beginDateTextview.getText() == "") {
             String date = day + "/" + month + "/" + year;
             beginDateTextview.setText(date);

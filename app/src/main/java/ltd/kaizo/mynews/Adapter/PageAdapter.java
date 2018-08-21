@@ -31,13 +31,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return NewsFragment.newInstance("home");
+                return NewsFragment.newInstance(position,"home");
             case 1:
-                return NewsFragment.newInstance("business");
+                return NewsFragment.newInstance(position, "all-sections");
             case 2:
-                return NewsFragment.newInstance("world");
+                return NewsFragment.newInstance(position, "world");
             default:
-                return NewsFragment.newInstance("home");
+                return NewsFragment.newInstance(position, "home");
 
         }
 

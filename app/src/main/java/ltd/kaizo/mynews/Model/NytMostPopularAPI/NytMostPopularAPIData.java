@@ -1,29 +1,24 @@
-package ltd.kaizo.mynews.Model.NytTopStoriesAPI;
+package ltd.kaizo.mynews.Model.NytMostPopularAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class NytTopStoriesAPIData {
+public class NytMostPopularAPIData {
+
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("copyright")
     @Expose
     private String copyright;
-    @SerializedName("section")
-    @Expose
-    private String section;
-    @SerializedName("last_updated")
-    @Expose
-    private String lastUpdated;
     @SerializedName("num_results")
     @Expose
     private Integer numResults;
     @SerializedName("results")
     @Expose
-    private List<NytTopStoriesResult> results = null;
+    private List<NytMostPopularResult> results = null;
 
     public String getStatus() {
         return status;
@@ -41,22 +36,6 @@ public class NytTopStoriesAPIData {
         this.copyright = copyright;
     }
 
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    public String getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
     public Integer getNumResults() {
         return numResults;
     }
@@ -65,11 +44,12 @@ public class NytTopStoriesAPIData {
         this.numResults = numResults;
     }
 
-    public List<NytTopStoriesResult> getResults() {
+    public List<NytMostPopularResult> getResults() {
         return results;
     }
 
-    public void setResults(List<NytTopStoriesResult> results) {
+    public void setResults(List<NytMostPopularResult> results) {
         this.results = results;
     }
+
 }

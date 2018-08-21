@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
@@ -23,6 +25,8 @@ import ltd.kaizo.mynews.Utils.NytStream;
 import ltd.kaizo.mynews.Views.NytAdapter;
 
 public class NewsFragment extends BaseFragment {
+    public static final String KEY_SECTION = "home";
+    public static final String Key_POSITION = "0";
     @BindView(R.id.fragment_news_recycleview)
     RecyclerView recyclerView;
     @BindView(R.id.fragment_page_rootview)
@@ -32,17 +36,18 @@ public class NewsFragment extends BaseFragment {
     private Disposable disposable;
     private List<ArticleFormatter> articleFormatterList;
     private String section;
-    public static final String KEY_SECTION = "home";
+    private int position;
 
     public NewsFragment() {
 
     }
 
 
-    public static BaseFragment newInstance(String section) {
+    public static BaseFragment newInstance(int position, String section) {
         NewsFragment frag = new NewsFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_SECTION, section);
+        bundle.putInt(Key_POSITION, position);
         frag.setArguments(bundle);
         return frag;
 
@@ -53,6 +58,7 @@ public class NewsFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.section = getArguments().getString(KEY_SECTION);
+            this.position = getArguments().getInt(Key_POSITION);
         }
     }
 
@@ -70,26 +76,64 @@ public class NewsFragment extends BaseFragment {
     @Override
     protected void configureDesign() {
         this.configureRecycleView();
-        this.executeRetrofitHttpRequest();
+        switch (this.position) {
+            case 0:
+                this.executeStreamFetchTopStories();
+                break;
+            case 1:
+                this.executeStreamFetchMostPopularStories();
+
+                break;
+            case 2:
+                this.executeStreamFetchTopStories();
+                break;
+            default:
+                this.executeStreamFetchTopStories();
+        }
+
     }
 
-    private void executeRetrofitHttpRequest() {
+    private void executeStreamFetchTopStories() {
 
         this.disposable = NytStream.streamFetchTopStories(section).subscribeWith(new DisposableObserver<NytTopStoriesAPIData>() {
             @Override
             public void onNext(NytTopStoriesAPIData nytTopStoriesAPIData) {
                 nytArticleConverter = new NytArticleConverter(nytTopStoriesAPIData);
-                updateUI(nytArticleConverter);
+                updateUI(nytArticleConverter.configureTopStoriesArticleListForAdapter());
             }
 
             @Override
             public void onError(Throwable e) {
+                Log.i("StreamInfo", "top error");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i("StreamInfo", "top complete");
+            }
+        });
+
+    }
+
+    private void executeStreamFetchMostPopularStories() {
+
+        this.disposable = NytStream.streamFetchMostPopularStories(section).subscribeWith(new DisposableObserver<NytMostPopularAPIData>() {
+            @Override
+            public void onNext(NytMostPopularAPIData nytMostPopularAPIdata) {
+                Log.i("StreamInfo", "MP httpRequest in progress : " + nytMostPopularAPIdata.getStatus());
+                nytArticleConverter = new NytArticleConverter(nytMostPopularAPIdata);
+                updateUI(nytArticleConverter.configureMostPopularArticleListForAdapter());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i("StreamInfo", "MP error : " + e);
 
             }
 
             @Override
             public void onComplete() {
-
+                Log.i("StreamInfo", "MP complete");
             }
         });
 
@@ -108,8 +152,8 @@ public class NewsFragment extends BaseFragment {
 
     }
 
-    private void updateUI(NytArticleConverter nytArticleConverter) {
-        this.articleFormatterList.addAll(nytArticleConverter.configureArticleListForAdapter());
+    private void updateUI(List articleList) {
+        this.articleFormatterList.addAll(articleList);
         adapter.notifyDataSetChanged();
     }
 

@@ -1,227 +1,211 @@
 package ltd.kaizo.mynews.Model.NytTopStoriesAPI;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class NytTopStoriesResult {
 
-        private String abstracts;
 
-        private String created_date;
+    @SerializedName("section")
+    @Expose
+    private String section;
+    @SerializedName("subsection")
+    @Expose
+    private String subsection;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("abstract")
+    @Expose
+    private String _abstract;
+    @SerializedName("url")
+    @Expose
+    private String url;
+    @SerializedName("byline")
+    @Expose
+    private String byline;
+    @SerializedName("item_type")
+    @Expose
+    private String itemType;
+    @SerializedName("updated_date")
+    @Expose
+    private String updatedDate;
+    @SerializedName("created_date")
+    @Expose
+    private String createdDate;
+    @SerializedName("published_date")
+    @Expose
+    private String publishedDate;
+    @SerializedName("material_type_facet")
+    @Expose
+    private String materialTypeFacet;
+    @SerializedName("kicker")
+    @Expose
+    private String kicker;
+    @SerializedName("des_facet")
+    @Expose
+    private List<String> desFacet = null;
+    @SerializedName("org_facet")
+    @Expose
+    private List<Object> orgFacet = null;
+    @SerializedName("per_facet")
+    @Expose
+    private List<String> perFacet = null;
+    @SerializedName("geo_facet")
+    @Expose
+    private List<Object> geoFacet = null;
+    @SerializedName("multimedia")
+    @Expose
+    private List<NytTopStoriesMultimedia> multimedia = null;
+    @SerializedName("short_url")
+    @Expose
+    private String shortUrl;
 
-        private String published_date;
+    public String getSection() {
+        return section;
+    }
 
-        private String[] geo_facet;
+    public void setSection(String section) {
+        this.section = section;
+    }
 
-        private String[] per_facet;
+    public String getSubsection() {
+        return subsection;
+    }
 
-        private String subsection;
+    public void setSubsection(String subsection) {
+        this.subsection = subsection;
+    }
 
-        private String kicker;
+    public String getTitle() {
+        return title;
+    }
 
-        private String section;
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        private String url;
+    public String getAbstract() {
+        return _abstract;
+    }
 
-        private String[] des_facet;
+    public void setAbstract(String _abstract) {
+        this._abstract = _abstract;
+    }
 
-        private String title;
+    public String getUrl() {
+        return url;
+    }
 
-        private NytTopStoriesMultimedia[] multimedia;
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-        private String byline;
+    public String getByline() {
+        return byline;
+    }
 
-        private String updated_date;
+    public void setByline(String byline) {
+        this.byline = byline;
+    }
 
-        private String short_url;
+    public String getItemType() {
+        return itemType;
+    }
 
-        private String[] org_facet;
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
 
-        private String item_type;
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
 
-        private String material_type_facet;
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
-        public String getAbstract ()
-        {
-            return abstracts;
-        }
+    public String getCreatedDate() {
+        return createdDate;
+    }
 
-        public void setAbstract (String abstracts)
-        {
-            this.abstracts = abstracts;
-        }
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
 
-        public String getCreated_date ()
-        {
-            return created_date;
-        }
+    public String getPublishedDate() {
+        return publishedDate;
+    }
 
-        public void setCreated_date (String created_date)
-        {
-            this.created_date = created_date;
-        }
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
 
-        public String getPublished_date ()
-        {
-            return published_date;
-        }
+    public String getMaterialTypeFacet() {
+        return materialTypeFacet;
+    }
 
-        public void setPublished_date (String published_date)
-        {
-            this.published_date = published_date;
-        }
+    public void setMaterialTypeFacet(String materialTypeFacet) {
+        this.materialTypeFacet = materialTypeFacet;
+    }
 
-        public String[] getGeo_facet ()
-        {
-            return geo_facet;
-        }
+    public String getKicker() {
+        return kicker;
+    }
 
-        public void setGeo_facet (String[] geo_facet)
-        {
-            this.geo_facet = geo_facet;
-        }
+    public void setKicker(String kicker) {
+        this.kicker = kicker;
+    }
 
-        public String[] getPer_facet ()
-        {
-            return per_facet;
-        }
+    public List<String> getDesFacet() {
+        return desFacet;
+    }
 
-        public void setPer_facet (String[] per_facet)
-        {
-            this.per_facet = per_facet;
-        }
+    public void setDesFacet(List<String> desFacet) {
+        this.desFacet = desFacet;
+    }
 
-        public String getSubsection ()
-        {
-            return subsection;
-        }
+    public List<Object> getOrgFacet() {
+        return orgFacet;
+    }
 
-        public void setSubsection (String subsection)
-        {
-            this.subsection = subsection;
-        }
+    public void setOrgFacet(List<Object> orgFacet) {
+        this.orgFacet = orgFacet;
+    }
 
-        public String getKicker ()
-        {
-            return kicker;
-        }
+    public List<String> getPerFacet() {
+        return perFacet;
+    }
 
-        public void setKicker (String kicker)
-        {
-            this.kicker = kicker;
-        }
+    public void setPerFacet(List<String> perFacet) {
+        this.perFacet = perFacet;
+    }
 
-        public String getSection ()
-        {
-            return section;
-        }
+    public List<Object> getGeoFacet() {
+        return geoFacet;
+    }
 
-        public void setSection (String section)
-        {
-            this.section = section;
-        }
+    public void setGeoFacet(List<Object> geoFacet) {
+        this.geoFacet = geoFacet;
+    }
 
-        public String getUrl ()
-        {
-            return url;
-        }
+    public List<NytTopStoriesMultimedia> getMultimedia() {
+        return multimedia;
+    }
 
-        public void setUrl (String url)
-        {
-            this.url = url;
-        }
+    public void setMultimedia(List<NytTopStoriesMultimedia> multimedia) {
+        this.multimedia = multimedia;
+    }
 
-        public String[] getDes_facet ()
-        {
-            return des_facet;
-        }
+    public String getShortUrl() {
+        return shortUrl;
+    }
 
-        public void setDes_facet (String[] des_facet)
-        {
-            this.des_facet = des_facet;
-        }
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
 
-        public String getTitle ()
-        {
-            return title;
-        }
-
-        public void setTitle (String title)
-        {
-            this.title = title;
-        }
-
-        public NytTopStoriesMultimedia[] getMultimedia ()
-        {
-            return multimedia;
-        }
-
-        public void setMultimedia (NytTopStoriesMultimedia[] multimedia)
-        {
-            this.multimedia = multimedia;
-        }
-
-        public String getByline ()
-        {
-            return byline;
-        }
-
-        public void setByline (String byline)
-        {
-            this.byline = byline;
-        }
-
-        public String getUpdated_date ()
-        {
-            return updated_date;
-        }
-
-        public void setUpdated_date (String updated_date)
-        {
-            this.updated_date = updated_date;
-        }
-
-        public String getShort_url ()
-        {
-            return short_url;
-        }
-
-        public void setShort_url (String short_url)
-        {
-            this.short_url = short_url;
-        }
-
-        public String[] getOrg_facet ()
-        {
-            return org_facet;
-        }
-
-        public void setOrg_facet (String[] org_facet)
-        {
-            this.org_facet = org_facet;
-        }
-
-        public String getItem_type ()
-        {
-            return item_type;
-        }
-
-        public void setItem_type (String item_type)
-        {
-            this.item_type = item_type;
-        }
-
-        public String getMaterial_type_facet ()
-        {
-            return material_type_facet;
-        }
-
-        public void setMaterial_type_facet (String material_type_facet)
-        {
-            this.material_type_facet = material_type_facet;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "ClassPojo [abstracts = "+abstracts+", created_date = "+created_date+", published_date = "+published_date+", geo_facet = "+geo_facet+", per_facet = "+per_facet+", subsection = "+subsection+", kicker = "+kicker+", section = "+section+", url = "+url+", des_facet = "+des_facet+", title = "+title+", multimedia = "+multimedia+", byline = "+byline+", updated_date = "+updated_date+", short_url = "+short_url+", org_facet = "+org_facet+", item_type = "+item_type+", material_type_facet = "+material_type_facet+"]";
-        }
     }
 
