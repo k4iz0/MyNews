@@ -7,13 +7,19 @@ public class ArticleFormatter {
     private String ArticleSection;
     private String ArticlePublishingDate;
     private String ArticleSubSection;
+    private String ArticleUrl;
 
-    public ArticleFormatter(String articleTitle, String articlePictureUrl, String articleSection, String articleSubSection, String articlePublishingDate) {
+    public ArticleFormatter(String articleTitle, String url, String articlePictureUrl, String articleSection, String articleSubSection, String articlePublishingDate) {
         ArticleTitle = articleTitle;
+        ArticleUrl = url;
         ArticlePictureUrl = articlePictureUrl;
         ArticleSection = articleSection;
         ArticlePublishingDate = this.convertDate(articlePublishingDate);
         ArticleSubSection = articleSubSection;
+    }
+
+    public String getArticleUrl() {
+        return ArticleUrl;
     }
 
     public String getArticleTitle() {

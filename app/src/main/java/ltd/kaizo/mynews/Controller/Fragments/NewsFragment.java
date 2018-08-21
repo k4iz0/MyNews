@@ -1,11 +1,13 @@
 package ltd.kaizo.mynews.Controller.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -16,15 +18,17 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
+import ltd.kaizo.mynews.Utils.ItemClickSupport;
 import ltd.kaizo.mynews.Utils.NytArticleConverter;
 import ltd.kaizo.mynews.Utils.NytStream;
 import ltd.kaizo.mynews.Views.NytAdapter;
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
     public static final String KEY_SECTION = "home";
     public static final String Key_POSITION = "0";
     @BindView(R.id.fragment_news_recycleview)
@@ -76,6 +80,7 @@ public class NewsFragment extends BaseFragment {
     @Override
     protected void configureDesign() {
         this.configureRecycleView();
+        this.configureOnClickRecyclerView();
         switch (this.position) {
             case 0:
                 this.executeStreamFetchTopStories();
@@ -146,13 +151,25 @@ public class NewsFragment extends BaseFragment {
 
     public void configureRecycleView() {
         this.articleFormatterList = new ArrayList<>();
-        this.adapter = new NytAdapter(this.articleFormatterList, Glide.with(this));
+        this.adapter = new NytAdapter(this.articleFormatterList, Glide.with(this),this);
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
-    private void updateUI(List articleList) {
+    private void configureOnClickRecyclerView() {
+        ItemClickSupport.addTo(recyclerView, R.layout.news_fragment_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Intent detailActivity = new Intent(getActivity(), DetailActivity.class);
+                        detailActivity.putExtra("articleUrl",OnClickGetUrl(position));
+                        startActivity(detailActivity);
+                    }
+                });
+    }
+
+    private void updateUI(List<ArticleFormatter> articleList) {
         this.articleFormatterList.addAll(articleList);
         adapter.notifyDataSetChanged();
     }
@@ -161,5 +178,10 @@ public class NewsFragment extends BaseFragment {
 
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
 
+    }
+
+    @Override
+    public String OnClickGetUrl(int position) {
+        return this.articleFormatterList.get(position).getArticleUrl();
     }
 }

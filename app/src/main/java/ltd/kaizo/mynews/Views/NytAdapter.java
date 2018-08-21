@@ -15,12 +15,17 @@ import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
 
 public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
+    public interface Listener {
+        String OnClickGetUrl(int position);
+    }
     private  RequestManager glide;
     private List<ArticleFormatter> articleFormatterList;
+    private final Listener callback;
 
-    public NytAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide) {
+    public NytAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide, Listener callback) {
         this.articleFormatterList = articleFormatterList;
         this.glide = glide;
+        this.callback = callback;
     }
 
     @NonNull
@@ -34,7 +39,7 @@ public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NytViewHolder holder, int position) {
-        holder.updateWithNytTopStories(this.articleFormatterList,position, this.glide);
+        holder.updateWithNytArticles(this.articleFormatterList,position, this.glide, this.callback);
     }
 
     @Override

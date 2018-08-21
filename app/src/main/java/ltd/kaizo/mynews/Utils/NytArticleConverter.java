@@ -86,6 +86,7 @@ public class NytArticleConverter {
 
             }
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getTitle(),
+                    article.getUrl(),
                     imageUrl,
                     article.getSection(),
                     article.getSubsection(),
@@ -113,6 +114,7 @@ public class NytArticleConverter {
             }
 
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getTitle(),
+                    article.getUrl(),
                     imageUrl,
                     article.getSection(),
                     "",
