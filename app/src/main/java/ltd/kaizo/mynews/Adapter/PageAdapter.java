@@ -11,9 +11,11 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     private static int NUM_ITEMS = 3;
     int position;
+    private String section;
 
-    public PageAdapter(FragmentManager mgr) {
+    public PageAdapter(FragmentManager mgr, String section) {
         super(mgr);
+        this.section = section;
     }
 
 
@@ -31,13 +33,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return NewsFragment.newInstance(position,"home");
+                return NewsFragment.newInstance(position,this.section);
             case 1:
-                return NewsFragment.newInstance(position, "all-sections");
+                return NewsFragment.newInstance(position, this.section);
             case 2:
-                return NewsFragment.newInstance(position, "world");
+                return NewsFragment.newInstance(position, "science");
             default:
-                return NewsFragment.newInstance(position, "home");
+                return NewsFragment.newInstance(position, this.section);
 
         }
 
@@ -53,7 +55,7 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 1:
                 return "MOST POPULAR";
             case 2:
-                return "BUSINESS";
+                return "SCIENCE";
             default:
                 return null;
 

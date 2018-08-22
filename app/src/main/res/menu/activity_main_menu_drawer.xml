@@ -3,22 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/activity_main_drawer_news"
 
-            android:title="@string/category" />
-    </group>
 
-    <item android:title="Configuration">
+    <item android:title="@string/categories">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/activity_main_drawer_profile"
-                    android:title="Profil" />
+                    android:id="@+id/activity_main_drawer_world"
+                    android:title="@string/World" />
+
                 <item
-                    android:id="@+id/activity_main_drawer_settings"
-                    android:title="Paramètres" />
+                    android:id="@+id/activity_main_drawer_Science"
+                    android:title="@string/Science" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Sports"
+                    android:title="@string/Sports" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Multimedia"
+                    android:title="@string/Multimedia" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Arts"
+                    android:title="@string/Arts" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Technology"
+                    android:title="@string/Technology" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Books"
+                    android:title="@string/Books" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Politics"
+                    android:title="@string/Politics" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Health"
+                    android:title="@string/Health" />
+
+                <item
+                    android:id="@+id/activity_main_drawer_Travel"
+                    android:title="@string/Travel" />
+
             </group>
         </menu>
     </item>

@@ -4,6 +4,7 @@ package ltd.kaizo.mynews.Controller.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
@@ -28,19 +30,21 @@ import ltd.kaizo.mynews.Utils.NytArticleConverter;
 import ltd.kaizo.mynews.Utils.NytStream;
 import ltd.kaizo.mynews.Views.NytAdapter;
 
-public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
+public class NewsFragment extends BaseFragment implements NytAdapter.Listener {
     public static final String KEY_SECTION = "home";
     public static final String Key_POSITION = "0";
     @BindView(R.id.fragment_news_recycleview)
     RecyclerView recyclerView;
     @BindView(R.id.fragment_page_rootview)
     LinearLayout fragmentNewsLayout;
+    @BindView(R.id.fragment_news_swipe_container)
+    SwipeRefreshLayout swipeRefreshLayout;
     private NytAdapter adapter;
     private NytArticleConverter nytArticleConverter;
     private Disposable disposable;
     private List<ArticleFormatter> articleFormatterList;
-    private String section;
-    private int position;
+    @State String section;
+    @State int position;
 
     public NewsFragment() {
 
@@ -81,6 +85,12 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
     protected void configureDesign() {
         this.configureRecycleView();
         this.configureOnClickRecyclerView();
+        this.executeHttpRequest();
+        this.configureSwipeRefreshLayout();
+
+    }
+
+    private void executeHttpRequest() {
         switch (this.position) {
             case 0:
                 this.executeStreamFetchTopStories();
@@ -95,7 +105,6 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
             default:
                 this.executeStreamFetchTopStories();
         }
-
     }
 
     private void executeStreamFetchTopStories() {
@@ -125,7 +134,9 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
         this.disposable = NytStream.streamFetchMostPopularStories(section).subscribeWith(new DisposableObserver<NytMostPopularAPIData>() {
             @Override
             public void onNext(NytMostPopularAPIData nytMostPopularAPIdata) {
-                Log.i("StreamInfo", "MP httpRequest in progress : " + nytMostPopularAPIdata.getStatus());
+                Log.i("StreamInfo", "MP httpRequest in progress : - status = " + nytMostPopularAPIdata.getStatus()+
+                "\n taille des résultats = "+nytMostPopularAPIdata.getNumResults()+
+                "\n section = "+section);
                 nytArticleConverter = new NytArticleConverter(nytMostPopularAPIdata);
                 updateUI(nytArticleConverter.configureMostPopularArticleListForAdapter());
             }
@@ -151,7 +162,7 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
 
     public void configureRecycleView() {
         this.articleFormatterList = new ArrayList<>();
-        this.adapter = new NytAdapter(this.articleFormatterList, Glide.with(this),this);
+        this.adapter = new NytAdapter(this.articleFormatterList, Glide.with(this), this);
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -163,13 +174,25 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener{
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Intent detailActivity = new Intent(getActivity(), DetailActivity.class);
-                        detailActivity.putExtra("articleUrl",OnClickGetUrl(position));
+                        detailActivity.putExtra("articleUrl", OnClickGetUrl(position));
                         startActivity(detailActivity);
                     }
                 });
     }
 
+    private void configureSwipeRefreshLayout() {
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.bluePrimary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequest();
+            }
+        });
+    }
+
     private void updateUI(List<ArticleFormatter> articleList) {
+        swipeRefreshLayout.setRefreshing(false);
+        this.articleFormatterList.clear();
         this.articleFormatterList.addAll(articleList);
         adapter.notifyDataSetChanged();
     }

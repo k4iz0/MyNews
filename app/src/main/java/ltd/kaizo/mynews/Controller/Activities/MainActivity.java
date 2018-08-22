@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-
+    private String section = "world";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        this.configureViewPagerWithTabs();
+        this.configureViewPagerWithTabs(this.section);
         this.configureToolbar();
         this.configureDrawerLayout();
         this.configureNavigationView();
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
     }
 
-    private void configureViewPagerWithTabs() {
-        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+    private void configureViewPagerWithTabs(String section) {
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(), section));
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_activity_main_notif:
                 Toast.makeText(this, "paramètre en cours d'implémentation", Toast.LENGTH_SHORT).show();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -100,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.activity_main_drawer_Sports:
+                this.section = getString(R.string.Sports).toLowerCase();
+                this.configureViewPagerWithTabs(this.section);
+
+
             default:
                 break;
         }
