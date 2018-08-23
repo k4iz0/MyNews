@@ -2,15 +2,18 @@ package ltd.kaizo.mynews.Controller.Fragments;
 
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
+import ltd.kaizo.mynews.Controller.Activities.MainActivity;
 import ltd.kaizo.mynews.R;
 
 public class SearchFragment extends BaseFragment {
@@ -18,6 +21,8 @@ public class SearchFragment extends BaseFragment {
     TextView beginDateTextview;
     @BindView(R.id.fragment_search_end_date)
     TextView endDateTextview;
+    @BindView(R.id.fragment_search_button)
+    Button searchButton;
     private DatePickerDialog.OnDateSetListener beginDateSetListener;
     private DatePickerDialog.OnDateSetListener endDateSetListener;
     private int year;
@@ -38,6 +43,7 @@ public class SearchFragment extends BaseFragment {
     protected void configureDesign() {
         this.configureCalendar();
         this.configureDatePicker();
+        this.configureSearchButton();
     }
 
     @Override
@@ -45,7 +51,17 @@ public class SearchFragment extends BaseFragment {
 
     }
 
+        private void configureSearchButton() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivity = new Intent(getContext(), MainActivity.class);
+                startActivity(mainActivity);
 
+            }
+        });
+
+    }
     private void configureDatePicker() {
 
         beginDateTextview.setOnClickListener(new View.OnClickListener() {

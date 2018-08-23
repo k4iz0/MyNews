@@ -113,12 +113,15 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener {
             @Override
             public void onNext(NytTopStoriesAPIData nytTopStoriesAPIData) {
                 nytArticleConverter = new NytArticleConverter(nytTopStoriesAPIData);
+                Log.i("StreamInfo", "top httpRequest in progress : - status = " + nytTopStoriesAPIData.getStatus()+
+                        "\n taille des résultats = "+nytTopStoriesAPIData.getNumResults()+
+                        "\n section = "+section);
                 updateUI(nytArticleConverter.configureTopStoriesArticleListForAdapter());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.i("StreamInfo", "top error");
+                Log.i("StreamInfo", "top error : "+e);
             }
 
             @Override
@@ -206,5 +209,10 @@ public class NewsFragment extends BaseFragment implements NytAdapter.Listener {
     @Override
     public String OnClickGetUrl(int position) {
         return this.articleFormatterList.get(position).getArticleUrl();
+    }
+
+    public void updateSection(String section) {
+        this.section = section;
+        this.executeHttpRequest();
     }
 }

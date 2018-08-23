@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-    private String section = "world";
+    private String section = "Sports";
+    private PageAdapter viewPagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.configureNavigationView();
 
     }
-
 
     // *******************************
 
@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void configureViewPagerWithTabs(String section) {
-        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(), section));
+        viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section);
+        viewPager.setAdapter(viewPagerAdapter);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
@@ -97,14 +98,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.activity_main_drawer_Sports:
-                this.section = getString(R.string.Sports).toLowerCase();
-                this.configureViewPagerWithTabs(this.section);
+            case R.id.activity_main_drawer_Science:
+                this.section = getString(R.string.Science).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
 
+            case R.id.activity_main_drawer_world:
+                this.section = getString(R.string.World).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Technology:
+                this.section = getString(R.string.Technology).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Arts:
+                this.section = getString(R.string.Arts).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Books:
+                this.section = getString(R.string.Books).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Politics:
+                this.section = getString(R.string.Politics).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Health:
+                this.section = getString(R.string.Health).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
+
+            case R.id.activity_main_drawer_Travel:
+                this.section = getString(R.string.Travel).toLowerCase();
+                this.viewPagerAdapter.updateSection(this.section);
+                break;
 
             default:
                 break;

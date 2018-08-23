@@ -1,17 +1,12 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
-import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.TextView;
-
-import java.util.Calendar;
+import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,11 +14,10 @@ import ltd.kaizo.mynews.Controller.Fragments.SearchFragment;
 import ltd.kaizo.mynews.R;
 
 public class SearchActivity extends AppCompatActivity {
-    private SearchFragment searchFragment;
-
     @BindView(R.id.activity_search_toolbar)
     Toolbar toolbar;
 
+    private SearchFragment searchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +26,6 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         this.configureAndShowSearchFragment();
         this.configureToolbar();
-
     }
 
     private void configureToolbar() {
@@ -42,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
 
     }
+
 
     protected void configureAndShowSearchFragment() {
 
