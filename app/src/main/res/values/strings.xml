@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">MyNews</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search">Rechercher</string>
-    <string name="settings">Paramètres</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search_query_term">Search query term</string>
@@ -24,4 +21,7 @@
     <string name="Travel">Travel</string>
     <string name="topStories">TOP STORIES</string>
     <string name="logo">logo</string>
+    <string name="end_date">End Date</string>
+    <string name="begin_date">Begin Date</string>
+    <string name="business">Business</string>
 </resources>

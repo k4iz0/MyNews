@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-    private String section = "Sports";
+    private String section = "world";
     private PageAdapter viewPagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package ltd.kaizo.mynews.Utils;
 
 import io.reactivex.Observable;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
+import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -27,4 +28,8 @@ public interface NytService {
 
     @GET("svc/mostpopular/v2/mostviewed/{section}/7.json?api-key=" + apiKey)
     Observable<NytMostPopularAPIData> getMostPopular(@Path("section") String section);
+
+    @GET("svc/search/v2/articlesearch.json?q={query}&fq={field}&api-key=" + apiKey)
+    Observable<NytSearchArticleApiData> getSearchArticle(@Path("query") String query, String field, String beginDate, String endDate);
+
 }
