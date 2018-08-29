@@ -9,11 +9,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface NytService {
     String apiKey = "b35b8674678d4c8b87d09a7605d00a0f";
     String url = "http://api.nytimes.com/";
-    public static final Retrofit retrofit = new Retrofit.Builder()
+    Retrofit retrofit = new Retrofit.Builder()
 
             .baseUrl(url)
 
@@ -29,7 +30,7 @@ public interface NytService {
     @GET("svc/mostpopular/v2/mostviewed/{section}/7.json?api-key=" + apiKey)
     Observable<NytMostPopularAPIData> getMostPopular(@Path("section") String section);
 
-    @GET("svc/search/v2/articlesearch.json?q={query}&fq={field}&api-key=" + apiKey)
-    Observable<NytSearchArticleApiData> getSearchArticle(@Path("query") String query, String field, String beginDate, String endDate);
+    @GET("svc/search/v2/articlesearch.json?api-key=" + apiKey)
+    Observable<NytSearchArticleApiData> getSearchArticle(@Query("q") String query, @Query("fq") String field,@Query("begin_date") String beginDate,@Query("end_date") String endDate);
 
 }

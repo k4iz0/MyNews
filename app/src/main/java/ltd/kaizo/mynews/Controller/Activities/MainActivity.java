@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         this.configureViewPagerWithTabs(this.section);
         this.configureToolbar();
         this.configureDrawerLayout();

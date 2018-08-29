@@ -11,12 +11,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/search_query_term"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="50"/>
 
     <TextView
         android:id="@+id/fragment_search_textview_begindate"
@@ -29,50 +32,50 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox3"
+        android:id="@+id/fragment_search_checkbox_sports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/Sports"
         app:layout_constraintBottom_toTopOf="@+id/fragment_search_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox2" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_business" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox2"
+        android:id="@+id/fragment_search_checkbox_business"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/business"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox3"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox_sports"
         app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox1" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_arts" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox1"
+        android:id="@+id/fragment_search_checkbox_arts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/Arts"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox2"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox_business"
         app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_begin_date"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
         android:id="@+id/fragment_search_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
+        android:background="@color/bluePrimary"
         android:text="@string/search"
         android:textColor="@color/white"
-        android:background="@color/bluePrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox6"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_travel"
         app:layout_constraintVertical_bias="0.795" />
 
     <android.support.constraint.Barrier
@@ -80,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left"
-        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox2,fragment_search_checkbox3,fragment_search_checkbox1,fragment_search_textview_begindate,fragment_search_edittext"
+        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox_business,fragment_search_checkbox_sports,fragment_search_checkbox_arts,fragment_search_textview_begindate,fragment_search_edittext"
         tools:layout_editor_absoluteX="16dp"
         tools:ignore="MissingConstraints" />
 
@@ -92,24 +95,24 @@
         app:layout_constraintGuide_percent="0.6" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox4"
+        android:id="@+id/fragment_search_checkbox_politics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/Politics"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox_arts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox5"
+        android:id="@+id/fragment_search_checkbox_books"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/Books"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox_business"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -128,12 +131,12 @@
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <CheckBox
-        android:id="@+id/fragment_search_checkbox6"
+        android:id="@+id/fragment_search_checkbox_travel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/Travel"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_checkbox_sports"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />

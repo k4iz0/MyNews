@@ -1,12 +1,12 @@
 package ltd.kaizo.mynews.Utils;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularResult;
+import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
+import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleDoc;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesResult;
 
@@ -26,6 +26,10 @@ public class NytArticleConverter {
      * The Nyt most popular article list.
      */
     private List<NytMostPopularResult> nytMostPopularArticleList;
+    /**
+     * The Nyt search article list.
+     */
+    private List<NytSearchArticleDoc> nytSearchArticleList;
 
 
     /**
@@ -44,6 +48,15 @@ public class NytArticleConverter {
      */
     public NytArticleConverter(NytMostPopularAPIData nytMostPopularAPIdata) {
         this.setNytMostPopularArticleList(nytMostPopularAPIdata);
+    }
+
+    /**
+     * Instantiates a new Nyt article converter.
+     *
+     * @param nytSearchArticleApiData the nyt search article api data
+     */
+    public NytArticleConverter(NytSearchArticleApiData nytSearchArticleApiData) {
+        this.setNytSearchArticleList(nytSearchArticleApiData);
     }
 
     /**
@@ -67,6 +80,18 @@ public class NytArticleConverter {
         this.nytMostPopularArticleList = new ArrayList<>();
         if (nytMostPopularAPIdata != null) {
             this.nytMostPopularArticleList.addAll(nytMostPopularAPIdata.getResults());
+        }
+    }
+
+    /**
+     * Sets nyt search article list.
+     *
+     * @param nytSearchArticleApiData the nyt search article api data
+     */
+    private void setNytSearchArticleList(NytSearchArticleApiData nytSearchArticleApiData) {
+        this.nytSearchArticleList = new ArrayList<>();
+        if (nytSearchArticleApiData != null) {
+            this.nytSearchArticleList.addAll(nytSearchArticleApiData.getNytSearchArticleResponse().getNytSearchArticleDocs());
         }
     }
 
@@ -119,6 +144,34 @@ public class NytArticleConverter {
                     article.getSection(),
                     "",
                     article.getPublishedDate());
+            this.articleFormatterList.add(articleFormatter);
+        }
+
+        return this.articleFormatterList;
+    }
+
+    /**
+     * Configure search article list for adapter with search api data.
+     *
+     * @return the list
+     */
+    public List<ArticleFormatter> configureSearchArticleListForAdapter() {
+        this.articleFormatterList = new ArrayList<>();
+        for (NytSearchArticleDoc article : this.nytSearchArticleList) {
+            String imageUrl;
+            if (article.getMultimedia().size() > 0) {
+                imageUrl = article.getMultimedia().get(0).getUrl();
+            } else {
+                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
+
+            }
+
+            ArticleFormatter articleFormatter = new ArticleFormatter(article.getSnippet(),
+                    article.getWebUrl(),
+                    imageUrl,
+                    article.getSectionName(),
+                    "",
+                    article.getPubDate());
             this.articleFormatterList.add(articleFormatter);
         }
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ltd.kaizo.mynews.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
 
@@ -29,13 +30,13 @@ public class NytViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     TextView itemLocation;
     @BindView(R.id.fragment_news_item_layout)
     ConstraintLayout itemConstraintLayout;
-    private WeakReference<NytAdapter.Listener> callbackWeakRef;
+    private WeakReference<NytRecycleViewAdapter.Listener> callbackWeakRef;
     public NytViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithNytArticles(List<ArticleFormatter> articleFormatterList, int position, RequestManager glide, NytAdapter.Listener callback) {
+    public void updateWithNytArticles(List<ArticleFormatter> articleFormatterList, int position, RequestManager glide, NytRecycleViewAdapter.Listener callback) {
 
         this.itemContent.setText(articleFormatterList.get(position).getArticleTitle());
         this.itemDate.setText(articleFormatterList.get(position).getArticlePublishingDate());
@@ -52,7 +53,7 @@ public class NytViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        NytAdapter.Listener callback = callbackWeakRef.get();
+        NytRecycleViewAdapter.Listener callback = callbackWeakRef.get();
         if(callback != null) callback.OnClickGetUrl(getAdapterPosition());
     }
 }

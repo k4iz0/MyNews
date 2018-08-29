@@ -1,6 +1,7 @@
 package ltd.kaizo.mynews.Controller.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,6 @@ import icepick.State;
 
 public abstract class BaseFragment extends Fragment {
 
-
-
-
-
-
     protected abstract int getFragmentLayout();
 
     protected abstract void configureDesign();
@@ -24,10 +20,9 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void updateDesign();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getFragmentLayout(), container, false);
         ButterKnife.bind(this, view);
-
         this.configureDesign();
         return view;
     }
@@ -44,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
 
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
 

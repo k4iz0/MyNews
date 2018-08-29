@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Views;
+package ltd.kaizo.mynews.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,8 +13,9 @@ import java.util.List;
 
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.ArticleFormatter;
+import ltd.kaizo.mynews.Views.NytViewHolder;
 
-public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
+public class NytRecycleViewAdapter extends RecyclerView.Adapter<NytViewHolder>{
     public interface Listener {
         String OnClickGetUrl(int position);
     }
@@ -22,7 +23,7 @@ public class NytAdapter extends RecyclerView.Adapter<NytViewHolder>{
     private List<ArticleFormatter> articleFormatterList;
     private final Listener callback;
 
-    public NytAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide, Listener callback) {
+    public NytRecycleViewAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide, Listener callback) {
         this.articleFormatterList = articleFormatterList;
         this.glide = glide;
         this.callback = callback;

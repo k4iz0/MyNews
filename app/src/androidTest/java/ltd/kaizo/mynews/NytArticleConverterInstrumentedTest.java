@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
+import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.Utils.NytStream;
 
@@ -22,9 +23,22 @@ import static org.junit.Assert.*;
 public class NytArticleConverterInstrumentedTest {
 
     @Test
-    public void nytTopStoriesApiResponseShouldBeOK() throws Exception {
+    public void nytTopStoriesApiResponseShouldBeOK() {
         Observable<NytTopStoriesAPIData> apiData = NytStream.streamFetchTopStories("home");
         TestObserver<NytTopStoriesAPIData> testObserver = new TestObserver<>();
+        apiData.subscribeWith(testObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
+        String apiResponseStatus = testObserver.values().get(0).getStatus();
+
+
+        assertEquals("OK", apiResponseStatus);
+    }
+    @Test
+    public void nytSearchArticleApiResponseShouldBeOK() {
+        Observable<NytSearchArticleApiData> apiData = NytStream.streamFetchSearchArticle("test","arts","","");
+        TestObserver<NytSearchArticleApiData> testObserver = new TestObserver<>();
         apiData.subscribeWith(testObserver)
                 .assertNoErrors()
                 .assertNoTimeout()
