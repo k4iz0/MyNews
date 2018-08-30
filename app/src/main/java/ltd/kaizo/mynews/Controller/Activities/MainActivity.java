@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(searchActivity);
                 return true;
             case R.id.menu_activity_main_notif:
-                Toast.makeText(this, "paramètre en cours d'implémentation", Toast.LENGTH_SHORT).show();
+                Intent notificationActivity = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(notificationActivity);
                 return true;
 
             default:

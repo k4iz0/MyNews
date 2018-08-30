@@ -149,8 +149,10 @@ public class SearchFragment extends BaseFragment {
                     Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
                     Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
-
-                } else {
+                }else if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
+                    Toast.makeText(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
+                    }
+                 else {
                     configureAndShowNewsFragment();
                 }
                 Log.i("searchParameter", "query = " + searchQuery.getQueryTerms() +
@@ -190,6 +192,18 @@ public class SearchFragment extends BaseFragment {
         searchQuery.setBeginDate(beginDateTextview.getText().toString());
         searchQuery.setEndDate(endDateTextview.getText().toString());
 
+    }
+
+    /**
+     *
+     * check if the begin date isn't greater than the end date
+     *
+     * @param date1 the date 1
+     * @param date2 the date 2
+     * @return the boolean
+     */
+    private Boolean dateIsValid(String date1, String date2) {
+        return date2.compareTo(date1) < 0;
     }
 
     /**
@@ -279,7 +293,7 @@ public class SearchFragment extends BaseFragment {
      * Add 0 to date string when date number < 10
      *
      * @param nb the int of day or month
-     * @return the  string of day or month with 0
+     * @return the string of day or month with 0
      */
     private String add0ToDate(int nb) {
         if (nb < 10) {
