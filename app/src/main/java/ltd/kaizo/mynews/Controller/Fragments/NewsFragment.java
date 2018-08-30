@@ -34,6 +34,8 @@ import ltd.kaizo.mynews.Utils.NytArticleConverter;
 import ltd.kaizo.mynews.Utils.NytStream;
 import ltd.kaizo.mynews.Utils.SearchQuery;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.Listener {
     public static final String KEY_SECTION = "home";
     public static final String Key_POSITION = "0";
@@ -114,6 +116,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                 this.executeStreamFetchTopStories();
                 break;
             case 3:
+                Log.i(TAG, "position 3:  position =" + position);
                 gson = new Gson();
                 this.searchQuery = gson.fromJson(this.gsonStr, SearchQuery.class);
                 Log.i("searchQuery", "term : " + searchQuery.getQueryTerms()
@@ -121,6 +124,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                         + "\n beginDate : " + searchQuery.getBeginDate()
                         + "\n enDate : " + searchQuery.getEndDate());
                 this.executeStreamFetchSearchArticle();
+                break;
             default:
                 Toast.makeText(getContext(), "No article found !", Toast.LENGTH_SHORT).show();
         }
@@ -135,10 +139,12 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                 .subscribeWith(new DisposableObserver<NytSearchArticleApiData>() {
                     @Override
                     public void onNext(NytSearchArticleApiData nytSearchArticleApiData) {
-                        Log.i("StreamInfo", "search httpRequest in progress : - status = " + nytSearchArticleApiData.getStatus() +
-                                "\n taille des résultats = " + nytSearchArticleApiData.getNytSearchArticleResponse().getNytSearchArticleDocs().size());
-                        nytArticleConverter = new NytArticleConverter(nytSearchArticleApiData);
-                        updateUI(nytArticleConverter.configureSearchArticleListForAdapter());
+                        if (nytSearchArticleApiData.getNytSearchArticleResponse().getNytSearchArticleDocs().size() > 0) {
+                            nytArticleConverter = new NytArticleConverter(nytSearchArticleApiData);
+                            updateUI(nytArticleConverter.configureSearchArticleListForAdapter());
+                        } else {
+                            Toast.makeText(getContext(), "No article found !", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override

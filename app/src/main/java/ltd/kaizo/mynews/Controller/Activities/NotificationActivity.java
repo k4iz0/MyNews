@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.SearchFragment;
 import ltd.kaizo.mynews.R;
 
@@ -16,8 +15,7 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.activity_notification_toolbar)
     Toolbar toolbar;
     SearchFragment searchFragment;
-    @BindView(R.id.fragment_search_button)
-    Button searchButton;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +24,7 @@ public class NotificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         this.configureToolbar();
         this.configureAndShowSearchFragment();
-        searchButton.setVisibility(View.GONE);
+
     }
 
     private void configureToolbar() {
@@ -38,16 +36,15 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     protected void configureAndShowSearchFragment() {
+        BaseFragment searchFragment = SearchFragment.newInstance(10);
+        if (searchFragment != null) {
 
-        searchFragment = (SearchFragment) this.getSupportFragmentManager().findFragmentById(R.id.activity_notification_Framelayout);
-
-        if (searchFragment == null) {
-            searchFragment = new SearchFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_notification_Framelayout, searchFragment)
                     .commit();
         }
-
-
     }
+
+
 }
+

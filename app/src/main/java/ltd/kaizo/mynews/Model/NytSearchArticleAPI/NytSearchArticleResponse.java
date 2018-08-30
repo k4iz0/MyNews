@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class NytSearchArticleResponse {
 
-    @SerializedName("nytSearchArticleDocs")
+    @SerializedName("docs")
     @Expose
     private List<NytSearchArticleDoc> nytSearchArticleDocs = null;
     @SerializedName("meta")

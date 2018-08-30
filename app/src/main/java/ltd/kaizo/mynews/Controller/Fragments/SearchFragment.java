@@ -5,7 +5,7 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,6 +30,7 @@ import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_SEARCHQUERY
  * The type Search fragment.
  */
 public class SearchFragment extends BaseFragment {
+    public static final String Key_TAG = "";
     /**
      * The Begin date textview.
      */
@@ -108,6 +109,7 @@ public class SearchFragment extends BaseFragment {
      * The Gson.
      */
     private Gson gson;
+    private int tag;
 
     /**
      * Instantiates a new Search fragment.
@@ -116,6 +118,14 @@ public class SearchFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    public static BaseFragment newInstance(int tag) {
+        SearchFragment frag = new SearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Key_TAG, tag);
+        frag.setArguments(bundle);
+        return frag;
+
+    }
 
     @Override
     protected int getFragmentLayout() {
@@ -123,11 +133,25 @@ public class SearchFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+            this.tag = getArguments().getInt(Key_TAG);
+        }
+    }
+
+    @Override
     protected void configureDesign() {
         searchQuery = new SearchQuery();
         this.configureCalendar();
         this.configureDatePicker();
-        this.configureSearchButton();
+        if (this.tag == 10) {
+            searchButton.setVisibility(View.INVISIBLE);
+        } else {
+
+            this.configureSearchButton();
+        }
     }
 
     @Override
@@ -145,22 +169,15 @@ public class SearchFragment extends BaseFragment {
 
                 configureSearchRequest();
 
-                if (searchQuery.getQueryTerms().equals("")) {
+                if (searchQuery.getQueryTerms().trim().equals("")) {
                     Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
                     Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
-                }else if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
+                } else if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
                     Toast.makeText(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
-                    }
-                 else {
+                } else {
                     configureAndShowNewsFragment();
                 }
-                Log.i("searchParameter", "query = " + searchQuery.getQueryTerms() +
-                        "\n queryField = " + searchQuery.getQueryFields() +
-                        "\n begin date = " + searchQuery.getBeginDate() +
-                        "\n end date = " + searchQuery.getEndDate()
-                );
-
             }
         });
 
@@ -195,7 +212,6 @@ public class SearchFragment extends BaseFragment {
     }
 
     /**
-     *
      * check if the begin date isn't greater than the end date
      *
      * @param date1 the date 1
