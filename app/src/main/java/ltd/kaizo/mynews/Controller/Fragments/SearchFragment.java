@@ -9,8 +9,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,30 @@ import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_SEARCHQUERY
  * The type Search fragment.
  */
 public class SearchFragment extends BaseFragment {
+    /**
+     * The constant Key_TAG.
+     */
     public static final String Key_TAG = "";
+    /**
+     * The Begin date title.
+     */
+    @BindView(R.id.fragment_search_textview_begindate)
+    TextView beginDateTitle;
+    /**
+     * The End date title.
+     */
+    @BindView(R.id.fragment_search_textview_end_date)
+    TextView endDateTitle;
+    /**
+     * The Notification switch.
+     */
+    @BindView(R.id.fragment_search_notification_switch)
+    Switch notificationSwitch;
+    /**
+     * The Notification text view.
+     */
+    @BindView(R.id.fragment_search_notification_textview)
+    TextView notificationTextView;
     /**
      * The Begin date textview.
      */
@@ -109,6 +134,17 @@ public class SearchFragment extends BaseFragment {
      * The Gson.
      */
     private Gson gson;
+    /**
+     * The Begin date.
+     */
+    private String beginDate;
+    /**
+     * The End date.
+     */
+    private String endDate;
+    /**
+     * The Tag.
+     */
     private int tag;
 
     /**
@@ -118,6 +154,12 @@ public class SearchFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    /**
+     * New instance base fragment.
+     *
+     * @param tag the tag
+     * @return the base fragment
+     */
     public static BaseFragment newInstance(int tag) {
         SearchFragment frag = new SearchFragment();
         Bundle bundle = new Bundle();
@@ -136,7 +178,6 @@ public class SearchFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
             this.tag = getArguments().getInt(Key_TAG);
         }
     }
@@ -146,12 +187,43 @@ public class SearchFragment extends BaseFragment {
         searchQuery = new SearchQuery();
         this.configureCalendar();
         this.configureDatePicker();
-        if (this.tag == 10) {
-            searchButton.setVisibility(View.INVISIBLE);
-        } else {
 
-            this.configureSearchButton();
+        switch (this.tag) {
+            case 10:
+                this.configureDesignForNotification();
+                this.configureNotificationSwitch();
+                break;
+            case 20:
+                this.configureSearchButton();
+                break;
+            default:
+                break;
         }
+    }
+
+    private void configureNotificationSwitch() {
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //
+                }
+            }
+        });
+    }
+
+    /**
+     * Configure design for the notification activity
+     * to show and hide elements
+     */
+    private void configureDesignForNotification() {
+        this.searchButton.setVisibility(View.GONE);
+        this.endDateTextview.setVisibility(View.GONE);
+        this.beginDateTextview.setVisibility(View.GONE);
+        this.beginDateTitle.setVisibility(View.GONE);
+        this.endDateTitle.setVisibility(View.GONE);
+        this.notificationSwitch.setVisibility(View.VISIBLE);
+        this.notificationTextView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -160,21 +232,22 @@ public class SearchFragment extends BaseFragment {
     }
 
     /**
-     * Configure search button.
+     * Configure search button by setting up the listener
+     * and check some constraint before launch
      */
     private void configureSearchButton() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 configureSearchRequest();
-
                 if (searchQuery.getQueryTerms().trim().equals("")) {
                     Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
                     Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
-                } else if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
-                    Toast.makeText(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
+                } else if (searchQuery.getBeginDate() != null && searchQuery.getEndDate() != null) {
+                    if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
+                        Toast.makeText(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     configureAndShowNewsFragment();
                 }
@@ -201,13 +274,17 @@ public class SearchFragment extends BaseFragment {
     }
 
     /**
-     * Configure search request.
+     * Configure search request by setting value to the searchQuery object
      */
     private void configureSearchRequest() {
+        this.beginDate = beginDateTextview.getText().toString();
+        this.endDate = endDateTextview.getText().toString();
         searchQuery.setQueryTerms(searchEdiText.getText().toString());
         this.configureCheckboxValues();
-        searchQuery.setBeginDate(beginDateTextview.getText().toString());
-        searchQuery.setEndDate(endDateTextview.getText().toString());
+        if (!beginDate.equals("") || !beginDate.equals("")) {
+            searchQuery.setBeginDate(beginDate);
+            searchQuery.setEndDate(endDate);
+        }
 
     }
 
@@ -215,7 +292,7 @@ public class SearchFragment extends BaseFragment {
      * check if the begin date isn't greater than the end date
      *
      * @param date1 the date 1
-     * @param date2 the date 2
+     * @param date2 the date 2star wars
      * @return the boolean
      */
     private Boolean dateIsValid(String date1, String date2) {
@@ -226,7 +303,8 @@ public class SearchFragment extends BaseFragment {
      * Configure checkbox values.
      */
     private void configureCheckboxValues() {
-        if (checkBoxArts.isChecked()) searchQuery.setQueryFields(checkBoxArts.getText().toString());
+        if (checkBoxArts.isChecked())
+            searchQuery.setQueryFields(checkBoxArts.getText().toString());
         if (checkBoxBusiness.isChecked())
             searchQuery.setQueryFields(checkBoxBusiness.getText().toString());
         if (checkBoxSports.isChecked())
@@ -295,14 +373,6 @@ public class SearchFragment extends BaseFragment {
         this.year = cal.get(Calendar.YEAR);
         this.month = cal.get(Calendar.MONTH);
         this.day = cal.get(Calendar.DAY_OF_MONTH);
-        if (beginDateTextview.getText() == "") {
-            String date = add0ToDate(day) + "/" + add0ToDate(month) + "/" + year;
-            beginDateTextview.setText(date);
-        }
-        if (endDateTextview.getText() == "") {
-            String date = add0ToDate(day) + "/" + add0ToDate(month) + "/" + year;
-            endDateTextview.setText(date);
-        }
     }
 
     /**

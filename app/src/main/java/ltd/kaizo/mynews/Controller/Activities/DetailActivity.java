@@ -1,9 +1,9 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
@@ -16,7 +16,8 @@ public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.activity_detail_webview)
     WebView webView;
-    private String articleUrl="";
+    private String articleUrl = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         articleUrl = intent.getStringExtra("articleUrl");
         webView.loadUrl(articleUrl);
     }
+
     private void configureToolbar() {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();

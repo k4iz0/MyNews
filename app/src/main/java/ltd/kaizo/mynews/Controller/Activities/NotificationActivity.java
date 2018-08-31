@@ -38,7 +38,6 @@ public class NotificationActivity extends AppCompatActivity {
     protected void configureAndShowSearchFragment() {
         BaseFragment searchFragment = SearchFragment.newInstance(10);
         if (searchFragment != null) {
-
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_notification_Framelayout, searchFragment)
                     .commit();

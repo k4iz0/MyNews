@@ -13,22 +13,22 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="32dp"
         android:hint="@string/search_query_term"
+        android:inputType="text"
+        android:maxLength="50"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toTopOf="parent"
-        android:inputType="text"
-        android:maxLines="1"
-        android:maxLength="50"/>
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fragment_search_textview_begindate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/begin_date"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext" />
 
     <CheckBox
@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/Sports"
         app:layout_constraintBottom_toTopOf="@+id/fragment_search_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,25 +48,27 @@
         android:layout_height="wrap_content"
         android:text="@string/business"
         app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox_sports"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_arts" />
 
     <CheckBox
         android:id="@+id/fragment_search_checkbox_arts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/Arts"
         app:layout_constraintBottom_toTopOf="@+id/fragment_search_checkbox_business"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_begin_date"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext"
+        app:layout_constraintVertical_bias="0.68"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/fragment_search_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/bluePrimary"
@@ -74,18 +77,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_travel"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <android.support.constraint.Barrier
-        android:id="@+id/barrier"
+        android:id="@+id/barrier1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left"
         app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox_business,fragment_search_checkbox_sports,fragment_search_checkbox_arts,fragment_search_textview_begindate,fragment_search_edittext"
-        tools:layout_editor_absoluteX="16dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -146,18 +149,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:hint="@string/pick_a_date"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_end_date"
-        app:layout_constraintStart_toEndOf="@+id/barrier" />
+        app:layout_constraintStart_toEndOf="@+id/barrier1" />
 
     <TextView
         android:id="@+id/fragment_search_end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/pick_a_date"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_textview_end_date" />
+
+    <TextView
+        android:id="@+id/fragment_search_notification_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/enable_notifications"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_notification_switch"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_search_notification_switch"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/fragment_search_notification_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext"
+        app:layout_constraintVertical_bias="0.6" />
 
 </android.support.constraint.ConstraintLayout>

@@ -8,8 +8,8 @@ public class SearchQuery {
 
     public SearchQuery() {
         this.queryTerms = "";
-        this.BeginDate = "";
-        this.EndDate = "";
+        this.BeginDate = null;
+        this.EndDate = null;
         this.queryFields = "";
     }
 
@@ -26,7 +26,9 @@ public class SearchQuery {
     }
 
     public void setBeginDate(String beginDate) {
+        if (!beginDate.equals("")) {
         BeginDate = formatDate(beginDate);
+        }
     }
 
     public String getEndDate() {
@@ -34,7 +36,9 @@ public class SearchQuery {
     }
 
     public void setEndDate(String endDate) {
+        if (!endDate.equals("")) {
         EndDate = formatDate(endDate);
+        }
     }
 
     public String getQueryFields() {

@@ -161,7 +161,6 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
     }
 
     private void executeStreamFetchTopStories() {
-        if (section == null) section = "home";
         this.disposable = NytStream.streamFetchTopStories(section).subscribeWith(new DisposableObserver<NytTopStoriesAPIData>() {
             @Override
             public void onNext(NytTopStoriesAPIData nytTopStoriesAPIData) {
@@ -213,7 +212,8 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     @Override
     protected void updateDesign() {
-
+        this.executeStreamFetchTopStories();
+        this.executeStreamFetchMostPopularStories();
     }
 
     public void configureRecycleView() {

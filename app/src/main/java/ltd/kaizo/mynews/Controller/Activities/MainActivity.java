@@ -1,6 +1,7 @@
 package ltd.kaizo.mynews.Controller.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import icepick.State;
 import ltd.kaizo.mynews.Adapter.PageAdapter;
 import ltd.kaizo.mynews.R;
 
@@ -31,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-    private String section = "world";
+    @State String section = "world";
     private PageAdapter viewPagerAdapter;
+    private String helpUrl = "http://bfy.tw/JedE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,16 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent notificationActivity = new Intent(MainActivity.this, NotificationActivity.class);
                 startActivity(notificationActivity);
                 return true;
-
+            case R.id.menu_activity_main_help:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(helpUrl));
+                startActivity(browserIntent);
             default:
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

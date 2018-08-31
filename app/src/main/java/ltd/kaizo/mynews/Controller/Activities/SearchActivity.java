@@ -7,15 +7,13 @@ import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.SearchFragment;
 import ltd.kaizo.mynews.R;
 
 public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.activity_search_toolbar)
     Toolbar toolbar;
-
-    private SearchFragment searchFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +31,9 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-
     protected void configureAndShowSearchFragment() {
-
-        searchFragment = (SearchFragment) this.getSupportFragmentManager().findFragmentById(R.id.activity_search_Framelayout);
-
-        if (searchFragment == null) {
-            searchFragment = new SearchFragment();
+        BaseFragment searchFragment = SearchFragment.newInstance(20);
+        if (searchFragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_Framelayout, searchFragment)
                     .commit();

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.Activities.MainActivity">
+        <activity
+            android:name=".Controller.Activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +23,8 @@
         <activity
             android:name=".Controller.Activities.SearchActivity"
             android:label="Search"
-            android:parentActivityName=".Controller.Activities.MainActivity">
+            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controller.Activities.MainActivity" />
@@ -34,7 +37,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controller.Activities.MainActivity" />
         </activity>
-        <activity android:name=".Controller.Activities.NotificationActivity"></activity>
+        <activity
+            android:name=".Controller.Activities.NotificationActivity"
+            android:label="notifications"
+            android:parentActivityName=".Controller.Activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controller.Activities.MainActivity" />
+
+
+        </activity>
+
+        <receiver
+            android:name=".Utils.MyAlarmReceiver"
+            android:exported="true" />
     </application>
 
 </manifest>
