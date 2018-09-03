@@ -17,14 +17,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
 import com.google.gson.Gson;
-
 import java.util.Calendar;
 import java.util.Objects;
-
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
+import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
 import ltd.kaizo.mynews.Model.SearchQuery;
+import ltd.kaizo.mynews.Model.Utils.Androidjob.AndroidJobCreator;
 import ltd.kaizo.mynews.R;
 
 import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_POSITION;
@@ -152,7 +154,6 @@ public class SearchFragment extends BaseFragment {
     /**
      * Instantiates a new Search fragment.
      */
-    private PendingIntent pendingIntent;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -211,7 +212,7 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void configureNotificationSwitch() {
-
+        this.configureNotificationJob();
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -224,6 +225,11 @@ public class SearchFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void configureNotificationJob() {
+        JobManager.create(getContext()).addJobCreator(new AndroidJobCreator());
+
     }
 
 
