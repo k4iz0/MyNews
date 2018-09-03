@@ -1,7 +1,11 @@
 package ltd.kaizo.mynews.Controller.Fragments;
 
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,7 +26,9 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import butterknife.BindView;
+import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
 import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.Utils.MyAlarmReceiver;
 import ltd.kaizo.mynews.Utils.SearchQuery;
 
 import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_POSITION;
@@ -150,6 +156,7 @@ public class SearchFragment extends BaseFragment {
     /**
      * Instantiates a new Search fragment.
      */
+    private PendingIntent pendingIntent;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -166,6 +173,11 @@ public class SearchFragment extends BaseFragment {
         bundle.putInt(Key_TAG, tag);
         frag.setArguments(bundle);
         return frag;
+
+    }
+
+    @Override
+    protected void updateDesign() {
 
     }
 
@@ -202,16 +214,60 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void configureNotificationSwitch() {
+        this.configureAlarmManager();
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //
+                    Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
+                    startAlarm();
+                } else {
+                    Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                    stopAlarm();
                 }
             }
         });
     }
+    private void configureAlarmManager(){
 
+        Intent alarmIntent = new Intent(getActivity(), MyAlarmReceiver.class);
+
+        pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    }
+    // ---------------------------------------------
+
+    // SCHEDULE TASK (AlarmManager & JobScheduler)
+
+    // ---------------------------------------------
+
+
+    // 3 - Start Alarm
+
+    private void startAlarm() {
+
+        AlarmManager manager = (AlarmManager)  getContext().getSystemService(Context.ALARM_SERVICE);
+
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+
+        Toast.makeText(getContext(), "Alarm set !", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    // 4 - Stop Alarm
+
+    private void stopAlarm() {
+
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+
+        if (manager != null) {
+            manager.cancel(pendingIntent);
+        }
+
+        Toast.makeText(getContext(), "Alarm Canceled !", Toast.LENGTH_SHORT).show();
+
+    }
     /**
      * Configure design for the notification activity
      * to show and hide elements
@@ -224,11 +280,6 @@ public class SearchFragment extends BaseFragment {
         this.endDateTitle.setVisibility(View.GONE);
         this.notificationSwitch.setVisibility(View.VISIBLE);
         this.notificationTextView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void updateDesign() {
-
     }
 
     /**

@@ -14,7 +14,6 @@ import ltd.kaizo.mynews.R;
 public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.activity_notification_toolbar)
     Toolbar toolbar;
-    SearchFragment searchFragment;
 
     @Override
 
