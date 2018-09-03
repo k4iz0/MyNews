@@ -26,7 +26,6 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import butterknife.BindView;
-import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Utils.MyAlarmReceiver;
 import ltd.kaizo.mynews.Utils.SearchQuery;
@@ -157,6 +156,7 @@ public class SearchFragment extends BaseFragment {
      * Instantiates a new Search fragment.
      */
     private PendingIntent pendingIntent;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -228,7 +228,8 @@ public class SearchFragment extends BaseFragment {
             }
         });
     }
-    private void configureAlarmManager(){
+
+    private void configureAlarmManager() {
 
         Intent alarmIntent = new Intent(getActivity(), MyAlarmReceiver.class);
 
@@ -246,9 +247,9 @@ public class SearchFragment extends BaseFragment {
 
     private void startAlarm() {
 
-        AlarmManager manager = (AlarmManager)  getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
 
         Toast.makeText(getContext(), "Alarm set !", Toast.LENGTH_SHORT).show();
 
@@ -268,6 +269,7 @@ public class SearchFragment extends BaseFragment {
         Toast.makeText(getContext(), "Alarm Canceled !", Toast.LENGTH_SHORT).show();
 
     }
+
     /**
      * Configure design for the notification activity
      * to show and hide elements
@@ -304,6 +306,11 @@ public class SearchFragment extends BaseFragment {
                 }
             }
         });
+
+    }
+
+    private void configureNotificationRessearch() {
+        SearchQuery
 
     }
 
