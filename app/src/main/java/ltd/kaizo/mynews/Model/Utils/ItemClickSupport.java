@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Utils;
+package ltd.kaizo.mynews.Model.Utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

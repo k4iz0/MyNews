@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Utils;
+package ltd.kaizo.mynews.Model;
 
 public class SearchQuery {
     private String queryTerms;

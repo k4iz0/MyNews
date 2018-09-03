@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ltd.kaizo.mynews.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.R;
-import ltd.kaizo.mynews.Utils.ArticleFormatter;
+import ltd.kaizo.mynews.Model.ArticleFormatter;
 
 
 public class NytViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

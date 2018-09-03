@@ -1,11 +1,8 @@
 package ltd.kaizo.mynews.Controller.Fragments;
 
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,9 +23,9 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
+import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.R;
-import ltd.kaizo.mynews.Utils.MyAlarmReceiver;
-import ltd.kaizo.mynews.Utils.SearchQuery;
 
 import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_POSITION;
 import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_SEARCHQUERY;
@@ -214,60 +211,21 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void configureNotificationSwitch() {
-        this.configureAlarmManager();
+
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
-                    startAlarm();
+
                 } else {
                     Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
-                    stopAlarm();
+
                 }
             }
         });
     }
 
-    private void configureAlarmManager() {
-
-        Intent alarmIntent = new Intent(getActivity(), MyAlarmReceiver.class);
-
-        pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    }
-    // ---------------------------------------------
-
-    // SCHEDULE TASK (AlarmManager & JobScheduler)
-
-    // ---------------------------------------------
-
-
-    // 3 - Start Alarm
-
-    private void startAlarm() {
-
-        AlarmManager manager = (AlarmManager) Objects.requireNonNull(getContext()).getSystemService(Context.ALARM_SERVICE);
-
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 60000, pendingIntent);
-        Toast.makeText(getContext(), "Notification set !", Toast.LENGTH_SHORT).show();
-
-    }
-
-
-    // 4 - Stop Alarm
-
-    private void stopAlarm() {
-
-        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-
-        if (manager != null) {
-            manager.cancel(pendingIntent);
-        }
-
-        Toast.makeText(getContext(), "Alarm Canceled !", Toast.LENGTH_SHORT).show();
-
-    }
 
     /**
      * Configure design for the notification activity
@@ -293,12 +251,12 @@ public class SearchFragment extends BaseFragment {
             public void onClick(View v) {
                 configureSearchRequest();
                 if (searchQuery.getQueryTerms().trim().equals("")) {
-                    Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
-                    Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getBeginDate() != null && searchQuery.getEndDate() != null) {
                     if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
-                        Toast.makeText(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
+                        Toasty.error(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     configureAndShowNewsFragment();
@@ -311,9 +269,9 @@ public class SearchFragment extends BaseFragment {
     private void configureNotificationRessearch() {
         this.configureSearchRequest();
         if (searchQuery.getQueryTerms().trim().equals("")) {
-            Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
         } else if (searchQuery.getQueryFields().equals("")) {
-            Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
         } else {
             configureAndShowNewsFragment();
         }

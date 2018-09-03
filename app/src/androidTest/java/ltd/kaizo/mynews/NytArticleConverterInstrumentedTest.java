@@ -7,10 +7,9 @@ import org.junit.runner.RunWith;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
-import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import ltd.kaizo.mynews.Utils.NytStream;
+import ltd.kaizo.mynews.Model.Utils.NytStream;
 
 import static org.junit.Assert.*;
 

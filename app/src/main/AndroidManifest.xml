@@ -48,9 +48,6 @@
 
         </activity>
 
-        <receiver
-            android:name=".Utils.MyAlarmReceiver"
-            android:exported="true" />
     </application>
 
 </manifest>

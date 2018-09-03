@@ -12,7 +12,7 @@ import com.bumptech.glide.RequestManager;
 import java.util.List;
 
 import ltd.kaizo.mynews.R;
-import ltd.kaizo.mynews.Utils.ArticleFormatter;
+import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Views.NytViewHolder;
 
 public class NytRecycleViewAdapter extends RecyclerView.Adapter<NytViewHolder>{

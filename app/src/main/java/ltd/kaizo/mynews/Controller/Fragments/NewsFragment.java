@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -28,11 +29,11 @@ import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.R;
-import ltd.kaizo.mynews.Utils.ArticleFormatter;
-import ltd.kaizo.mynews.Utils.ItemClickSupport;
-import ltd.kaizo.mynews.Utils.NytArticleConverter;
-import ltd.kaizo.mynews.Utils.NytStream;
-import ltd.kaizo.mynews.Utils.SearchQuery;
+import ltd.kaizo.mynews.Model.ArticleFormatter;
+import ltd.kaizo.mynews.Model.Utils.ItemClickSupport;
+import ltd.kaizo.mynews.Model.NytArticleConverter;
+import ltd.kaizo.mynews.Model.Utils.NytStream;
+import ltd.kaizo.mynews.Model.SearchQuery;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -76,6 +77,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toasty.Config.getInstance().setInfoColor(getResources().getColor(R.color.blueDark)).apply();
         if (getArguments() != null) {
             this.section = getArguments().getString(KEY_SECTION);
             this.position = getArguments().getInt(Key_POSITION);
@@ -126,7 +128,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                 this.executeStreamFetchSearchArticle();
                 break;
             default:
-                Toast.makeText(getContext(), "No article found !", Toast.LENGTH_SHORT).show();
+                Toasty.info(getContext(), "No article found !", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -143,7 +145,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                             nytArticleConverter = new NytArticleConverter(nytSearchArticleApiData);
                             updateUI(nytArticleConverter.configureSearchArticleListForAdapter());
                         } else {
-                            Toast.makeText(getContext(), "No article found !", Toast.LENGTH_LONG).show();
+                            Toasty.info(getContext(), "No article found !", Toast.LENGTH_LONG).show();
                         }
                     }
 

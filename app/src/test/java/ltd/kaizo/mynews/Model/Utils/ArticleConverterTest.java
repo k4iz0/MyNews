@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Utils;
+package ltd.kaizo.mynews.Model.Utils;
 
 public class ArticleConverterTest {
 

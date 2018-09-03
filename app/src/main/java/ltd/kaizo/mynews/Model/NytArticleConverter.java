@@ -1,8 +1,9 @@
-package ltd.kaizo.mynews.Utils;
+package ltd.kaizo.mynews.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularResult;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;

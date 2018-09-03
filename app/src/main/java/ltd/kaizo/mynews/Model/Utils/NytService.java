@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Utils;
+package ltd.kaizo.mynews.Model.Utils;
 
 import io.reactivex.Observable;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
