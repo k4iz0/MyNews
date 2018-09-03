@@ -37,7 +37,7 @@ public class NytArticleConverterInstrumentedTest {
     }
     @Test
     public void nytSearchArticleApiResponseShouldBeOK() {
-        Observable<NytSearchArticleApiData> apiData = NytStream.streamFetchSearchArticle("test","arts","","");
+        Observable<NytSearchArticleApiData> apiData = NytStream.streamFetchSearchArticle("test","arts",null,null);
         TestObserver<NytSearchArticleApiData> testObserver = new TestObserver<>();
         apiData.subscribeWith(testObserver)
                 .assertNoErrors()
