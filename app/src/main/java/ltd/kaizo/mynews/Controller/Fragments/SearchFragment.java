@@ -247,11 +247,10 @@ public class SearchFragment extends BaseFragment {
 
     private void startAlarm() {
 
-        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) Objects.requireNonNull(getContext()).getSystemService(Context.ALARM_SERVICE);
 
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-
-        Toast.makeText(getContext(), "Alarm set !", Toast.LENGTH_SHORT).show();
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 60000, pendingIntent);
+        Toast.makeText(getContext(), "Notification set !", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -310,7 +309,14 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void configureNotificationRessearch() {
-        SearchQuery
+        this.configureSearchRequest();
+        if (searchQuery.getQueryTerms().trim().equals("")) {
+            Toast.makeText(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
+        } else if (searchQuery.getQueryFields().equals("")) {
+            Toast.makeText(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
+        } else {
+            configureAndShowNewsFragment();
+        }
 
     }
 
