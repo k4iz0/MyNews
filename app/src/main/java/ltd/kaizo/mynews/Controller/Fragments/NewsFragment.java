@@ -11,13 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 import icepick.State;
@@ -25,22 +22,22 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import ltd.kaizo.mynews.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
+import ltd.kaizo.mynews.Model.ArticleFormatter;
+import ltd.kaizo.mynews.Model.NytArticleConverter;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import ltd.kaizo.mynews.R;
-import ltd.kaizo.mynews.Model.ArticleFormatter;
-import ltd.kaizo.mynews.Model.Utils.ItemClickSupport;
-import ltd.kaizo.mynews.Model.NytArticleConverter;
-import ltd.kaizo.mynews.Model.Utils.NytStream;
 import ltd.kaizo.mynews.Model.SearchQuery;
+import ltd.kaizo.mynews.Model.Utils.ItemClickSupport;
+import ltd.kaizo.mynews.Model.Utils.NytStream;
+import ltd.kaizo.mynews.R;
 
 import static android.support.constraint.Constraints.TAG;
+import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.KEY_SECTION;
+import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_SEARCHQUERY;
 
 public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.Listener {
-    public static final String KEY_SECTION = "home";
-    public static final String Key_POSITION = "0";
-    public static final String Key_SEARCHQUERY = "";
     @BindView(R.id.fragment_news_recycleview)
     RecyclerView recyclerView;
     @BindView(R.id.fragment_page_rootview)

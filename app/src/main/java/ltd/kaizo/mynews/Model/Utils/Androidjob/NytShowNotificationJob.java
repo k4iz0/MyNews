@@ -5,7 +5,8 @@ import android.util.Log;
 
 import com.evernote.android.job.Job;
 
-class NytShowNotificationJob extends Job {
+public class NytShowNotificationJob extends Job {
+    public static final String JOB_TAG = "NytShowNotificationJobTag";
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {

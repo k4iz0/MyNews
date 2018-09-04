@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 import icepick.State;
 import ltd.kaizo.mynews.Adapter.PageAdapter;
+import ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager;
 import ltd.kaizo.mynews.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        SharedPreferencesManager.init(getApplicationContext());
         this.configureViewPagerWithTabs(this.section);
         this.configureToolbar();
         this.configureDrawerLayout();

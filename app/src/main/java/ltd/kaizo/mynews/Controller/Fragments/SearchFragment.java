@@ -2,7 +2,6 @@ package ltd.kaizo.mynews.Controller.Fragments;
 
 
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,17 +19,19 @@ import android.widget.Toast;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.google.gson.Gson;
+
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
-import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
 import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.Model.Utils.Androidjob.AndroidJobCreator;
+import ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob;
 import ltd.kaizo.mynews.R;
-
-import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_POSITION;
-import static ltd.kaizo.mynews.Controller.Fragments.NewsFragment.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_SEARCHQUERY;
 
 /**
  * The type Search fragment.
@@ -230,6 +231,11 @@ public class SearchFragment extends BaseFragment {
     private void configureNotificationJob() {
         JobManager.create(getContext()).addJobCreator(new AndroidJobCreator());
 
+        new JobRequest.Builder(NytShowNotificationJob.JOB_TAG)
+                .setPeriodic(TimeUnit.MINUTES.toMillis(15))
+                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
+                .build()
+                .schedule();
     }
 
 
@@ -289,16 +295,19 @@ public class SearchFragment extends BaseFragment {
      */
     private void configureAndShowNewsFragment() {
         BaseFragment newsFragment = new NewsFragment();
-        gson = new Gson();
-        Bundle args = new Bundle();
-        args.putString(Key_SEARCHQUERY, gson.toJson(searchQuery));
-        args.putInt(Key_POSITION, 3);
-        newsFragment.setArguments(args);
-
+        newsFragment.setArguments(saveDataToBundle());
         Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_search_Framelayout, newsFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private Bundle saveDataToBundle() {
+        gson = new Gson();
+        Bundle args = new Bundle();
+        args.putString(Key_SEARCHQUERY, gson.toJson(searchQuery));
+        args.putInt(Key_POSITION, 3);
+        return args;
     }
 
     /**
