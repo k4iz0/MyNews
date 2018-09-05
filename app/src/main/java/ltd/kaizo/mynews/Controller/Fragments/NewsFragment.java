@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 import icepick.State;
@@ -33,9 +36,11 @@ import ltd.kaizo.mynews.Model.Utils.NytStream;
 import ltd.kaizo.mynews.R;
 
 import static android.support.constraint.Constraints.TAG;
-import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.KEY_SECTION;
-import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_POSITION;
-import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.saveData;
 
 public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.Listener {
     @BindView(R.id.fragment_news_recycleview)
@@ -80,6 +85,11 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
             this.position = getArguments().getInt(Key_POSITION);
             this.gsonStr = getArguments().getString(Key_SEARCHQUERY);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -265,6 +275,8 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     public void updateSection(String section) {
         this.section = section;
+        saveData(this.position, this.section, this.searchQuery);
         this.executeHttpRequest();
     }
+
 }

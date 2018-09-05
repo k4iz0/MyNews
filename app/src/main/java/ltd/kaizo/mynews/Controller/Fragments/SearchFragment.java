@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,21 +18,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.Model.Utils.Androidjob.AndroidJobCreator;
-import ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob;
 import ltd.kaizo.mynews.R;
-import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_POSITION;
-import static ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager.Key_SEARCHQUERY;
+
+import static ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob.cancelJob;
+import static ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob.schedulePeriodicJob;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.write;
 
 /**
  * The type Search fragment.
@@ -151,6 +154,7 @@ public class SearchFragment extends BaseFragment {
      * The Tag.
      */
     private int tag;
+    private int jobID;
 
     /**
      * Instantiates a new Search fragment.
@@ -213,16 +217,23 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void configureNotificationSwitch() {
-        this.configureNotificationJob();
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
 
+                if (configureNotificationRessearch()) {
+
+                    if (isChecked) {
+                        jobID = schedulePeriodicJob();
+                        Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
+                        Log.i("notificationJob", "job start ");
+                    } else {
+                        Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                        cancelJob(jobID);
+                        Log.i("notificationJob", "job cancel ");
+                    }
                 } else {
-                    Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
-
+                    notificationSwitch.setChecked(false);
                 }
             }
         });
@@ -230,12 +241,6 @@ public class SearchFragment extends BaseFragment {
 
     private void configureNotificationJob() {
         JobManager.create(getContext()).addJobCreator(new AndroidJobCreator());
-
-        new JobRequest.Builder(NytShowNotificationJob.JOB_TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15))
-                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
-                .build()
-                .schedule();
     }
 
 
@@ -278,14 +283,19 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-    private void configureNotificationRessearch() {
+    private Boolean configureNotificationRessearch() {
         this.configureSearchRequest();
-        if (searchQuery.getQueryTerms().trim().equals("")) {
+        if (this.searchQuery.getQueryTerms().trim().equals("")) {
             Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
-        } else if (searchQuery.getQueryFields().equals("")) {
+            return false;
+        } else if (this.searchQuery.getQueryFields().equals("")) {
             Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
+            return false;
         } else {
-            configureAndShowNewsFragment();
+            gson = new Gson();
+            write(Key_SEARCHQUERY_NOTIFICATION,gson.toJson(this.searchQuery));
+            this.configureNotificationJob();
+            return true;
         }
 
     }

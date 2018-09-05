@@ -3,7 +3,6 @@ package ltd.kaizo.mynews.Controller.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,14 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
 import icepick.State;
 import ltd.kaizo.mynews.Adapter.PageAdapter;
-import ltd.kaizo.mynews.Model.Utils.SharedPreferencesManager;
+import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        SharedPreferencesManager.init(getApplicationContext());
+        DataRecordManager.init(getApplicationContext());
         this.configureViewPagerWithTabs(this.section);
         this.configureToolbar();
         this.configureDrawerLayout();
