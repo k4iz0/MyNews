@@ -14,6 +14,7 @@ public class DataRecordManager {
     public static final String Key_POSITION = "0";
     public static final String Key_SEARCHQUERY = "";
     public static final String Key_SEARCHQUERY_NOTIFICATION = "";
+    public static final String Key_TAG = "";
     private static SharedPreferences sharedPreferences;
 
     private DataRecordManager() {
@@ -60,6 +61,12 @@ public class DataRecordManager {
         Gson gson = new Gson();
         write(Key_SEARCHQUERY, gson.toJson(searchQuery));
         Log.i("info", "data saved to sharedPreferences files");
+    }
+
+    public static SearchQuery getSearchQueryFromSharedPreferences(String KEY) {
+        Gson gson = new Gson();
+        String gsonStr="";
+        return gson.fromJson(read(KEY, gsonStr), SearchQuery.class);
     }
 
 

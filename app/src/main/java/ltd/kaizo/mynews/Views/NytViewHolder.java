@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ltd.kaizo.mynews.Adapter.NytRecycleViewAdapter;
+import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Model.ArticleFormatter;
 

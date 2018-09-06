@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.State;
-import ltd.kaizo.mynews.Adapter.PageAdapter;
+import ltd.kaizo.mynews.Views.Adapter.PageAdapter;
 import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 

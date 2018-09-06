@@ -23,7 +23,8 @@ import es.dmoral.toasty.Toasty;
 import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import ltd.kaizo.mynews.Adapter.NytRecycleViewAdapter;
+import ltd.kaizo.mynews.Model.TabsNames;
+import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
 import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Model.NytArticleConverter;
@@ -39,7 +40,6 @@ import static android.support.constraint.Constraints.TAG;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.saveData;
 
 public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.Listener {
@@ -113,18 +113,19 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
     }
 
     private void executeHttpRequest() {
-        switch (this.position) {
-            case 0:
+        TabsNames tabsNames = TabsNames.values()[this.position];
+        switch (tabsNames) {
+            case TOP_STORIES:
                 this.executeStreamFetchTopStories();
                 break;
-            case 1:
+            case MOST_POPULAR:
                 this.executeStreamFetchMostPopularStories();
 
                 break;
-            case 2:
+            case CUSTOM_TAB:
                 this.executeStreamFetchTopStories();
                 break;
-            case 3:
+            case SEARCH:
                 Log.i(TAG, "position 3:  position =" + position);
                 gson = new Gson();
                 this.searchQuery = gson.fromJson(this.gsonStr, SearchQuery.class);

@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Adapter;
+package ltd.kaizo.mynews.Views.Adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
+import ltd.kaizo.mynews.Model.TabsNames;
 
 public class PageAdapter extends FragmentPagerAdapter {
 
@@ -39,14 +40,15 @@ public class PageAdapter extends FragmentPagerAdapter {
     @Override
 
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
+        TabsNames tabsNames = TabsNames.values()[position];
+        switch (tabsNames) {
+            case TOP_STORIES:
                 fragmentsArray[0] = NewsFragment.newInstance(position, this.section);
                 return fragmentsArray[0];
-            case 1:
+            case MOST_POPULAR:
                 fragmentsArray[1] = NewsFragment.newInstance(position, this.section);
                 return fragmentsArray[1];
-            case 2:
+            case CUSTOM_TAB:
                 return NewsFragment.newInstance(position, this.titleArray[2].toLowerCase());
             default:
                 return NewsFragment.newInstance(position, this.section);

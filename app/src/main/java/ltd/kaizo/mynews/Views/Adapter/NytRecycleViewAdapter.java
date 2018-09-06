@@ -1,4 +1,4 @@
-package ltd.kaizo.mynews.Adapter;
+package ltd.kaizo.mynews.Views.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

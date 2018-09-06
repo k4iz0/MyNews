@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/bluePrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/blueDark</item>
+
     </style>
 
     <!-- Toolbar theme. -->

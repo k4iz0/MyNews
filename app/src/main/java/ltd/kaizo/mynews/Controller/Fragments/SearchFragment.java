@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
 import com.google.gson.Gson;
 
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
+import ltd.kaizo.mynews.BuildConfig;
 import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.Model.Utils.Androidjob.AndroidJobCreator;
 import ltd.kaizo.mynews.R;
@@ -34,16 +36,14 @@ import static ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob.sch
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_TAG;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.write;
 
 /**
  * The type Search fragment.
  */
 public class SearchFragment extends BaseFragment {
-    /**
-     * The constant Key_TAG.
-     */
-    public static final String Key_TAG = "";
+
     /**
      * The Begin date title.
      */
@@ -221,16 +221,17 @@ public class SearchFragment extends BaseFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (configureNotificationRessearch()) {
+                if (configureNotificationResearch()) {
 
                     if (isChecked) {
-                        jobID = schedulePeriodicJob();
                         Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
                         Log.i("notificationJob", "job start ");
                     } else {
                         Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
                         cancelJob(jobID);
                         Log.i("notificationJob", "job cancel ");
+                        //erase notification in sharedPreferences
+                        write(Key_SEARCHQUERY_NOTIFICATION, "");
                     }
                 } else {
                     notificationSwitch.setChecked(false);
@@ -241,6 +242,7 @@ public class SearchFragment extends BaseFragment {
 
     private void configureNotificationJob() {
         JobManager.create(getContext()).addJobCreator(new AndroidJobCreator());
+        jobID = schedulePeriodicJob();
     }
 
 
@@ -267,6 +269,8 @@ public class SearchFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 configureSearchRequest();
+                boolean execute = false;
+
                 if (searchQuery.getQueryTerms().trim().equals("")) {
                     Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
@@ -275,7 +279,10 @@ public class SearchFragment extends BaseFragment {
                     if (dateIsValid(searchQuery.getBeginDate(), searchQuery.getEndDate())) {
                         Toasty.error(getContext(), "You need to select a valid time period !", Toast.LENGTH_SHORT).show();
                     }
-                } else {
+                    else execute = true;
+                }
+                else {execute =true;}
+                if (execute) {
                     configureAndShowNewsFragment();
                 }
             }
@@ -283,21 +290,20 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-    private Boolean configureNotificationRessearch() {
+    private Boolean configureNotificationResearch() {
         this.configureSearchRequest();
+        Boolean isValid = false;
         if (this.searchQuery.getQueryTerms().trim().equals("")) {
             Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
-            return false;
         } else if (this.searchQuery.getQueryFields().equals("")) {
             Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
-            return false;
         } else {
             gson = new Gson();
             write(Key_SEARCHQUERY_NOTIFICATION,gson.toJson(this.searchQuery));
             this.configureNotificationJob();
-            return true;
+            isValid = true;
         }
-
+        return isValid;
     }
 
     /**

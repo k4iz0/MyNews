@@ -1,12 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/bluePrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/blueDark</item>
-        <item name="android:statusBarColor">@color/bluePrimary</item>
-        <item name="android:navigationBarColor">@color/black</item>
+
     </style>
+
+    <!-- Toolbar theme. -->
+
+    <!--<style name="ToolBarStyle" parent="AppTheme">-->
+
+    <!--<item name="android:textColorPrimary">@android:color/white</item>-->
+    <!--<item name="colorControlNormal">@android:color/white</item>-->
+
+    <!--</style>-->
+
 </resources>

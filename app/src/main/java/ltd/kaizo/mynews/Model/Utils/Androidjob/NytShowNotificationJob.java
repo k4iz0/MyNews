@@ -1,6 +1,5 @@
 package ltd.kaizo.mynews.Model.Utils.Androidjob;
 
-import android.app.Notification;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -21,8 +20,8 @@ import ltd.kaizo.mynews.Model.Utils.NotificationHelper;
 import ltd.kaizo.mynews.Model.Utils.NytStream;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
-import static ltd.kaizo.mynews.Model.Utils.NotificationHelper.NYT_CHANNEL_ID;
 
 public class NytShowNotificationJob extends Job {
     public static final String JOB_TAG = "NytShowNotificationJobTag";
@@ -48,18 +47,12 @@ public class NytShowNotificationJob extends Job {
     @Override
     protected Result onRunJob(@NonNull Params params) {
 
-        this.searchQuery = this.getSearchQueryFromSharedPreferences();
-        Log.i("jobInfo", "u search for " + searchQuery.getQueryTerms()
-                + "\n and u checked :" + searchQuery.getQueryFields()
-        );
+        this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+
         executeStreamFetchSearchArticleFromNotification();
         return Result.SUCCESS;
     }
 
-    private SearchQuery getSearchQueryFromSharedPreferences() {
-        Gson gson = new Gson();
-        return gson.fromJson(read(Key_SEARCHQUERY_NOTIFICATION, this.gsonStr), SearchQuery.class);
-    }
 
     private void executeStreamFetchSearchArticleFromNotification() {
         this.disposable = NytStream.streamFetchSearchArticle(

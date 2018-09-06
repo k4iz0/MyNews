@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Controller.Activities.MainActivity"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +23,7 @@
         </activity>
         <activity
             android:name=".Controller.Activities.SearchActivity"
+            android:screenOrientation="portrait"
             android:label="Search"
             android:parentActivityName=".Controller.Activities.MainActivity"
             >
@@ -31,6 +33,7 @@
         </activity>
         <activity
             android:name=".Controller.Activities.DetailActivity"
+            android:screenOrientation="portrait"
             android:label="Detail"
             android:parentActivityName=".Controller.Activities.MainActivity">
             <meta-data
@@ -39,6 +42,7 @@
         </activity>
         <activity
             android:name=".Controller.Activities.NotificationActivity"
+            android:screenOrientation="portrait"
             android:label="notifications"
             android:parentActivityName=".Controller.Activities.MainActivity">
             <meta-data
