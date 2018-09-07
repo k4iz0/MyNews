@@ -11,12 +11,26 @@ import butterknife.ButterKnife;
 import icepick.Icepick;
 import icepick.State;
 
+/**
+ * The type Base fragment.
+ */
 public abstract class BaseFragment extends Fragment {
 
+    /**
+     * Gets fragment layout.
+     *
+     * @return the fragment layout
+     */
     protected abstract int getFragmentLayout();
 
+    /**
+     * Configure design.
+     */
     protected abstract void configureDesign();
 
+    /**
+     * Update design.
+     */
     protected abstract void updateDesign();
 
     @Override

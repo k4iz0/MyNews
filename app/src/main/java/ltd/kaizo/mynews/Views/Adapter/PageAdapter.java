@@ -9,14 +9,38 @@ import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
 import ltd.kaizo.mynews.Model.TabsNames;
 
+/**
+ * The type Page adapter.
+ */
 public class PageAdapter extends FragmentPagerAdapter {
 
+    /**
+     * The constant NUM_ITEMS.
+     */
     private static int NUM_ITEMS = 3;
+    /**
+     * The Position.
+     */
     int position;
+    /**
+     * The Section.
+     */
     private String section;
+    /**
+     * The Fragments array.
+     */
     private BaseFragment[] fragmentsArray;
+    /**
+     * The Title array.
+     */
     private String[] titleArray;
 
+    /**
+     * Instantiates a new Page adapter.
+     *
+     * @param mgr     the manager
+     * @param section the section
+     */
     public PageAdapter(FragmentManager mgr, String section) {
         super(mgr);
         this.section = section;
@@ -32,6 +56,9 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     }
 
+    /**
+     * Configure array.
+     */
     private void configureArray() {
         this.fragmentsArray = new NewsFragment[NUM_ITEMS];
         this.titleArray = new String[]{"TOP STORIES", "MOST POPULAR", "SCIENCE"};
@@ -65,6 +92,11 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
 
+    /**
+     * Update section.
+     *
+     * @param section the section
+     */
     public void updateSection(String section) {
         this.section = section;
         if (fragmentsArray[0] != null)

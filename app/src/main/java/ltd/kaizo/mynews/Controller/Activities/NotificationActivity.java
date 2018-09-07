@@ -16,10 +16,22 @@ import ltd.kaizo.mynews.R;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
 
+/**
+ * The type Notification activity.
+ */
 public class NotificationActivity extends AppCompatActivity {
+    /**
+     * The Toolbar.
+     */
     @BindView(R.id.activity_notification_toolbar)
     Toolbar toolbar;
+    /**
+     * The Search query notification.
+     */
     private String searchQueryNotification = "";
+    /**
+     * The Key tag.
+     */
     private int keyTag = 0;
 
     @Override
@@ -27,21 +39,20 @@ public class NotificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+        //bind view
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        searchQueryNotification = intent.getStringExtra("notificationSearch");
-        keyTag = intent.getIntExtra("Key_TAG", 0);
+        //getting data from intent
+        searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearch));
+        keyTag = intent.getIntExtra(getString(R.string.Key_TAGExtra), 0);
         this.configureToolbar();
-        switch (keyTag) {
-            case 0:
-                this.configureAndShowSearchFragment();
-                break;
-            case 30:
-                this.configureAndShowNewsFragment();
-        }
+        this.showFragment(keyTag);
 
     }
 
+    /**
+     * Configure toolbar.
+     */
     private void configureToolbar() {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -50,6 +61,23 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Show fragment.
+     *
+     * @param keyTag the key tag
+     */
+    private void showFragment(int keyTag) {
+        if (keyTag == 30) {
+            this.configureAndShowNewsFragment();
+        } else {
+            this.configureAndShowSearchFragment();
+        }
+
+    }
+
+    /**
+     * Configure and show search fragment.
+     */
     protected void configureAndShowSearchFragment() {
         BaseFragment searchFragment = SearchFragment.newInstance(10);
         if (searchFragment != null) {
@@ -71,6 +99,11 @@ public class NotificationActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Save data to bundle bundle.
+     *
+     * @return the bundle
+     */
     private Bundle saveDataToBundle() {
         Bundle args = new Bundle();
         args.putString(Key_SEARCHQUERY_NOTIFICATION, this.searchQueryNotification);

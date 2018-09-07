@@ -30,4 +30,5 @@
     <string name="notification">MyNews notification !</string>
     <string name="notificationSearchExtra">notificationSearch</string>
     <string name="Key_TAGExtra">Key_TAG</string>
+    <string name="notificationSearch">notificationSearch</string>
 </resources>

@@ -73,6 +73,7 @@ public class NotificationHelper extends ContextWrapper {
      * Create an Intent for the NotificationActivity and pass the search specification
      * and key tag via extra
      * create the TaskStackBuilder
+     *
      * @return the pending intent
      */
     private PendingIntent getPendingIntent() {

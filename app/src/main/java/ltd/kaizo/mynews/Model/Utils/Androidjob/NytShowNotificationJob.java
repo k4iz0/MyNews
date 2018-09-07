@@ -23,13 +23,36 @@ import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOT
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 
+/**
+ * The type Nyt show notification job.
+ */
 public class NytShowNotificationJob extends Job {
+    /**
+     * The constant JOB_TAG.
+     */
     public static final String JOB_TAG = "NytShowNotificationJobTag";
+    /**
+     * The Search query.
+     */
     private SearchQuery searchQuery;
+    /**
+     * The Gson str.
+     */
     private String gsonStr = "";
+    /**
+     * The Disposable.
+     */
     private Disposable disposable;
+    /**
+     * The Nyt article converter.
+     */
     private NytArticleConverter nytArticleConverter;
 
+    /**
+     * Schedule periodic job int.
+     *
+     * @return the int
+     */
     public static int schedulePeriodicJob() {
         return new JobRequest.Builder(NytShowNotificationJob.JOB_TAG)
                 .setPeriodic(TimeUnit.MINUTES.toMillis(15))
@@ -39,6 +62,11 @@ public class NytShowNotificationJob extends Job {
                 .schedule();
     }
 
+    /**
+     * Cancel job.
+     *
+     * @param jobId the job id
+     */
     public static void cancelJob(int jobId) {
         JobManager.instance().cancel(jobId);
     }
@@ -54,6 +82,9 @@ public class NytShowNotificationJob extends Job {
     }
 
 
+    /**
+     * Execute stream fetch search article from notification.
+     */
     private void executeStreamFetchSearchArticleFromNotification() {
         this.disposable = NytStream.streamFetchSearchArticle(
                 searchQuery.getQueryTerms(),
@@ -82,6 +113,9 @@ public class NytShowNotificationJob extends Job {
 
     }
 
+    /**
+     * Configure notification.
+     */
     private void configureNotification() {
         NotificationHelper notificationHelper = new NotificationHelper(getContext());
         NotificationCompat.Builder builder = notificationHelper.notificationBuilder();

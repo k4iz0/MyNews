@@ -11,7 +11,13 @@ import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.SearchFragment;
 import ltd.kaizo.mynews.R;
 
+/**
+ * The type Search activity.
+ */
 public class SearchActivity extends AppCompatActivity {
+    /**
+     * The Toolbar.
+     */
     @BindView(R.id.activity_search_toolbar)
     Toolbar toolbar;
     @Override
@@ -23,6 +29,9 @@ public class SearchActivity extends AppCompatActivity {
         this.configureToolbar();
     }
 
+    /**
+     * Configure toolbar.
+     */
     private void configureToolbar() {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -31,6 +40,9 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Configure and show search fragment.
+     */
     protected void configureAndShowSearchFragment() {
         BaseFragment searchFragment = SearchFragment.newInstance(20);
         if (searchFragment != null) {

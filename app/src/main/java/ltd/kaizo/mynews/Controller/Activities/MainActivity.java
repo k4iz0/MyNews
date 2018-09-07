@@ -22,20 +22,47 @@ import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Views.Adapter.PageAdapter;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    /**
+     * The View pager.
+     */
     @BindView(R.id.activity_main_viewpager)
     ViewPager viewPager;
+    /**
+     * The Tabs.
+     */
     @BindView(R.id.activity_main_tabs)
     TabLayout tabs;
+    /**
+     * The Toolbar.
+     */
     @BindView(R.id.activity_main_toolbar)
     Toolbar toolbar;
+    /**
+     * The Drawer layout.
+     */
     @BindView(R.id.activity_main_drawer_layout)
     DrawerLayout drawerLayout;
+    /**
+     * The Navigation view.
+     */
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
+    /**
+     * The Section.
+     */
     @State
     String section = "world";
+    /**
+     * The View pager adapter.
+     */
     private PageAdapter viewPagerAdapter;
+    /**
+     * The Help url.
+     */
     private String helpUrl = "http://bfy.tw/JedE";
 
     @Override
@@ -51,31 +78,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    // *******************************
-
-    //         CONFIGURATION
-
-    // *******************************
-
-    private void configureNavigationView() {
-        navigationView.setNavigationItemSelectedListener(this);
-        Menu menu = navigationView.getMenu();
-        MenuItem item = menu.add(R.id.activity_main_drawer_group, R.id.activity_main_drawer_Arts, 3, R.string.Arts);
-        item.setActionView(R.layout.menu_icon);
-
-    }
-
-    private void configureDrawerLayout() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-    }
-
+    /**
+     * Configure toolbar.
+     */
     private void configureToolbar() {
         setSupportActionBar(toolbar);
     }
 
+    // *******************************
+
+    //        VIEWPAGER
+
+    // *******************************
+
+    /**
+     * Configure view pager with tabs.
+     *
+     * @param section the section
+     */
     private void configureViewPagerWithTabs(String section) {
         viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section);
         viewPager.setAdapter(viewPagerAdapter);
@@ -109,7 +129,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     }
+    // *******************************
 
+    //         NAVIGATION DRAWER
+
+    // *******************************
+
+    /**
+     * Configure navigation drawer listener.
+     */
+    private void configureNavigationView() {
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    /**
+     * Configure navigation drawer layout.
+     */
+    private void configureDrawerLayout() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+    }
+
+    /**
+     * update the section according to the item'value on click
+     *
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

@@ -15,14 +15,43 @@ import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Views.NytViewHolder;
 
+/**
+ * The type Nyt recycle view adapter.
+ */
 public class NytRecycleViewAdapter extends RecyclerView.Adapter<NytViewHolder>{
+    /**
+     * The interface Listener.
+     */
     public interface Listener {
+        /**
+         * On click get url string.
+         *
+         * @param position the position
+         * @return the string
+         */
         String OnClickGetUrl(int position);
     }
+
+    /**
+     * The Glide.
+     */
     private  RequestManager glide;
+    /**
+     * The Article formatter list.
+     */
     private List<ArticleFormatter> articleFormatterList;
+    /**
+     * The Callback.
+     */
     private final Listener callback;
 
+    /**
+     * Instantiates a new Nyt recycle view adapter.
+     *
+     * @param articleFormatterList the article formatter list
+     * @param glide                the glide
+     * @param callback             the callback
+     */
     public NytRecycleViewAdapter(List<ArticleFormatter> articleFormatterList, RequestManager glide, Listener callback) {
         this.articleFormatterList = articleFormatterList;
         this.glide = glide;
