@@ -55,7 +55,7 @@ public class NytShowNotificationJob extends Job {
      */
     public static int schedulePeriodicJob() {
         return new JobRequest.Builder(NytShowNotificationJob.JOB_TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15))
+                .setPeriodic(TimeUnit.DAYS.toMillis(1),TimeUnit.HOURS.toMillis(2))
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .setUpdateCurrent(true)
                 .build()

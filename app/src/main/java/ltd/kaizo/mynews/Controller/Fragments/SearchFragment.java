@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.evernote.android.job.JobManager;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -35,6 +36,8 @@ import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_TAG;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.write;
 
 /**
@@ -202,13 +205,17 @@ public class SearchFragment extends BaseFragment {
      */
     @Override
     protected void configureDesign() {
-        searchQuery = new SearchQuery();
+        this.searchQuery = new SearchQuery();
         this.configureCalendar();
         this.configureDatePicker();
 
         switch (this.tag) {
             case 10:
+                if (!read(Key_SEARCHQUERY_NOTIFICATION, "0").equals("")) {
+                this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+                }
                 this.configureDesignForNotification();
+                this.configureNotificationTextView();
                 this.configureNotificationSwitch();
                 break;
             case 20:
@@ -236,14 +243,17 @@ public class SearchFragment extends BaseFragment {
                 if (configureNotificationResearch()) {
 
                     if (isChecked) {
-                        Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getContext(), "notification set !", Toast.LENGTH_SHORT).show();
                         Log.i("notificationJob", "job start ");
+                        configureNotificationTextView();
                     } else {
-                        Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getContext(), "notification cancel", Toast.LENGTH_SHORT).show();
                         cancelJob(jobID);
                         Log.i("notificationJob", "job cancel ");
+                        configureNotificationTextView();
                         //erase notification in sharedPreferences
                         write(Key_SEARCHQUERY_NOTIFICATION, "");
+                        searchQuery = new SearchQuery();
                     }
                 } else {
                     notificationSwitch.setChecked(false);
@@ -273,6 +283,23 @@ public class SearchFragment extends BaseFragment {
         this.endDateTitle.setVisibility(View.GONE);
         this.notificationSwitch.setVisibility(View.VISIBLE);
         this.notificationTextView.setVisibility(View.VISIBLE);
+        if (!read(Key_SEARCHQUERY_NOTIFICATION, "0").equalsIgnoreCase("")) {
+            this.notificationSwitch.setChecked(true);
+        }
+    }
+
+    /**
+     * set the notification textView
+     * according to the notification's  switch status
+     */
+    private void configureNotificationTextView() {
+        if (notificationSwitch.isChecked()) {
+            this.notificationTextView.setText("Notification enable for " + searchQuery.getQueryTerms() + ", cancel ?");
+            this.searchEdiText.setText(searchQuery.getQueryTerms());
+        } else {
+            this.notificationTextView.setText(getString(R.string.enable_notifications));
+            this.searchEdiText.setText("");
+        }
     }
 
     /**
@@ -312,7 +339,6 @@ public class SearchFragment extends BaseFragment {
             public void onClick(View v) {
                 configureSearchRequest();
                 boolean execute = false;
-
                 if (searchQuery.getQueryTerms().trim().equals("")) {
                     Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
                 } else if (searchQuery.getQueryFields().equals("")) {
@@ -331,7 +357,6 @@ public class SearchFragment extends BaseFragment {
         });
 
     }
-
 
     /**
      * Configure and show news fragment.
@@ -364,11 +389,14 @@ public class SearchFragment extends BaseFragment {
     private void configureSearchRequest() {
         this.beginDate = beginDateTextview.getText().toString();
         this.endDate = endDateTextview.getText().toString();
-        searchQuery.setQueryTerms(searchEdiText.getText().toString());
+        this.searchQuery.setQueryTerms(searchEdiText.getText().toString());
         this.configureCheckboxValues();
-        if (!beginDate.equals("") || !beginDate.equals("")) {
-            searchQuery.setBeginDate(beginDate);
-            searchQuery.setEndDate(endDate);
+        //for SearchActivity
+        if (tag == 20) {
+            if (!beginDate.equals("") || !beginDate.equals("")) {
+                searchQuery.setBeginDate(beginDate);
+                searchQuery.setEndDate(endDate);
+            }
         }
 
     }
@@ -377,7 +405,7 @@ public class SearchFragment extends BaseFragment {
      * check if the begin date isn't greater than the end date
      *
      * @param date1 the date 1
-     * @param date2 the date 2star wars
+     * @param date2 the date 2
      * @return the boolean
      */
     private Boolean dateIsValid(String date1, String date2) {
