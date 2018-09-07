@@ -26,4 +26,8 @@
     <string name="business">Business</string>
     <string name="pick_a_date"> __ /__ /__ </string>
     <string name="enable_notifications">Enable notifications (once per day)</string>
+    <string name="article_found">new article found for you !</string>
+    <string name="notification">MyNews notification !</string>
+    <string name="notificationSearchExtra">notificationSearch</string>
+    <string name="Key_TAGExtra">Key_TAG</string>
 </resources>

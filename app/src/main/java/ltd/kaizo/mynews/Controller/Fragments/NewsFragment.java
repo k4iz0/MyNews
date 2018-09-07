@@ -42,30 +42,79 @@ import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.saveData;
 
+/**
+ * The type News fragment.
+ */
 public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.Listener {
+    /**
+     * The Recycler view.
+     */
     @BindView(R.id.fragment_news_recycleview)
     RecyclerView recyclerView;
+    /**
+     * The Fragment news layout.
+     */
     @BindView(R.id.fragment_page_rootview)
     LinearLayout fragmentNewsLayout;
+    /**
+     * The Swipe refresh layout.
+     */
     @BindView(R.id.fragment_news_swipe_container)
     SwipeRefreshLayout swipeRefreshLayout;
+    /**
+     * The Section.
+     */
     @State
     String section;
+    /**
+     * The Position.
+     */
     @State
     int position;
+    /**
+     * The Adapter.
+     */
     private NytRecycleViewAdapter adapter;
+    /**
+     * The Nyt article converter.
+     */
     private NytArticleConverter nytArticleConverter;
+    /**
+     * The Disposable.
+     */
     private Disposable disposable;
+    /**
+     * The Article formatter list.
+     */
     private List<ArticleFormatter> articleFormatterList;
+    /**
+     * The Search query.
+     */
     private SearchQuery searchQuery;
+    /**
+     * The Gson.
+     */
     private Gson gson;
+    /**
+     * The Gson str.
+     */
     private String gsonStr = "";
 
+    /**
+     * Instantiates a new News fragment.
+     */
     public NewsFragment() {
 
     }
 
 
+    /**
+     * New instance base fragment.
+     *
+     * @param position the position of the tab
+     * @param section  the section
+     * @return the base fragment
+     */
     public static BaseFragment newInstance(int position, String section) {
         NewsFragment frag = new NewsFragment();
         Bundle bundle = new Bundle();
@@ -88,11 +137,6 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         this.disposeWhenDestroy();
@@ -112,6 +156,9 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     }
 
+    /**
+     * Execute http request according to tabs
+     */
     private void executeHttpRequest() {
         TabsNames tabsNames = TabsNames.values()[this.position];
         switch (tabsNames) {
@@ -126,13 +173,8 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                 this.executeStreamFetchTopStories();
                 break;
             case SEARCH:
-                Log.i(TAG, "position 3:  position =" + position);
                 gson = new Gson();
                 this.searchQuery = gson.fromJson(this.gsonStr, SearchQuery.class);
-                Log.i("searchQuery", "term : " + searchQuery.getQueryTerms()
-                        + "\n fields : " + searchQuery.getQueryFields()
-                        + "\n beginDate : " + searchQuery.getBeginDate()
-                        + "\n enDate : " + searchQuery.getEndDate());
                 this.executeStreamFetchSearchArticle();
                 break;
             default:
@@ -140,6 +182,10 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         }
     }
 
+    /**
+     * Execute stream fetch search article,
+     * and convert the result to a list for the recycleView
+     */
     private void executeStreamFetchSearchArticle() {
         this.disposable = NytStream.streamFetchSearchArticle(
                 searchQuery.getQueryTerms(),
@@ -170,6 +216,10 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     }
 
+    /**
+     * Execute stream fetch top stories
+     * and convert the result to a list for the recycleView
+     */
     private void executeStreamFetchTopStories() {
         this.disposable = NytStream.streamFetchTopStories(section).subscribeWith(new DisposableObserver<NytTopStoriesAPIData>() {
             @Override
@@ -194,6 +244,10 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     }
 
+    /**
+     * Execute stream fetch most popular stories
+     * and convert the result to a list for the recycleView
+     */
     private void executeStreamFetchMostPopularStories() {
 
         this.disposable = NytStream.streamFetchMostPopularStories(section).subscribeWith(new DisposableObserver<NytMostPopularAPIData>() {
@@ -226,6 +280,11 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         this.executeStreamFetchMostPopularStories();
     }
 
+    /**
+     * Configure the recycleView by giving to the adapter
+     * a formatted list of articles, a glide Object
+     * and a callback to manage the item's click
+     */
     public void configureRecycleView() {
         this.articleFormatterList = new ArrayList<>();
         this.adapter = new NytRecycleViewAdapter(this.articleFormatterList, Glide.with(this), this);
@@ -234,6 +293,11 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     }
 
+    /**
+     * Configure on click recycler view
+     * open a webView in detailActivity when a click is detected on an item
+     * of the recycleView, sending the url for the webView through the intent.
+     */
     private void configureOnClickRecyclerView() {
         ItemClickSupport.addTo(recyclerView, R.layout.news_fragment_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -246,6 +310,10 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                 });
     }
 
+    /**
+     * Configure swipe refresh layout.
+     * change default color and execute a new HTTP request
+     */
     private void configureSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.bluePrimary));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -256,6 +324,11 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         });
     }
 
+    /**
+     * Update ui with a new list of articles for the recycleView adapter
+     *
+     * @param articleList the article list
+     */
     private void updateUI(List<ArticleFormatter> articleList) {
         swipeRefreshLayout.setRefreshing(false);
         this.articleFormatterList.clear();
@@ -263,17 +336,30 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Dispose when destroy.
+     */
     private void disposeWhenDestroy() {
 
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
 
     }
 
+    /**
+     * return the url of an article when u click on it
+     * @param position of the item
+     * @return the url of the article
+     */
     @Override
     public String OnClickGetUrl(int position) {
         return this.articleFormatterList.get(position).getArticleUrl();
     }
 
+    /**
+     * Update section and save data to sharedPreferences
+     *
+     * @param section the section
+     */
     public void updateSection(String section) {
         this.section = section;
         saveData(this.position, this.section, this.searchQuery);

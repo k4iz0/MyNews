@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.State;
-import ltd.kaizo.mynews.Views.Adapter.PageAdapter;
 import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.Views.Adapter.PageAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.activity_main_viewpager)
@@ -33,9 +33,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-    @State String section = "world";
+    @State
+    String section = "world";
     private PageAdapter viewPagerAdapter;
     private String helpUrl = "http://bfy.tw/JedE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void configureNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        MenuItem item = menu.add(R.id.activity_main_drawer_group, R.id.activity_main_drawer_Arts, 3, R.string.Arts);
+        item.setActionView(R.layout.menu_icon);
+
     }
 
     private void configureDrawerLayout() {
@@ -111,47 +117,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.activity_main_drawer_Science:
                 this.section = getString(R.string.Science).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_world:
                 this.section = getString(R.string.World).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Technology:
                 this.section = getString(R.string.Technology).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Arts:
                 this.section = getString(R.string.Arts).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Books:
                 this.section = getString(R.string.Books).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Politics:
                 this.section = getString(R.string.Politics).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Health:
                 this.section = getString(R.string.Health).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             case R.id.activity_main_drawer_Travel:
                 this.section = getString(R.string.Travel).toLowerCase();
-                this.viewPagerAdapter.updateSection(this.section);
                 break;
 
             default:
                 break;
         }
+        this.viewPagerAdapter.updateSection(this.section);
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

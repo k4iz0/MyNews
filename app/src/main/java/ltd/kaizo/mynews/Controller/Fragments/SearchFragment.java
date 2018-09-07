@@ -154,12 +154,14 @@ public class SearchFragment extends BaseFragment {
      * The Tag.
      */
     private int tag;
+    /**
+     * The Job id.
+     */
     private int jobID;
 
     /**
      * Instantiates a new Search fragment.
      */
-
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -216,6 +218,9 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Configure notification switch.
+     */
     private void configureNotificationSwitch() {
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -240,6 +245,9 @@ public class SearchFragment extends BaseFragment {
         });
     }
 
+    /**
+     * Configure notification job.
+     */
     private void configureNotificationJob() {
         JobManager.create(getContext()).addJobCreator(new AndroidJobCreator());
         jobID = schedulePeriodicJob();
@@ -290,6 +298,11 @@ public class SearchFragment extends BaseFragment {
 
     }
 
+    /**
+     * Configure notification research boolean.
+     *
+     * @return the boolean
+     */
     private Boolean configureNotificationResearch() {
         this.configureSearchRequest();
         Boolean isValid = false;
@@ -318,6 +331,11 @@ public class SearchFragment extends BaseFragment {
                 .commit();
     }
 
+    /**
+     * Save data to bundle bundle.
+     *
+     * @return the bundle
+     */
     private Bundle saveDataToBundle() {
         gson = new Gson();
         Bundle args = new Bundle();
