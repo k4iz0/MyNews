@@ -10,10 +10,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-    /**
+     /**
      * The Section.
      */
     @State
@@ -124,10 +131,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_activity_main_help:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(helpUrl));
                 startActivity(browserIntent);
+                return true;
+            case R.id.menu_activity_main_about:
+                openDialog();
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    /**
+     * method to configure AlertDialog on "about" click
+     */
+    private void openDialog() {
+        // Linkify the message
+        SpannableString str = new SpannableString(getString(R.string.nyt_url));
+        Linkify.addLinks(str, Linkify.ALL);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.layout_dialog, null);
+        final TextView nytUrl = view.findViewById(R.id.dialog_nyt_url);
+        nytUrl.setText(str);
+        builder.setView(view)
+                .setCancelable(true)
+                .show();
+        nytUrl.setMovementMethod(LinkMovementMethod.getInstance());
     }
     // *******************************
 
@@ -198,8 +225,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 break;
         }
+        Log.i("navigationDrawer", "onNavigationItemSelected: " + this.section);
         this.viewPagerAdapter.updateSection(this.section);
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

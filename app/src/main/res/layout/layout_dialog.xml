@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/dialog_author_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:padding="8dp"
+        android:text="@string/author"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_nyt_title"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_author_text"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/dialog_author_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:text="@string/yann_l"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_nyt_url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialog_author_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <TextView
+        android:id="@+id/dialog_nyt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        android:text="@string/new_york_times"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_year_title"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_nyt_url"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_author_title" />
+
+    <TextView
+        android:id="@+id/dialog_nyt_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        android:text="@string/nyt_url"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_year_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialog_nyt_title"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_author_text" />
+
+
+    <TextView
+        android:id="@+id/dialog_year_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        android:text="@string/year"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_year_date"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_nyt_title" />
+
+    <TextView
+        android:id="@+id/dialog_year_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:padding="5dp"
+        android:text="@string/_2018"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialog_year_title"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_nyt_url" />
+
+    <TextView
+        android:id="@+id/dialog_title_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/about"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_author_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/bluePrimary"
+        android:textStyle="bold"/>
+
+
+</android.support.constraint.ConstraintLayout>

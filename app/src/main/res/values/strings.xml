@@ -31,4 +31,10 @@
     <string name="notificationSearchExtra">notificationSearch</string>
     <string name="Key_TAGExtra">Key_TAG</string>
     <string name="notificationSearch">notificationSearch</string>
+    <string name="author">Author : </string>
+    <string name="yann_l">Yann L.</string>
+    <string name="new_york_times">New York Times : </string>
+    <string name="_2018">2018</string>
+    <string name="year">Year : </string>
+    <string name="nyt_url">https://www.nytimes.com/</string>
 </resources>

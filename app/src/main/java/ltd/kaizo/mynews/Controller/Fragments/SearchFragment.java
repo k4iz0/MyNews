@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.evernote.android.job.JobManager;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -211,8 +210,8 @@ public class SearchFragment extends BaseFragment {
 
         switch (this.tag) {
             case 10:
-                if (!read(Key_SEARCHQUERY_NOTIFICATION, "0").equals("")) {
-                this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+                if (!read(Key_SEARCHQUERY_NOTIFICATION, "").equals("")) {
+                    this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
                 }
                 this.configureDesignForNotification();
                 this.configureNotificationTextView();

@@ -362,7 +362,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
      */
     public void updateSection(String section) {
         this.section = section;
-        saveData(this.position, this.section, this.searchQuery);
+        saveData(this.position, this.section);
         this.executeHttpRequest();
     }
 

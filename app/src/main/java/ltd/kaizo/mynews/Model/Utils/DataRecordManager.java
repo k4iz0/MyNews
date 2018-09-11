@@ -128,13 +128,10 @@ public class DataRecordManager {
      *
      * @param position    the position
      * @param section     the section
-     * @param searchQuery the search query
      */
-    public static void saveData(int position, String section, SearchQuery searchQuery) {
+    public static void saveData(int position, String section) {
         write(KEY_SECTION, section);
         write(Key_POSITION, position);
-        Gson gson = new Gson();
-        write(Key_SEARCHQUERY, gson.toJson(searchQuery));
         Log.i("info", "data saved to sharedPreferences files");
     }
 
