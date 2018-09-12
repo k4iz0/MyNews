@@ -3,7 +3,6 @@ package ltd.kaizo.mynews.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularResult;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
@@ -108,8 +107,7 @@ public class NytArticleConverter {
             if (article.getMultimedia().size() > 0) {
                 imageUrl = article.getMultimedia().get(0).getUrl();
             } else {
-                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
-
+                imageUrl="";
             }
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getTitle(),
                     article.getUrl(),
@@ -131,12 +129,9 @@ public class NytArticleConverter {
     public List<ArticleFormatter> configureMostPopularArticleListForAdapter() {
         this.articleFormatterList = new ArrayList<>();
         for (NytMostPopularResult article : this.nytMostPopularArticleList) {
-            String imageUrl;
+            String imageUrl = "";
             if (article.getMedia().size() > 0) {
                 imageUrl = article.getMedia().get(0).getMediaMetadata().get(0).getUrl();
-            } else {
-                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
-
             }
 
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getTitle(),
@@ -159,11 +154,10 @@ public class NytArticleConverter {
     public List<ArticleFormatter> configureSearchArticleListForAdapter() {
         this.articleFormatterList = new ArrayList<>();
         for (NytSearchArticleDoc article : this.nytSearchArticleList) {
-            String imageUrl;
+//                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
+            String imageUrl = "";
             if (article.getMultimedia().size() > 0) {
-                imageUrl = "https://static01.nyt.com/"+article.getMultimedia().get(0).getUrl();
-            } else {
-                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
+               imageUrl =  "https://static01.nyt.com/" + article.getMultimedia().get(0).getUrl();
             }
 
             ArticleFormatter articleFormatter = new ArticleFormatter(article.getSnippet(),

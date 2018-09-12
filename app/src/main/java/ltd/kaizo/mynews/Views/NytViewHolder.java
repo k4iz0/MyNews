@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.lang.ref.WeakReference;
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
 import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Model.ArticleFormatter;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 /**
@@ -80,7 +83,7 @@ public class NytViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         } else {
             this.itemLocation.setText(String.format("%s > %s", articleFormatterList.get(position).getArticleSection(), articleFormatterList.get(position).getArticleSubSection()));
         }
-        glide.load(articleFormatterList.get(position).getArticlePictureUrl()).apply(RequestOptions.noAnimation()).into(itemImageview);
+        glide.load(articleFormatterList.get(position).getArticlePictureUrl()).apply(RequestOptions.errorOf(R.drawable.nyt).fitCenter()).apply(bitmapTransform(new RoundedCorners(15))).into(itemImageview);
         this.itemConstraintLayout.setOnClickListener(this);
         this.callbackWeakRef = new WeakReference<>(callback);
 

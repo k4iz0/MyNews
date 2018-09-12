@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @BindView(R.id.activity_main_nav_view)
     NavigationView navigationView;
-     /**
+    /**
      * The Section.
      */
     @State
@@ -134,6 +134,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.menu_activity_main_about:
                 openDialog();
+                return true;
+            case R.id.menu_activity_main_setting:
+                Intent settingActivity = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(settingActivity);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 

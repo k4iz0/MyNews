@@ -37,7 +37,7 @@ public interface NytService {
 
 
     /**
-     * The constant retrofit.
+     * The constant retrofit builder
      */
     Retrofit retrofit = new Retrofit.Builder()
 
