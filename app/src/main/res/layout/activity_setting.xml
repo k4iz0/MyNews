@@ -6,4 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".Controller.Activities.SettingActivity">
 
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/activity_setting_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@color/bluePrimary"
+        android:minHeight="?android:attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_setting_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/section_selection"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_setting_toolbar"
+        app:layout_constraintVertical_bias="0.13999999" />
+
+    <Spinner
+        android:id="@+id/activity_setting_spinner"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_setting_textview"
+        app:layout_constraintVertical_bias="0.303"
+        android:gravity="center"/>
 </android.support.constraint.ConstraintLayout>

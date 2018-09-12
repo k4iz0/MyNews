@@ -37,4 +37,15 @@
     <string name="_2018">2018</string>
     <string name="year">Year : </string>
     <string name="nyt_url">https://www.nytimes.com/</string>
+    <string name="section_selection">Select your favorite section for the 3rd tab</string>
+    <string-array name="category_array">
+            <item>World</item>
+            <item>Science</item>
+            <item>Arts</item>
+            <item>Technology</item>
+            <item>Books</item>
+            <item>Politics</item>
+            <item>Health</item>
+            <item>Travel</item>
+        </string-array>
 </resources>

@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * method to configure AlertDialog on "about" click
      */
     private void openDialog() {
-        // Linkify the message
+        // Linkify the url
         SpannableString str = new SpannableString(getString(R.string.nyt_url));
         Linkify.addLinks(str, Linkify.ALL);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

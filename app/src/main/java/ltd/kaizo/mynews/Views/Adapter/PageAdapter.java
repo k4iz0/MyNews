@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import ltd.kaizo.mynews.Controller.Activities.MainActivity;
 import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
 import ltd.kaizo.mynews.Model.TabsNames;
+import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 
 /**
  * The type Page adapter.
@@ -62,6 +64,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     private void configureArray() {
         this.fragmentsArray = new NewsFragment[NUM_ITEMS];
         this.titleArray = new String[]{"TOP STORIES", "MOST POPULAR", "SCIENCE"};
+        this.titleArray[2] = DataRecordManager.read(DataRecordManager.KEY_SECTION_CUSTOM,"SCIENCE");
     }
 
     @Override

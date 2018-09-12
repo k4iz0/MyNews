@@ -18,6 +18,10 @@ public class DataRecordManager {
      */
     public static final String KEY_SECTION = "home";
     /**
+     * The constant KEY_SECTION_CUSTOM
+     */
+    public static final String KEY_SECTION_CUSTOM = "SCIENCE";
+    /**
      * The constant Key_POSITION.
      */
     public static final String Key_POSITION = "0";

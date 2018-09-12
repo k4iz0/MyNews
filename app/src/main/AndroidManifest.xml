@@ -41,14 +41,22 @@
         </activity>
         <activity
             android:name=".Controller.Activities.NotificationActivity"
-            android:label="notific            ations"
+            android:label="notifications"
             android:parentActivityName=".Controller.Activities.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controller.Activities.MainActivity" />
         </activity>
-        <activity android:name=".Controller.Activities.SettingActivity"></activity>
+        <activity
+            android:name=".Controller.Activities.SettingActivity"
+            android:label="settings"
+            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controller.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

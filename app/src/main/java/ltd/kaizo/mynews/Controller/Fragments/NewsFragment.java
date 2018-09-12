@@ -23,8 +23,6 @@ import es.dmoral.toasty.Toasty;
 import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import ltd.kaizo.mynews.Model.TabsNames;
-import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
 import ltd.kaizo.mynews.Model.ArticleFormatter;
 import ltd.kaizo.mynews.Model.NytArticleConverter;
@@ -32,11 +30,12 @@ import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
 import ltd.kaizo.mynews.Model.SearchQuery;
+import ltd.kaizo.mynews.Model.TabsNames;
 import ltd.kaizo.mynews.Model.Utils.ItemClickSupport;
 import ltd.kaizo.mynews.Model.Utils.NytStream;
 import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 
-import static android.support.constraint.Constraints.TAG;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
@@ -347,6 +346,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     /**
      * return the url of an article when u click on it
+     *
      * @param position of the item
      * @return the url of the article
      */
