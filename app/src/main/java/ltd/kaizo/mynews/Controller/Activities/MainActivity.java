@@ -24,10 +24,12 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import icepick.State;
 import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Views.Adapter.PageAdapter;
+
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION_CUSTOM;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 
 /**
  * The type Main activity.
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * The Section.
      */
-    @State
+    private
     String section = "world";
     /**
      * The View pager adapter.
@@ -99,12 +101,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // *******************************
 
     /**
-     * Configure view pager with tabs.
+     * Configure view pager with tabs by setting up the adapter
+     * and get the name of the custom tab from sharePreferences
      *
      * @param section the section
      */
     private void configureViewPagerWithTabs(String section) {
-        viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section);
+        int titlePosition = read(KEY_SECTION_CUSTOM, 1);
+        String customTab = getResources().getStringArray(R.array.category_array)[titlePosition].toUpperCase();
+        viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section, customTab);
         viewPager.setAdapter(viewPagerAdapter);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);

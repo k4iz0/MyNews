@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -293,7 +294,7 @@ public class SearchFragment extends BaseFragment {
      */
     private void configureNotificationTextView() {
         if (notificationSwitch.isChecked()) {
-            this.notificationTextView.setText("Notification enable for " + searchQuery.getQueryTerms() + ", cancel ?");
+            this.notificationTextView.setText(Html.fromHtml("Notification enable for <br><b>"+searchQuery.getQueryTerms()+"</b>, cancel ?"));
             this.searchEdiText.setText(searchQuery.getQueryTerms());
         } else {
             this.notificationTextView.setText(getString(R.string.enable_notifications));
@@ -358,7 +359,7 @@ public class SearchFragment extends BaseFragment {
     }
 
     /**
-     * Configure and show news fragment.
+     * Configure and show newsFragment.
      */
     private void configureAndShowNewsFragment() {
         BaseFragment newsFragment = new NewsFragment();

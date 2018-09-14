@@ -28,7 +28,7 @@ public interface NytService {
     /**
      * The constant interceptor.
      */
-    //TODO comment interceptor
+//TODO comment interceptor
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     /**
      * The constant okHttpClient.

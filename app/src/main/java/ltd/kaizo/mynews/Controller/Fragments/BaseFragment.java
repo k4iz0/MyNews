@@ -6,10 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import butterknife.ButterKnife;
-import icepick.Icepick;
-import icepick.State;
 
 /**
  * The type Base fragment.
@@ -45,7 +42,6 @@ public abstract class BaseFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
         this.updateDesign();
 
     }
@@ -55,8 +51,6 @@ public abstract class BaseFragment extends Fragment {
 
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this, outState);
-
     }
 
 

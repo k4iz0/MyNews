@@ -11,9 +11,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
+import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.R;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 
 /**
@@ -92,13 +94,23 @@ public class NotificationHelper extends ContextWrapper {
      */
     public NotificationCompat.Builder notificationBuilder() {
         return new NotificationCompat.Builder(this, NYT_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.mynews_round)
+                .setSmallIcon(R.mipmap.mynews)
                 .setContentTitle(getString(R.string.notification))
-                .setContentText(getString(R.string.article_found))
+                .setContentText(getNotificationText())
                 .setContentIntent(getPendingIntent())
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+    }
+
+    /**
+     * get the term of the research from sharedPreferences
+     * and add it to the notification text
+     * @return String notification text
+     */
+    private String getNotificationText() {
+        SearchQuery searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+        return getString(R.string.article_found) + searchQuery.getQueryTerms();
     }
 
 }

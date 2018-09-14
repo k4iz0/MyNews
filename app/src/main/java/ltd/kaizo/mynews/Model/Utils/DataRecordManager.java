@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import ltd.kaizo.mynews.Model.SearchQuery;
 
 /**
- * The type Data record manager.
+ * Class to record and read data from the SharedPreferences
  */
 public class DataRecordManager {
     /**
@@ -20,7 +20,7 @@ public class DataRecordManager {
     /**
      * The constant KEY_SECTION_CUSTOM
      */
-    public static final String KEY_SECTION_CUSTOM = "SCIENCE";
+    public static final String KEY_SECTION_CUSTOM = "1";
     /**
      * The constant Key_POSITION.
      */
@@ -130,8 +130,8 @@ public class DataRecordManager {
     /**
      * Save data.
      *
-     * @param position    the position
-     * @param section     the section
+     * @param position the position
+     * @param section  the section
      */
     public static void saveData(int position, String section) {
         write(KEY_SECTION, section);

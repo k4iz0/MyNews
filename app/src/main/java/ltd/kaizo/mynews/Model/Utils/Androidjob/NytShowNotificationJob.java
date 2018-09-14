@@ -7,13 +7,11 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
-import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import ltd.kaizo.mynews.Model.NytArticleConverter;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.Model.Utils.NotificationHelper;
@@ -21,12 +19,11 @@ import ltd.kaizo.mynews.Model.Utils.NytStream;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 
-/**
- * The type Nyt show notification job.
- */
-public class NytShowNotificationJob extends Job {
+    /**
+     * The type Nyt show notification job.
+     */
+    public class NytShowNotificationJob extends Job {
     /**
      * The constant JOB_TAG.
      */
@@ -36,26 +33,18 @@ public class NytShowNotificationJob extends Job {
      */
     private SearchQuery searchQuery;
     /**
-     * The Gson str.
-     */
-    private String gsonStr = "";
-    /**
      * The Disposable.
      */
     private Disposable disposable;
-    /**
-     * The Nyt article converter.
-     */
-    private NytArticleConverter nytArticleConverter;
 
     /**
-     * Schedule periodic job int.
+     * Schedule daily job int.
      *
-     * @return the int
+     * @return the int jobID
      */
     public static int schedulePeriodicJob() {
         return new JobRequest.Builder(NytShowNotificationJob.JOB_TAG)
-                .setPeriodic(TimeUnit.DAYS.toMillis(1))
+                .setPeriodic(TimeUnit.MINUTES.toMillis(15))
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .setUpdateCurrent(true)
                 .build()

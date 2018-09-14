@@ -20,7 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
-import icepick.State;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import ltd.kaizo.mynews.Controller.Activities.DetailActivity;
@@ -63,12 +62,12 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
     /**
      * The Section.
      */
-    @State
+    private
     String section;
     /**
      * The Position.
      */
-    @State
+    private
     int position;
     /**
      * The Adapter.

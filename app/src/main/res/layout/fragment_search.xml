@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:hint="@string/search_query_term"
         android:inputType="text"
-        android:maxLength="50"
+        android:maxLength="20"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left"
-        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox_business,fragment_search_checkbox_sports,fragment_search_checkbox_arts,fragment_search_textview_begindate,fragment_search_edittext"
+        app:constraint_referenced_ids="fragment_search_button,fragment_search_checkbox_business,fragment_search_checkbox_sports,fragment_search_checkbox_arts,fragment_search_textview_begindate,fragment_search_edittext,fragment_search_notification_textview"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -170,14 +170,14 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:text="@string/enable_notifications"
-        android:textSize="16sp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_notification_switch"
         app:layout_constraintEnd_toStartOf="@+id/fragment_search_notification_switch"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/barrier1" />
 
     <Switch
         android:id="@+id/fragment_search_notification_switch"

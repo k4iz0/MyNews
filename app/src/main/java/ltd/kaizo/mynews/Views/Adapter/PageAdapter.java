@@ -5,11 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ltd.kaizo.mynews.Controller.Activities.MainActivity;
 import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
 import ltd.kaizo.mynews.Model.TabsNames;
-import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 
 /**
  * The type Page adapter.
@@ -36,16 +34,22 @@ public class PageAdapter extends FragmentPagerAdapter {
      * The Title array.
      */
     private String[] titleArray;
+    /**
+     * The custom tab category name
+     */
+    private String customTab;
 
     /**
      * Instantiates a new Page adapter.
      *
-     * @param mgr     the manager
-     * @param section the section
+     * @param mgr       the manager
+     * @param section   the section
+     * @param customTab the custom tab's name
      */
-    public PageAdapter(FragmentManager mgr, String section) {
+    public PageAdapter(FragmentManager mgr, String section, String customTab) {
         super(mgr);
         this.section = section;
+        this.customTab = customTab;
         this.configureArray();
     }
 
@@ -59,12 +63,11 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
     /**
-     * Configure array.
+     * Configure array of fragment and title for viewPager's tabs
      */
     private void configureArray() {
         this.fragmentsArray = new NewsFragment[NUM_ITEMS];
-        this.titleArray = new String[]{"TOP STORIES", "MOST POPULAR", "SCIENCE"};
-        this.titleArray[2] = DataRecordManager.read(DataRecordManager.KEY_SECTION_CUSTOM,"SCIENCE");
+        this.titleArray = new String[]{"TOP STORIES", "MOST POPULAR", this.customTab};
     }
 
     @Override

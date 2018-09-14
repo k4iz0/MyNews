@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
-import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
+
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION_CUSTOM;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.write;
 
 /**
  * The type Setting activity.
@@ -36,7 +38,6 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
      */
     @BindView(R.id.activity_setting_toolbar)
     Toolbar toolbar;
-    private String section;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,10 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
      * Configure spinner by setting up the adapter and the onClick Listener
      */
     private void configureSpinner() {
+        int customTabPosition = read(KEY_SECTION_CUSTOM, 1);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_array, R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(customTabPosition);
         spinner.setOnItemSelectedListener(this);
     }
 
@@ -70,12 +73,10 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        DataRecordManager.write(DataRecordManager.KEY_SECTION_CUSTOM,parent.getItemAtPosition(position).toString().toUpperCase());
-        Toasty.info(this, parent.getItemAtPosition(position)+" selected !").show();
-
+        write(KEY_SECTION_CUSTOM, position);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-     }
+    }
 }

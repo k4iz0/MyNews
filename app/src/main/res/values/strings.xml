@@ -26,11 +26,9 @@
     <string name="business">Business</string>
     <string name="pick_a_date"> __ /__ /__ </string>
     <string name="enable_notifications">Enable notifications (once per day)</string>
-    <string name="article_found">new article found for you !</string>
+    <string name="article_found">new article found for you with </string>
     <string name="notification">MyNews notification !</string>
-    <string name="notificationSearchExtra">notificationSearch</string>
     <string name="Key_TAGExtra">Key_TAG</string>
-    <string name="notificationSearch">notificationSearch</string>
     <string name="author">Author : </string>
     <string name="yann_l">Yann L.</string>
     <string name="new_york_times">New York Times : </string>
@@ -38,14 +36,15 @@
     <string name="year">Year : </string>
     <string name="nyt_url">https://www.nytimes.com/</string>
     <string name="section_selection">Select your favorite section for the 3rd tab</string>
+    <string name="menu_picture">menu picture</string>
     <string-array name="category_array">
-            <item>World</item>
-            <item>Science</item>
-            <item>Arts</item>
-            <item>Technology</item>
-            <item>Books</item>
-            <item>Politics</item>
-            <item>Health</item>
-            <item>Travel</item>
-        </string-array>
+        <item>World</item>
+        <item>Science</item>
+        <item>Arts</item>
+        <item>Technology</item>
+        <item>Books</item>
+        <item>Politics</item>
+        <item>Health</item>
+        <item>Travel</item>
+    </string-array>
 </resources>
