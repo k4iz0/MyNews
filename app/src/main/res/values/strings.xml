@@ -37,7 +37,22 @@
     <string name="nyt_url">https://www.nytimes.com/</string>
     <string name="section_selection">Select your favorite section for the 3rd tab</string>
     <string name="menu_picture">menu picture</string>
+    <string name="notificationSearchExtra">notificationSearch</string>
+    <string name="periodText">Select your period (in days)\n  for the second tab MOST POPULAR</string>
+    <string name="_1">1</string>
+    <string name="_7">7</string>
+    <string name="_30">30</string>
     <string-array name="category_array">
+        <item>World</item>
+        <item>Science</item>
+        <item>Arts</item>
+        <item>Technology</item>
+        <item>Books</item>
+        <item>Politics</item>
+        <item>Health</item>
+        <item>Travel</item>
+    </string-array>
+    <string-array name="period_array">
         <item>World</item>
         <item>Science</item>
         <item>Arts</item>

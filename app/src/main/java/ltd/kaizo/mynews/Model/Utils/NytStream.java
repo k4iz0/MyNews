@@ -33,9 +33,9 @@ public class NytStream {
      * @param section the section
      * @return the observable
      */
-    public static Observable<NytMostPopularAPIData> streamFetchMostPopularStories(String section) {
+    public static Observable<NytMostPopularAPIData> streamFetchMostPopularStories(String section, String period) {
         NytService nytService = NytService.retrofit.create(NytService.class);
-        return nytService.getMostPopular(section)
+        return nytService.getMostPopular(section, period)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

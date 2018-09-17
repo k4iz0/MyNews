@@ -35,21 +35,17 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_setting_toolbar" />
 
     <Spinner
-        android:id="@+id/activity_setting_spinner"
+        android:id="@+id/activity_setting_spinner_section"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="69dp"
-        android:padding="2dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.114"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -57,10 +53,91 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/menu_picture"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_setting_textview"
-        app:srcCompat="@drawable/menu"
-        android:contentDescription="@string/menu_picture" />
+        app:srcCompat="@drawable/menu" />
+
+    <View
+        style="@style/Divider"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_setting_period_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_setting_spinner_section" />
+        <TextView
+        android:id="@+id/activity_setting_period_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+            android:textSize="18sp"
+        android:gravity="center"
+        android:text="@string/periodText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_setting_spinner_section" />
+
+
+    <RadioGroup
+        android:id="@+id/activity_settings_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_setting_period_textview"
+        app:layout_constraintVertical_bias="0.128"
+        >
+
+        <RadioButton
+            android:id="@+id/activity_setting_radio1"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:text="@string/_1"
+            android:textColor="#9E9E9E"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/activity_setting_radio7"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:text="@string/_7"
+            android:textColor="#9E9E9E"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/activity_setting_radio30"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:text="@string/_30"
+            android:textColor="#9E9E9E"
+            android:textStyle="bold"/>
+
+    </RadioGroup>
+
 </android.support.constraint.ConstraintLayout>

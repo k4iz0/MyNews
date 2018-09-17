@@ -43,7 +43,7 @@ public class NotificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         //getting data from intent
-        searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearch));
+        searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearchExtra));
         keyTag = intent.getIntExtra(getString(R.string.Key_TAGExtra), 0);
         this.configureToolbar();
         this.showFragment(keyTag);

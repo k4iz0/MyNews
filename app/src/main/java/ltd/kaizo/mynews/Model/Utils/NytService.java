@@ -64,8 +64,8 @@ public interface NytService {
      * @param section the section
      * @return the most popular
      */
-    @GET("svc/mostpopular/v2/mostviewed/{section}/7.json?api-key=" + apiKey)
-    Observable<NytMostPopularAPIData> getMostPopular(@Path("section") String section);
+    @GET("svc/mostpopular/v2/mostviewed/{section}/{period}.json?api-key=" + apiKey)
+    Observable<NytMostPopularAPIData> getMostPopular(@Path("section") String section, @Path("period") String period);
 
     /**
      * Gets search article.

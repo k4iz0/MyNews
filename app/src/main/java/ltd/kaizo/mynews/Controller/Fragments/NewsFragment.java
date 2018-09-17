@@ -35,9 +35,11 @@ import ltd.kaizo.mynews.Model.Utils.NytStream;
 import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_API_PERIOD;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.saveData;
 
 /**
@@ -248,7 +250,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
      */
     private void executeStreamFetchMostPopularStories() {
 
-        this.disposable = NytStream.streamFetchMostPopularStories(section).subscribeWith(new DisposableObserver<NytMostPopularAPIData>() {
+        this.disposable = NytStream.streamFetchMostPopularStories(section, getApiPeriod()).subscribeWith(new DisposableObserver<NytMostPopularAPIData>() {
             @Override
             public void onNext(NytMostPopularAPIData nytMostPopularAPIdata) {
                 Log.i("StreamInfo", "MP httpRequest in progress : - status = " + nytMostPopularAPIdata.getStatus() +
@@ -270,6 +272,14 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
             }
         });
 
+    }
+
+    /**
+     * read the api period from sharedPreferences
+     * @return the api period
+     */
+    private String getApiPeriod() {
+        return read(KEY_API_PERIOD, "7");
     }
 
     @Override

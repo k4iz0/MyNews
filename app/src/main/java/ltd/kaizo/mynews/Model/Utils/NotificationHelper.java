@@ -110,7 +110,7 @@ public class NotificationHelper extends ContextWrapper {
      */
     private String getNotificationText() {
         SearchQuery searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
-        return getString(R.string.article_found) + searchQuery.getQueryTerms();
+        return getString(R.string.article_found) +" "+ searchQuery.getQueryTerms();
     }
 
 }

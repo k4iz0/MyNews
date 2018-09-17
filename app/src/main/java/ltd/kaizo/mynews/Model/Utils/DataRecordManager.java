@@ -37,6 +37,10 @@ public class DataRecordManager {
      * The constant Key_TAG.
      */
     public static final String Key_TAG = "";
+     /**
+     * The constant Key_apiPeriod.
+     */
+    public static final String KEY_API_PERIOD = "";
     /**
      * The constant sharedPreferences.
      */

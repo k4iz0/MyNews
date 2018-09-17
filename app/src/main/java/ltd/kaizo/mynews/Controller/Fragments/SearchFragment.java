@@ -283,7 +283,7 @@ public class SearchFragment extends BaseFragment {
         this.endDateTitle.setVisibility(View.GONE);
         this.notificationSwitch.setVisibility(View.VISIBLE);
         this.notificationTextView.setVisibility(View.VISIBLE);
-        if (!read(Key_SEARCHQUERY_NOTIFICATION, "0").equalsIgnoreCase("")) {
+        if (!read(Key_SEARCHQUERY_NOTIFICATION, "").equalsIgnoreCase("")) {
             this.notificationSwitch.setChecked(true);
         }
     }
