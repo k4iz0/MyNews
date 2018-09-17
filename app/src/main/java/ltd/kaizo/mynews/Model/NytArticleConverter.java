@@ -154,7 +154,6 @@ public class NytArticleConverter {
     public List<ArticleFormatter> configureSearchArticleListForAdapter() {
         this.articleFormatterList = new ArrayList<>();
         for (NytSearchArticleDoc article : this.nytSearchArticleList) {
-//                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg";
             String imageUrl = "";
             if (article.getMultimedia().size() > 0) {
                imageUrl =  "https://static01.nyt.com/" + article.getMultimedia().get(0).getUrl();
