@@ -67,6 +67,7 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
      * The Api period.
      */
     String apiPeriod = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +93,7 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
             case "7":
                 radio7.toggle();
                 break;
-            case"30":
+            case "30":
                 radio30.toggle();
                 break;
 
@@ -108,19 +109,23 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.activity_setting_radio1:
-                        write(KEY_API_PERIOD,"1");
+                        write(KEY_API_PERIOD, "1");
                         apiPeriod = "1";
                         break;
                     case R.id.activity_setting_radio7:
-                        write(KEY_API_PERIOD,"7");
+                        write(KEY_API_PERIOD, "7");
                         apiPeriod = "7";
                         break;
                     case R.id.activity_setting_radio30:
-                        write(KEY_API_PERIOD,"30");
+                        write(KEY_API_PERIOD, "30");
                         apiPeriod = "30";
                         break;
                 }
-                Toasty.info(getApplicationContext(), "You selected a period of "+apiPeriod+" day(s).").show();
+                if (apiPeriod.equalsIgnoreCase("1")) {
+                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod + getString(R.string.day)).show();
+                } else {
+                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod + getString(R.string.days)).show();
+                }
 
             }
         });

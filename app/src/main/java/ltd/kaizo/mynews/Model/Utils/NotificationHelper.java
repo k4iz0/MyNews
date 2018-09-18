@@ -94,7 +94,7 @@ public class NotificationHelper extends ContextWrapper {
      */
     public NotificationCompat.Builder notificationBuilder() {
         return new NotificationCompat.Builder(this, NYT_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.mynews)
+                .setSmallIcon(R.drawable.news_icon_transparent)
                 .setContentTitle(getString(R.string.notification))
                 .setContentText(getNotificationText())
                 .setContentIntent(getPendingIntent())

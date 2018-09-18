@@ -42,6 +42,11 @@
     <string name="_1">1</string>
     <string name="_7">7</string>
     <string name="_30">30</string>
+    <string name="period">You selected a period of </string>
+    <string name="day">day.</string>
+    <string name="days">days.</string>
+    <string name="noQueryTerm">You need to enter a query term</string>
+    <string name="noField">You need to select at least one field</string>
     <string-array name="category_array">
         <item>World</item>
         <item>Science</item>
@@ -52,14 +57,5 @@
         <item>Health</item>
         <item>Travel</item>
     </string-array>
-    <string-array name="period_array">
-        <item>World</item>
-        <item>Science</item>
-        <item>Arts</item>
-        <item>Technology</item>
-        <item>Books</item>
-        <item>Politics</item>
-        <item>Health</item>
-        <item>Travel</item>
-    </string-array>
+
 </resources>

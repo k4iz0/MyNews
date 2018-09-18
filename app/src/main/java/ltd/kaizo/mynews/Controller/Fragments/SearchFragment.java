@@ -210,6 +210,7 @@ public class SearchFragment extends BaseFragment {
         this.configureDatePicker();
 
         switch (this.tag) {
+            //notification case
             case 10:
                 if (!read(KEY_SEARCHQUERY_NOTIFICATION, "").equalsIgnoreCase("")) {
                     this.searchQuery = getSearchQueryFromSharedPreferences(KEY_SEARCHQUERY_NOTIFICATION);
@@ -218,6 +219,7 @@ public class SearchFragment extends BaseFragment {
                 this.configureNotificationTextView();
                 this.configureNotificationSwitch();
                 break;
+            //Search case
             case 20:
                 this.configureSearchButton();
                 break;
@@ -294,7 +296,7 @@ public class SearchFragment extends BaseFragment {
      */
     private void configureNotificationTextView() {
         if (notificationSwitch.isChecked()) {
-            this.notificationTextView.setText(Html.fromHtml("Notification enable for <br><b>"+searchQuery.getQueryTerms()+"</b>, cancel ?"));
+            this.notificationTextView.setText(Html.fromHtml("Notification enable for <br><b>" + searchQuery.getQueryTerms() + "</b>, cancel ?"));
             this.searchEdiText.setText(searchQuery.getQueryTerms());
         } else {
             this.notificationTextView.setText(getString(R.string.enable_notifications));
@@ -311,9 +313,9 @@ public class SearchFragment extends BaseFragment {
         this.configureSearchRequest();
         Boolean isValid = false;
         if (this.searchQuery.getQueryTerms().trim().equals("")) {
-            Toasty.error(getContext(), "You need to enter a query term", Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.noQueryTerm), Toast.LENGTH_SHORT).show();
         } else if (this.searchQuery.getQueryFields().equals("")) {
-            Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.noField), Toast.LENGTH_SHORT).show();
         } else {
             gson = new Gson();
             write(KEY_SEARCHQUERY_NOTIFICATION, gson.toJson(this.searchQuery));

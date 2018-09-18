@@ -14,6 +14,8 @@
         android:layout_height="150dp"
         app:srcCompat="@drawable/nyt"
         android:contentDescription="@string/logo"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
         />
 
 </LinearLayout>

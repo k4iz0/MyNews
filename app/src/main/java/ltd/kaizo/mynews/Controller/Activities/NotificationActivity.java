@@ -15,6 +15,7 @@ import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY_NOTIFICATION;
 
 /**
@@ -45,7 +46,7 @@ public class NotificationActivity extends AppCompatActivity {
         DataRecordManager.init(getApplicationContext());
         Intent intent = getIntent();
         //getting data from intent
-        searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearchExtra));
+        this.searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearchExtra));
         keyTag = intent.getIntExtra(getString(R.string.Key_TAGExtra), 0);
         this.configureToolbar();
         this.showFragment(keyTag);
@@ -64,7 +65,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     /**
-     * Show fragment.
+     * Show fragment according to the tag
      *
      * @param keyTag the key tag
      */
@@ -108,7 +109,7 @@ public class NotificationActivity extends AppCompatActivity {
      */
     private Bundle saveDataToBundle() {
         Bundle args = new Bundle();
-        args.putString(KEY_SEARCHQUERY_NOTIFICATION, this.searchQueryNotification);
+        args.putString(KEY_SEARCHQUERY, this.searchQueryNotification);
         args.putInt(KEY_POSITION, 3);
         return args;
     }
