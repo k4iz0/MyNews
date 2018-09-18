@@ -17,7 +17,7 @@ import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.Model.Utils.NotificationHelper;
 import ltd.kaizo.mynews.Model.Utils.NytStream;
 
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY_NOTIFICATION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 
     /**
@@ -64,7 +64,7 @@ import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromS
     @Override
     protected Result onRunJob(@NonNull Params params) {
 
-        this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+        this.searchQuery = getSearchQueryFromSharedPreferences(KEY_SEARCHQUERY_NOTIFICATION);
 
         executeStreamFetchSearchArticleFromNotification();
         return Result.SUCCESS;

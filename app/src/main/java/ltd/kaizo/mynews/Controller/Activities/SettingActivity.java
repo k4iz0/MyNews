@@ -15,6 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
+import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_API_PERIOD;
@@ -71,6 +72,7 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        DataRecordManager.init(getApplicationContext());
         this.configureToolbar();
         this.configureSpinner();
         this.configureRadioGroup();

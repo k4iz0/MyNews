@@ -14,7 +14,7 @@ import ltd.kaizo.mynews.Controller.Activities.NotificationActivity;
 import ltd.kaizo.mynews.Model.SearchQuery;
 import ltd.kaizo.mynews.R;
 
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY_NOTIFICATION;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 
@@ -80,7 +80,7 @@ public class NotificationHelper extends ContextWrapper {
      */
     private PendingIntent getPendingIntent() {
         Intent notificationIntent = new Intent(this, NotificationActivity.class);
-        notificationIntent.putExtra(getString(R.string.notificationSearchExtra), read(Key_SEARCHQUERY_NOTIFICATION, ""));
+        notificationIntent.putExtra(getString(R.string.notificationSearchExtra), read(KEY_SEARCHQUERY_NOTIFICATION, ""));
         notificationIntent.putExtra(getString(R.string.Key_TAGExtra), 30);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(notificationIntent);
@@ -109,7 +109,7 @@ public class NotificationHelper extends ContextWrapper {
      * @return String notification text
      */
     private String getNotificationText() {
-        SearchQuery searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+        SearchQuery searchQuery = getSearchQueryFromSharedPreferences(KEY_SEARCHQUERY_NOTIFICATION);
         return getString(R.string.article_found) +" "+ searchQuery.getQueryTerms();
     }
 

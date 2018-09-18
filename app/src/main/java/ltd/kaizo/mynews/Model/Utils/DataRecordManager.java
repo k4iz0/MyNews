@@ -16,31 +16,31 @@ public class DataRecordManager {
     /**
      * The constant KEY_SECTION.
      */
-    public static final String KEY_SECTION = "home";
+    public static final String KEY_SECTION = "KEY_SECTION";
     /**
      * The constant KEY_SECTION_CUSTOM
      */
-    public static final String KEY_SECTION_CUSTOM = "1";
+    public static final String KEY_SECTION_CUSTOM = "KEY_SECTION_CUSTOM";
     /**
-     * The constant Key_POSITION.
+     * The constant KEY_POSITION.
      */
-    public static final String Key_POSITION = "0";
+    public static final String KEY_POSITION = "KEY_POSITION";
     /**
-     * The constant Key_SEARCHQUERY.
+     * The constant KEY_SEARCHQUERY.
      */
-    public static final String Key_SEARCHQUERY = "";
+    public static final String KEY_SEARCHQUERY = "KEY_SEARCHQUERY";
     /**
-     * The constant Key_SEARCHQUERY_NOTIFICATION.
+     * The constant KEY_SEARCHQUERY_NOTIFICATION.
      */
-    public static final String Key_SEARCHQUERY_NOTIFICATION = "";
+    public static final String KEY_SEARCHQUERY_NOTIFICATION = "KEY_SEARCHQUERY_NOTIFICATION";
     /**
-     * The constant Key_TAG.
+     * The constant KEY_TAG.
      */
-    public static final String Key_TAG = "";
+    public static final String KEY_TAG = "KEY_TAG";
      /**
      * The constant Key_apiPeriod.
      */
-    public static final String KEY_API_PERIOD = "";
+    public static final String KEY_API_PERIOD = "KEY_API_PERIOD";
     /**
      * The constant sharedPreferences.
      */
@@ -139,7 +139,7 @@ public class DataRecordManager {
      */
     public static void saveData(int position, String section) {
         write(KEY_SECTION, section);
-        write(Key_POSITION, position);
+        write(KEY_POSITION, position);
         Log.i("info", "data saved to sharedPreferences files");
     }
 

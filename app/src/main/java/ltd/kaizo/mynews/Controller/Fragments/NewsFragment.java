@@ -37,8 +37,8 @@ import ltd.kaizo.mynews.Views.Adapter.NytRecycleViewAdapter;
 
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_API_PERIOD;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SECTION;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.saveData;
 
@@ -119,7 +119,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         NewsFragment frag = new NewsFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_SECTION, section);
-        bundle.putInt(Key_POSITION, position);
+        bundle.putInt(KEY_POSITION, position);
         frag.setArguments(bundle);
         return frag;
 
@@ -131,8 +131,8 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
         Toasty.Config.getInstance().setInfoColor(getResources().getColor(R.color.blueDark)).apply();
         if (getArguments() != null) {
             this.section = getArguments().getString(KEY_SECTION);
-            this.position = getArguments().getInt(Key_POSITION);
-            this.gsonStr = getArguments().getString(Key_SEARCHQUERY);
+            this.position = getArguments().getInt(KEY_POSITION);
+            this.gsonStr = getArguments().getString(KEY_SEARCHQUERY);
         }
     }
 

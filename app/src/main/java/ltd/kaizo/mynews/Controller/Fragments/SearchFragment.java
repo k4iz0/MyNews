@@ -32,10 +32,10 @@ import ltd.kaizo.mynews.R;
 
 import static ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob.cancelJob;
 import static ltd.kaizo.mynews.Model.Utils.Androidjob.NytShowNotificationJob.schedulePeriodicJob;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_TAG;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_TAG;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.getSearchQueryFromSharedPreferences;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.read;
 import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.write;
@@ -176,7 +176,7 @@ public class SearchFragment extends BaseFragment {
     public static BaseFragment newInstance(int tag) {
         SearchFragment frag = new SearchFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Key_TAG, tag);
+        bundle.putInt(KEY_TAG, tag);
         frag.setArguments(bundle);
         return frag;
 
@@ -196,7 +196,7 @@ public class SearchFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.tag = getArguments().getInt(Key_TAG);
+            this.tag = getArguments().getInt(KEY_TAG);
         }
     }
 
@@ -211,8 +211,8 @@ public class SearchFragment extends BaseFragment {
 
         switch (this.tag) {
             case 10:
-                if (!read(Key_SEARCHQUERY_NOTIFICATION, "").equals("")) {
-                    this.searchQuery = getSearchQueryFromSharedPreferences(Key_SEARCHQUERY_NOTIFICATION);
+                if (!read(KEY_SEARCHQUERY_NOTIFICATION, "").equalsIgnoreCase("")) {
+                    this.searchQuery = getSearchQueryFromSharedPreferences(KEY_SEARCHQUERY_NOTIFICATION);
                 }
                 this.configureDesignForNotification();
                 this.configureNotificationTextView();
@@ -252,7 +252,7 @@ public class SearchFragment extends BaseFragment {
                         Log.i("notificationJob", "job cancel ");
                         configureNotificationTextView();
                         //erase notification in sharedPreferences
-                        write(Key_SEARCHQUERY_NOTIFICATION, "");
+                        write(KEY_SEARCHQUERY_NOTIFICATION, "");
                         searchQuery = new SearchQuery();
                     }
                 } else {
@@ -283,7 +283,7 @@ public class SearchFragment extends BaseFragment {
         this.endDateTitle.setVisibility(View.GONE);
         this.notificationSwitch.setVisibility(View.VISIBLE);
         this.notificationTextView.setVisibility(View.VISIBLE);
-        if (!read(Key_SEARCHQUERY_NOTIFICATION, "").equalsIgnoreCase("")) {
+        if (!read(KEY_SEARCHQUERY_NOTIFICATION, "").equalsIgnoreCase("")) {
             this.notificationSwitch.setChecked(true);
         }
     }
@@ -316,7 +316,7 @@ public class SearchFragment extends BaseFragment {
             Toasty.error(getContext(), "You need to select at least one field", Toast.LENGTH_SHORT).show();
         } else {
             gson = new Gson();
-            write(Key_SEARCHQUERY_NOTIFICATION, gson.toJson(this.searchQuery));
+            write(KEY_SEARCHQUERY_NOTIFICATION, gson.toJson(this.searchQuery));
             this.configureNotificationJob();
             isValid = true;
         }
@@ -378,8 +378,8 @@ public class SearchFragment extends BaseFragment {
     private Bundle saveDataToBundle() {
         gson = new Gson();
         Bundle args = new Bundle();
-        args.putString(Key_SEARCHQUERY, gson.toJson(searchQuery));
-        args.putInt(Key_POSITION, 3);
+        args.putString(KEY_SEARCHQUERY, gson.toJson(searchQuery));
+        args.putInt(KEY_POSITION, 3);
         return args;
     }
 

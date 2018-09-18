@@ -11,10 +11,11 @@ import butterknife.ButterKnife;
 import ltd.kaizo.mynews.Controller.Fragments.BaseFragment;
 import ltd.kaizo.mynews.Controller.Fragments.NewsFragment;
 import ltd.kaizo.mynews.Controller.Fragments.SearchFragment;
+import ltd.kaizo.mynews.Model.Utils.DataRecordManager;
 import ltd.kaizo.mynews.R;
 
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_POSITION;
-import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.Key_SEARCHQUERY_NOTIFICATION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_POSITION;
+import static ltd.kaizo.mynews.Model.Utils.DataRecordManager.KEY_SEARCHQUERY_NOTIFICATION;
 
 /**
  * The type Notification activity.
@@ -41,6 +42,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         //bind view
         ButterKnife.bind(this);
+        DataRecordManager.init(getApplicationContext());
         Intent intent = getIntent();
         //getting data from intent
         searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearchExtra));
@@ -106,8 +108,8 @@ public class NotificationActivity extends AppCompatActivity {
      */
     private Bundle saveDataToBundle() {
         Bundle args = new Bundle();
-        args.putString(Key_SEARCHQUERY_NOTIFICATION, this.searchQueryNotification);
-        args.putInt(Key_POSITION, 3);
+        args.putString(KEY_SEARCHQUERY_NOTIFICATION, this.searchQueryNotification);
+        args.putInt(KEY_POSITION, 3);
         return args;
     }
 
