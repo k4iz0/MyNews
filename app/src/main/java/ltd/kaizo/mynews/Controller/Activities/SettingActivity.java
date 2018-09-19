@@ -122,9 +122,9 @@ public class SettingActivity extends AppCompatActivity implements AdapterView.On
                         break;
                 }
                 if (apiPeriod.equalsIgnoreCase("1")) {
-                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod + getString(R.string.day)).show();
+                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod +" "+ getString(R.string.day)).show();
                 } else {
-                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod + getString(R.string.days)).show();
+                    Toasty.info(getApplicationContext(), getString(R.string.period)+" " + apiPeriod+" " + getString(R.string.days)).show();
                 }
 
             }
