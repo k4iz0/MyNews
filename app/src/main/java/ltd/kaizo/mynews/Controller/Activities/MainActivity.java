@@ -106,11 +106,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      *
      * @param section the section
      */
-    private void configureViewPagerWithTabs(String section) {
+    private void configureViewPagerWithTabs(final String section) {
         int titlePosition = read(KEY_SECTION_CUSTOM, 1);
         String customTab = getResources().getStringArray(R.array.category_array)[titlePosition].toUpperCase();
         viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section, customTab);
         viewPager.setAdapter(viewPagerAdapter);
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//            viewPagerAdapter.updateSection(MainActivity.this.section);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
@@ -237,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         Log.i("navigationDrawer", "onNavigationItemSelected: " + this.section);
         this.viewPagerAdapter.updateSection(this.section);
+        this.viewPager.setCurrentItem(0);
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

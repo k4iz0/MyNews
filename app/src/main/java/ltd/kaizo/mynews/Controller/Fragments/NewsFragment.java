@@ -284,8 +284,6 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
 
     @Override
     protected void updateDesign() {
-        this.executeStreamFetchTopStories();
-        this.executeStreamFetchMostPopularStories();
     }
 
     /**

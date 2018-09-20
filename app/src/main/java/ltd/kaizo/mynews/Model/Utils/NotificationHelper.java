@@ -99,6 +99,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentText(getNotificationText())
                 .setContentIntent(getPendingIntent())
                 .setStyle(new NotificationCompat.BigTextStyle())
+                .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
     }
