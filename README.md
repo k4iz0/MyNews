@@ -1,6 +1,6 @@
 # MoodTracker
 
-An Android app check the NewYork Times news
+An Android app to check the NewYork Times news
 
 ## Getting Started
 
