@@ -245,11 +245,11 @@ public class SearchFragment extends BaseFragment {
                 if (configureNotificationResearch()) {
 
                     if (isChecked) {
-                        Toasty.success(getContext(), "notification set !", Toast.LENGTH_SHORT).show();
+                        Toasty.success(getContext(), getString(R.string.notificationStart), Toast.LENGTH_SHORT).show();
                         Log.i("notificationJob", "job start ");
                         configureNotificationTextView();
                     } else {
-                        Toasty.warning(getContext(), "notification cancel", Toast.LENGTH_SHORT).show();
+                        Toasty.warning(getContext(), getString(R.string.notificationCancel), Toast.LENGTH_SHORT).show();
                         cancelJob(jobID);
                         Log.i("notificationJob", "job cancel ");
                         configureNotificationTextView();

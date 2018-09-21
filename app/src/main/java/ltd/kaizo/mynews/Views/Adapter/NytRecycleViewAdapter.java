@@ -29,7 +29,7 @@ public class NytRecycleViewAdapter extends RecyclerView.Adapter<NytViewHolder>{
          * @param position the position
          * @return the string
          */
-        String OnClickGetUrl(int position);
+        String onClickGetUrl(int position);
     }
 
     /**

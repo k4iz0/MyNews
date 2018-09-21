@@ -4,8 +4,6 @@ import io.reactivex.Observable;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,12 +26,12 @@ public interface NytService {
     /**
      * The constant interceptor.
      */
-//TODO comment interceptor
-    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        //Uncomment line 36 & 49 to add interceptor for debug purpose
+//    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     /**
      * The constant okHttpClient.
      */
-    OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC));
+//    OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC));
 
 
     /**
@@ -46,7 +44,7 @@ public interface NytService {
             .addConverterFactory(GsonConverterFactory.create())
 
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okHttpClient.build())
+//            .client(okHttpClient.build())
             .build();
 
     /**

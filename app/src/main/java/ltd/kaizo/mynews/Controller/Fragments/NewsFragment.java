@@ -310,7 +310,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Intent detailActivity = new Intent(getActivity(), DetailActivity.class);
-                        detailActivity.putExtra("articleUrl", OnClickGetUrl(position));
+                        detailActivity.putExtra(getString(R.string.articleUrl), onClickGetUrl(position));
                         startActivity(detailActivity);
                     }
                 });
@@ -358,7 +358,7 @@ public class NewsFragment extends BaseFragment implements NytRecycleViewAdapter.
      * @return the url of the article
      */
     @Override
-    public String OnClickGetUrl(int position) {
+    public String onClickGetUrl(int position) {
         return this.articleFormatterList.get(position).getArticleUrl();
     }
 

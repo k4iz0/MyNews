@@ -47,6 +47,9 @@
     <string name="days">days.</string>
     <string name="noQueryTerm">You need to enter a query term</string>
     <string name="noField">You need to select at least one field</string>
+    <string name="articleUrl">articleUrl</string>
+    <string name="notificationCancel">notification cancel</string>
+    <string name="notificationStart">notification set !</string>
     <string-array name="category_array">
         <item>World</item>
         <item>Science</item>

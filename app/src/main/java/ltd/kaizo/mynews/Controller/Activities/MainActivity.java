@@ -111,22 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String customTab = getResources().getStringArray(R.array.category_array)[titlePosition].toUpperCase();
         viewPagerAdapter = new PageAdapter(getSupportFragmentManager(), section, customTab);
         viewPager.setAdapter(viewPagerAdapter);
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//            viewPagerAdapter.updateSection(MainActivity.this.section);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
@@ -138,6 +122,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * manage the click event on the item menu
+     * @param item
+     * @return Boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

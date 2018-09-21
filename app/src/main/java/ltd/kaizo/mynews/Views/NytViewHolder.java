@@ -92,6 +92,6 @@ public class NytViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     @Override
     public void onClick(View v) {
         NytRecycleViewAdapter.Listener callback = callbackWeakRef.get();
-        if(callback != null) callback.OnClickGetUrl(getAdapterPosition());
+        if(callback != null) callback.onClickGetUrl(getAdapterPosition());
     }
 }
