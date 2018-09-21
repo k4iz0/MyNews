@@ -15,7 +15,7 @@ An Android app check the NewYork Times news
 ## Built With
 
 * [Android Studio](https://developer.android.com/studio/) 
-* [retofit](http://square.github.io/retrofit/)
+* [retrofit](http://square.github.io/retrofit/)
 * [Glide](https://github.com/bumptech/glide)
 * [butterknife](https://github.com/JakeWharton/butterknife)
 * [Androidjob](https://github.com/evernote/android-job)
