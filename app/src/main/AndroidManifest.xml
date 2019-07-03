@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ltd.kaizo.mynews">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".Model.Utils.LeakCanaryApplication"
+        android:name=".Utils.LeakCanaryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/mynews"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/mynews"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Controller.Activities.MainActivity"
+            android:name=".controller.ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,40 +24,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Controller.Activities.SearchActivity"
+            android:name=".controller.ui.search.SearchActivity"
             android:label="Search"
-            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:parentActivityName=".controller.ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controller.Activities.MainActivity" />
+                android:value=".controller.ui.news.NewsActivity" />
         </activity>
         <activity
-            android:name=".Controller.Activities.DetailActivity"
+            android:name=".controller.ui.news.DetailActivity"
             android:label="Detail"
-            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:parentActivityName=".controller.ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controller.Activities.MainActivity" />
+                android:value=".controller.ui.news.NewsActivity" />
         </activity>
         <activity
-            android:name=".Controller.Activities.NotificationActivity"
+            android:name=".controller.ui.notification.NotificationActivity"
             android:label="notifications"
-            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:parentActivityName=".controller.ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controller.Activities.MainActivity" />
+                android:value=".controller.ui.news.NewsActivity" />
         </activity>
         <activity
-            android:name=".Controller.Activities.SettingActivity"
+            android:name=".controller.ui.settings.SettingActivity"
             android:label="settings"
-            android:parentActivityName=".Controller.Activities.MainActivity"
+            android:parentActivityName=".controller.ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controller.Activities.MainActivity" />
+                android:value=".controller.ui.news.NewsActivity" />
         </activity>
     </application>
 

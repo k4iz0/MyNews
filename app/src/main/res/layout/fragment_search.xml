@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_search_layout"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_checkbox_travel"
         app:layout_constraintVertical_bias="0.22000003" />
 
-    <android.support.constraint.Barrier
+    <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -196,4 +196,4 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_edittext"
         app:layout_constraintVertical_bias="0.6" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

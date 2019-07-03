@@ -1,6 +1,6 @@
 package ltd.kaizo.mynews;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,7 @@ import io.reactivex.observers.TestObserver;
 import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
 import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
 import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import ltd.kaizo.mynews.Model.Utils.NytStream;
+import ltd.kaizo.mynews.Model.repository.stream.NytStream;
 
 import static org.junit.Assert.*;
 
