@@ -17,7 +17,6 @@ An Android app check the NewYork Times news
 * [Android Studio](https://developer.android.com/studio/) 
 * [retrofit](http://square.github.io/retrofit/)
 * [Glide](https://github.com/bumptech/glide)
-* [butterknife](https://github.com/JakeWharton/butterknife)
 * [Androidjob](https://github.com/evernote/android-job)
 
 ## Versioning
