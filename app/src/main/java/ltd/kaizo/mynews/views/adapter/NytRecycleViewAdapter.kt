@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import ltd.kaizo.mynews.Model.ArticleFormatter
+import ltd.kaizo.mynews.model.ArticleFormatter
 import ltd.kaizo.mynews.R
 
 /**

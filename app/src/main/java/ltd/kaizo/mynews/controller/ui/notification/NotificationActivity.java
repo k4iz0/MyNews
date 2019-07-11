@@ -2,20 +2,21 @@ package ltd.kaizo.mynews.controller.ui.notification;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ltd.kaizo.mynews.R;
 import ltd.kaizo.mynews.controller.ui.base.BaseFragment;
 import ltd.kaizo.mynews.controller.ui.news.NewsFragment;
 import ltd.kaizo.mynews.controller.ui.search.SearchFragment;
-import ltd.kaizo.mynews.Utils.DataRecordManager;
-import ltd.kaizo.mynews.R;
+import ltd.kaizo.mynews.utils.DataRecordManager;
 
-import static ltd.kaizo.mynews.Utils.DataRecordManager.KEY_POSITION;
-import static ltd.kaizo.mynews.Utils.DataRecordManager.KEY_SEARCHQUERY;
+import static ltd.kaizo.mynews.utils.ConstantKt.KEY_POSITION;
+import static ltd.kaizo.mynews.utils.ConstantKt.KEY_SEARCHQUERY;
 
 /**
  * The type Notification activity.
@@ -42,7 +43,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         //bind view
         ButterKnife.bind(this);
-        DataRecordManager.init(getApplicationContext());
+        DataRecordManager.INSTANCE.init(getApplicationContext());
         Intent intent = getIntent();
         //getting data from intent
         this.searchQueryNotification = intent.getStringExtra(getString(R.string.notificationSearchExtra));
@@ -81,7 +82,7 @@ public class NotificationActivity extends AppCompatActivity {
      * Configure and show search fragment.
      */
     protected void configureAndShowSearchFragment() {
-        BaseFragment searchFragment = SearchFragment.newInstance(10);
+        BaseFragment searchFragment = SearchFragment.Companion.newInstance(10);
         if (searchFragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_notification_Framelayout, searchFragment)

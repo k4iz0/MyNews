@@ -7,10 +7,10 @@ import org.junit.runner.RunWith;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
-import ltd.kaizo.mynews.Model.NytMostPopularAPI.NytMostPopularAPIData;
-import ltd.kaizo.mynews.Model.NytSearchArticleAPI.NytSearchArticleApiData;
-import ltd.kaizo.mynews.Model.NytTopStoriesAPI.NytTopStoriesAPIData;
-import ltd.kaizo.mynews.Model.repository.stream.NytStream;
+import ltd.kaizo.mynews.model.NytMostPopularAPI.NytMostPopularAPIData;
+import ltd.kaizo.mynews.model.NytSearchArticleAPI.NytSearchArticleApiData;
+import ltd.kaizo.mynews.model.NytTopStoriesAPI.NytTopStoriesAPIData;
+import ltd.kaizo.mynews.model.repository.stream.NytStream;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +24,7 @@ public class NytStreamAPITest {
 
     @Test
     public void nytTopStoriesApiResponseShouldBeOK() {
-        Observable<NytTopStoriesAPIData> apiData = NytStream.streamFetchTopStories("home");
+        Observable<NytTopStoriesAPIData> apiData = NytStream.INSTANCE.streamFetchTopStories("home");
         TestObserver<NytTopStoriesAPIData> testObserver = new TestObserver<>();
         apiData.subscribeWith(testObserver)
                 .assertNoErrors()
@@ -37,7 +37,7 @@ public class NytStreamAPITest {
     }
     @Test
     public void nytSearchArticleApiResponseShouldBeOK() {
-        Observable<NytSearchArticleApiData> apiData = NytStream.streamFetchSearchArticle("test","arts",null,null);
+        Observable<NytSearchArticleApiData> apiData = NytStream.INSTANCE.streamFetchSearchArticle("test","arts",null,null);
         TestObserver<NytSearchArticleApiData> testObserver = new TestObserver<>();
         apiData.subscribeWith(testObserver)
                 .assertNoErrors()
@@ -50,7 +50,7 @@ public class NytStreamAPITest {
     }
     @Test
     public void nytMostPopularApiResponseShouldBeOK() {
-        Observable<NytMostPopularAPIData> apiData = NytStream.streamFetchMostPopularStories("test","1");
+        Observable<NytMostPopularAPIData> apiData = NytStream.INSTANCE.streamFetchMostPopularStories("test","1");
         TestObserver<NytMostPopularAPIData> testObserver = new TestObserver<>();
         apiData.subscribeWith(testObserver)
                 .assertNoErrors()

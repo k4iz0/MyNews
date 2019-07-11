@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,31 +17,33 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_dialog.*
-import ltd.kaizo.mynews.Utils.DataRecordManager.KEY_SECTION_CUSTOM
-import ltd.kaizo.mynews.Utils.DataRecordManager.read
 import ltd.kaizo.mynews.R
-import ltd.kaizo.mynews.Utils.Utils.showSnackBar
 import ltd.kaizo.mynews.controller.ui.base.BaseActivity
 import ltd.kaizo.mynews.controller.ui.notification.NotificationActivity
 import ltd.kaizo.mynews.controller.ui.search.SearchActivity
 import ltd.kaizo.mynews.controller.ui.settings.SettingActivity
+import ltd.kaizo.mynews.utils.DataRecordManager.read
+import ltd.kaizo.mynews.utils.HELP_URL
+import ltd.kaizo.mynews.utils.KEY_SECTION_CUSTOM
+import ltd.kaizo.mynews.utils.Utils.showSnackBar
 import ltd.kaizo.mynews.views.adapter.PageAdapter
-import timber.log.Timber
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * The type Main activity.
  */
 class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-     lateinit var newsViewModel: NewsViewModel
+    lateinit var newsViewModel: NewsViewModel
     override fun configureViewModel() {
-        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        newsViewModel = getViewModel()
     }
 
     override fun configureObserver() {
         newsViewModel.message.observe(this, Observer { message ->
             if (message != "" && message != null) {
-                showSnackBar(activity_main_coordinator_layout,message)
-                newsViewModel.message.value =""
+                showSnackBar(activity_main_coordinator_layout, message)
+                newsViewModel.message.value = ""
             }
         })
     }
@@ -48,16 +51,12 @@ class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun getFragmentLayout() = R.layout.activity_main
 
     override fun configureDesign() {
-        this.configureViewPagerWithTabs(this.section)
+        this.configureViewPagerWithTabs(newsViewModel.section.value!!)
         this.configureToolbar()
         this.configureDrawerLayout()
         this.configureNavigationView()
     }
 
-    /**
-     * The Section.
-     */
-    private var section = "world"
     /**
      * The View pager adapter.
      */
@@ -65,7 +64,6 @@ class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * The Help url.
      */
-    private val helpUrl = "http://bfy.tw/JedE"
 
     /**
      * Configure toolbar.
@@ -111,7 +109,7 @@ class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return true
             }
             R.id.menu_activity_main_help -> {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(helpUrl))
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(HELP_URL))
                 startActivity(browserIntent)
                 return true
             }
@@ -136,7 +134,7 @@ class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val str = SpannableString(getString(R.string.nyt_url))
         Linkify.addLinks(str, Linkify.ALL)
         val builder = AlertDialog.Builder(this)
-        val view = layoutInflater.inflate(R.layout.layout_dialog, null)
+        val view = layoutInflater.inflate(R.layout.layout_dialog,null)
         dialog_nyt_url.text = str
         builder.setView(view)
                 .setCancelable(true)
@@ -173,26 +171,24 @@ class NewsActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.activity_main_drawer_Science -> this.section = getString(R.string.Science).toLowerCase()
+            R.id.activity_main_drawer_Science -> newsViewModel.section.value = getString(R.string.Science).toLowerCase()
 
-            R.id.activity_main_drawer_world -> this.section = getString(R.string.World).toLowerCase()
+            R.id.activity_main_drawer_world -> newsViewModel.section.value = getString(R.string.World).toLowerCase()
 
-            R.id.activity_main_drawer_Technology -> this.section = getString(R.string.Technology).toLowerCase()
+            R.id.activity_main_drawer_Technology -> newsViewModel.section.value = getString(R.string.Technology).toLowerCase()
 
-            R.id.activity_main_drawer_Arts -> this.section = getString(R.string.Arts).toLowerCase()
+            R.id.activity_main_drawer_Arts -> newsViewModel.section.value = getString(R.string.Arts).toLowerCase()
 
-            R.id.activity_main_drawer_Books -> this.section = getString(R.string.Books).toLowerCase()
+            R.id.activity_main_drawer_Books -> newsViewModel.section.value = getString(R.string.Books).toLowerCase()
 
-            R.id.activity_main_drawer_Politics -> this.section = getString(R.string.Politics).toLowerCase()
+            R.id.activity_main_drawer_Politics -> newsViewModel.section.value = getString(R.string.Politics).toLowerCase()
 
-            R.id.activity_main_drawer_Health -> this.section = getString(R.string.Health).toLowerCase()
+            R.id.activity_main_drawer_Health -> newsViewModel.section.value = getString(R.string.Health).toLowerCase()
 
-            R.id.activity_main_drawer_Travel -> this.section = getString(R.string.Travel).toLowerCase()
+            R.id.activity_main_drawer_Travel -> newsViewModel.section.value = getString(R.string.Travel).toLowerCase()
 
         }
-        Timber.i("onNavigationItemSelected: %s", this.section)
-        this.viewPagerAdapter!!.updateSection(this.section)
-        activity_main_viewpager.currentItem = 0
+//        activity_main_viewpager.currentItem = 0
         activity_main_drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

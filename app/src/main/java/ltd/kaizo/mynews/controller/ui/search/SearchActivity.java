@@ -44,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
      * Configure and show search fragment.
      */
     protected void configureAndShowSearchFragment() {
-        BaseFragment searchFragment = SearchFragment.newInstance(20);
+        BaseFragment searchFragment = SearchFragment.Companion.newInstance(20);
         if (searchFragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.activity_search_Framelayout, searchFragment)

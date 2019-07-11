@@ -7,13 +7,26 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.fragment_news.*
-import ltd.kaizo.mynews.Model.ArticleFormatter
-import ltd.kaizo.mynews.Model.TabsNames
 import ltd.kaizo.mynews.R
-import ltd.kaizo.mynews.Utils.DataRecordManager.*
 import ltd.kaizo.mynews.controller.ui.base.BaseFragment
+import ltd.kaizo.mynews.model.ArticleFormatter
+import ltd.kaizo.mynews.model.NytArticleConverter
+import ltd.kaizo.mynews.model.NytMostPopularAPI.NytMostPopularAPIData
+import ltd.kaizo.mynews.model.NytSearchArticleAPI.NytSearchArticleApiData
+import ltd.kaizo.mynews.model.NytTopStoriesAPI.NytTopStoriesAPIData
+import ltd.kaizo.mynews.model.SearchQuery
+import ltd.kaizo.mynews.model.TabsNames
+import ltd.kaizo.mynews.model.repository.stream.NytStream
+import ltd.kaizo.mynews.utils.*
+import ltd.kaizo.mynews.utils.DataRecordManager.read
+import ltd.kaizo.mynews.utils.DataRecordManager.saveData
 import ltd.kaizo.mynews.views.adapter.NytRecycleViewAdapter
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -23,25 +36,17 @@ import java.util.*
  * Instantiates a new News fragment.
  */
 class NewsFragment : BaseFragment() {
-    private lateinit var parentActivity: NewsActivity
     private lateinit var newsViewModel: NewsViewModel
-    /**
-     * The Section.
-     */
+
     private var section: String = ""
-    /**
-     * The Position.
-     */
     private var position: Int = 0
-    /**
-     * The Adapter.
-     */
     private lateinit var adapter: NytRecycleViewAdapter
+    private var disposable: Disposable? = null
 
     /**
      * The Article formatter list.
      */
-    private var articleFormatterList: MutableList<ArticleFormatter>? = null
+    private lateinit var articleFormatterList: MutableList<ArticleFormatter>
 
     /**
      * The Gson str.
@@ -50,15 +55,12 @@ class NewsFragment : BaseFragment() {
 
     override val fragmentLayout = R.layout.fragment_news
     override fun configureViewModel() {
-        parentActivity = activity as NewsActivity
-        newsViewModel = parentActivity.newsViewModel
+        newsViewModel = getSharedViewModel()
     }
 
     override fun configureObserver() {
-        newsViewModel.nytArticleList.observe(this, Observer { articleList ->
-            if (articleList != null && articleList.size > 0) {
-                updateUI(articleList)
-            }
+        newsViewModel.section.observe(this, Observer { section ->
+            updateSection(section)
         })
     }
 
@@ -115,11 +117,85 @@ class NewsFragment : BaseFragment() {
      */
     private fun executeHttpRequest() {
         when (TabsNames.values()[this.position]) {
-            TabsNames.TOP_STORIES -> newsViewModel.executeStreamFetchTopStories(this.section)
-            TabsNames.MOST_POPULAR -> newsViewModel.executeStreamFetchMostPopularStories(this.section, this.apiPeriod)
-            TabsNames.CUSTOM_TAB -> newsViewModel.executeStreamFetchTopStories(this.section)
-            TabsNames.SEARCH -> newsViewModel.executeStreamFetchSearchArticle(this.gsonStr)
+            TabsNames.TOP_STORIES -> executeStreamFetchTopStories(newsViewModel.section.value!!)
+            TabsNames.MOST_POPULAR -> executeStreamFetchMostPopularStories(this.apiPeriod)
+            TabsNames.CUSTOM_TAB -> executeStreamFetchTopStories(this.section)
+            TabsNames.SEARCH -> executeStreamFetchSearchArticle(this.gsonStr)
         }
+    }
+
+    /**
+     * Execute stream fetch top stories
+     * and convert the result to a list for the recycleView
+     */
+    private fun executeStreamFetchTopStories(section: String) {
+        this.disposable = NytStream.streamFetchTopStories(section).subscribeWith(object : DisposableObserver<NytTopStoriesAPIData>() {
+            override fun onNext(nytTopStoriesAPIData: NytTopStoriesAPIData) {
+                val nytArticleConverter = NytArticleConverter(nytTopStoriesAPIData)
+                updateUI(nytArticleConverter.configureTopStoriesArticleListForAdapter())
+                Timber.i("top httpRequest in progress : - status = ${nytTopStoriesAPIData.status}\n taille des résultats = ${nytTopStoriesAPIData.numResults}\n section = $section")
+            }
+
+            override fun onError(e: Throwable) {
+                Timber.i("top error : $e")
+            }
+
+            override fun onComplete() {
+                Timber.i("top complete ")
+            }
+        })
+
+    }
+
+    /**
+     * Execute stream fetch most popular stories
+     * and convert the result to a list for the recycleView
+     */
+    private fun executeStreamFetchMostPopularStories(apiPeriod: String) {
+        this.disposable = NytStream.streamFetchMostPopularStories(newsViewModel.section.value!!, apiPeriod).subscribeWith(object : DisposableObserver<NytMostPopularAPIData>() {
+            override fun onNext(nytMostPopularAPIdata: NytMostPopularAPIData) {
+                Timber.i("MP httpRequest in progress : - status = ${nytMostPopularAPIdata.status}\n taille des résultats = ${nytMostPopularAPIdata.numResults}\n section = $section")
+                val nytArticleConverter = NytArticleConverter(nytMostPopularAPIdata)
+                updateUI(nytArticleConverter.configureMostPopularArticleListForAdapter())
+            }
+
+            override fun onError(e: Throwable) {
+                Timber.i("MP error : $e")
+
+            }
+
+            override fun onComplete() {
+                Timber.i("MP complete ")
+            }
+        })
+
+    }
+
+    /**
+     * Execute stream fetch search article,
+     * and convert the result to a list for the recycleView
+     */
+    private fun executeStreamFetchSearchArticle(gsonStr: String?) {
+        val gson = Gson()
+        val searchQuery = gson.fromJson(gsonStr, SearchQuery::class.java)
+        this.disposable = NytStream.streamFetchSearchArticle(searchQuery.queryTerms, searchQuery.queryFields, searchQuery.beginDate!!, searchQuery.endDate!!)
+                .subscribeWith(object : DisposableObserver<NytSearchArticleApiData>() {
+                    override fun onNext(nytSearchArticleApiData: NytSearchArticleApiData) {
+                        if (nytSearchArticleApiData.nytSearchArticleResponse.nytSearchArticleDocs.size > 0) {
+                            val nytArticleConverter = NytArticleConverter(nytSearchArticleApiData)
+                            updateUI(nytArticleConverter.configureSearchArticleListForAdapter())
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Timber.i("search error : $e")
+                    }
+
+                    override fun onComplete() {
+                        Timber.i("search complete ")
+                    }
+                })
+
     }
 
     /**
@@ -146,7 +222,7 @@ class NewsFragment : BaseFragment() {
      * change default color and execute a new HTTP request
      */
     private fun configureSwipeRefreshLayout() {
-        fragment_news_swipe_container.setColorSchemeColors(getColor(parentActivity, R.color.bluePrimary))
+        fragment_news_swipe_container.setColorSchemeColors(getColor(context!!, R.color.bluePrimary))
         fragment_news_swipe_container.setOnRefreshListener { executeHttpRequest() }
     }
 
@@ -157,8 +233,8 @@ class NewsFragment : BaseFragment() {
      */
     private fun updateUI(articleList: List<ArticleFormatter>) {
         fragment_news_swipe_container.isRefreshing = false
-        this.articleFormatterList!!.clear()
-        this.articleFormatterList!!.addAll(articleList)
+        this.articleFormatterList.clear()
+        this.articleFormatterList.addAll(articleList)
         adapter.notifyDataSetChanged()
     }
 
@@ -166,7 +242,7 @@ class NewsFragment : BaseFragment() {
      * Dispose when destroy.
      */
     private fun disposeWhenDestroy() {
-        if (newsViewModel.disposable != null && !newsViewModel.disposable!!.isDisposed) newsViewModel.disposable!!.dispose()
+        if (disposable != null && !disposable!!.isDisposed) disposable!!.dispose()
     }
 
     /**
@@ -174,9 +250,8 @@ class NewsFragment : BaseFragment() {
      *
      * @param section the section
      */
-    fun updateSection(section: String) {
-        this.section = section
-        saveData(this.position, this.section)
+    private fun updateSection(section: String) {
+        saveData(this.position, section)
         this.executeHttpRequest()
     }
 }

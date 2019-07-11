@@ -8,7 +8,10 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import ltd.kaizo.mynews.Utils.DataRecordManager
+import ltd.kaizo.mynews.injection.nytModule
+import ltd.kaizo.mynews.utils.DataRecordManager
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -16,11 +19,10 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         this.setContentView(this.getFragmentLayout())
-        Timber.plant(Timber.DebugTree())
         DataRecordManager.init(this)
         this.configureViewModel()
-        this.configureDesign()
         this.configureObserver()
+        this.configureDesign()
     }
     abstract fun configureViewModel()
     abstract fun configureObserver()
