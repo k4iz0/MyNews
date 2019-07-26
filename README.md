@@ -1,4 +1,4 @@
-# MoodTracker
+# MyNews
 
 An Android app check the NewYork Times news
 
