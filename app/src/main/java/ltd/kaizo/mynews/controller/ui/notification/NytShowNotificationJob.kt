@@ -30,12 +30,12 @@ class NytShowNotificationJob : Job() {
      */
     private var disposable: Disposable? = null
 
-    override fun onRunJob(params: Job.Params): Job.Result {
+    override fun onRunJob(params: Params): Result {
 
         this.searchQuery = getSearchQueryFromSharedPreferences(KEY_SEARCHQUERY_NOTIFICATION)
 
         executeStreamFetchSearchArticleFromNotification()
-        return Job.Result.SUCCESS
+        return Result.SUCCESS
     }
 
 
